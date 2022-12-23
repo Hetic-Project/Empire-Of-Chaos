@@ -2,17 +2,51 @@
 
 ## Histoire du jeu
 
-il y a 4 univers (eau, feu, terre, air) + un univer final (tenebre)
-chaque univer contient 1 boss final (4 boss + un boss ultime).
+Légende de l'Eternel : Selon la légende, il y a de nombreux univers, chacun régi par un élément distinct : l'eau, le feu, la terre et l'air. Ces univers sont gouvernés par des êtres puissants comme des monstres et d'autres créatures mystérieuses. Chaque univers est habité par un maître qui détient une pierre et qui a le pouvoir de contrôler leur univers respectif, mais sont également liés les uns aux autres par une force mystérieuse connue sous le nom de "Pierres Anciennes".
+
+Il existe un cinquième univers, caché et sombre, connu sous le nom de "Ténèbres". Cet univers est régi par Ouroboros, le plus puissant de tous. Selon la légende, si le Boss ultime parvient à réunir les Pierres Eternelles de chaque univers, il pourra invoquer une force destructrice capable de mettre fin au monde tel que nous le connaissons.
+
+Pour protéger le monde, un héros courageux s'est lancé dans une quête pour rassembler les Pierres Anciennes avant Ouroboros. Chaque pierre confère au héros un pouvoir spécial lié à l'univers d'où elle provient, et pour battre Ouroboros le seul moyen de le vaincre et d'utiliser les 4 pierres qui, assemblées, deviennent la pierre de lumière et ainsi sauver le monde.
 
 ## But Du Jeu
 
-Rassembler les 5 pierres des 5 boss pour finir le jeu et éviter la fin du monde
-chaque pierre apporte au hero un pouvoir spéciale qui est propre a l'univer et qui permet de battre le boss suivant.
+Rassembler les 4 pierres des 4 boss pour avoir la pierre de lumière et vaincre Ouroboros le boss final
 
-Pour accéder au boss du niveau il trouver une clée pour ouvrir la salle du boss cette clé peut être trouver sur un monstre ou dans un coffre.
+# DEV
 
-## structure du code
+## Créer un dossier d'environement
+
+Un dossier d'environement va contenir toute les lib utile au projet sans avoir a les installer sur l'ordinateur
+
+Pour créer le dossier d'environement virtuel, tapez dans le terminal :
+
+```git
+python3 -m venv + nom-du-dossier
+```
+
+Ensuite pour installer des lib dans l'environnement virtuel, il faut l'activer avec la commande :
+
+sous linux :
+
+```git
+. venv/bin/activate
+```
+
+sous Windows :
+
+```git
+venv\scripts\activate
+```
+
+Après avoir tapez la commande ci-dessus, nous voila dans l'environement virtuel pour installer les lib néssécaire au projet
+
+Tapez la commande suivante toutes les lib :
+
+```git
+pip install -r reqs.txt
+```
+
+## Structure du code
 
 ```py
 
