@@ -1,74 +1,65 @@
+
 import sys
-from PySide6.QtGui import QIcon, QKeyEvent
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QTableWidget
+from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget
+from drawGameMap import *
+from centralWindow import *
 
 
 class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+
         self.setWindowTitle("Empire Of Chaos")
         self.setMinimumSize(800, 600)
-        self.setMaximumSize(800, 600)
         self.setWindowIcon(QIcon("test/icons/rpg.png"))
 
-        centralArea = QWidget()
-        self.setCentralWidget(centralArea)
-        centralArea.setStyleSheet("background: #419eee")
+        centralArea = centralWindow(self)
 
-        # Une class qui gère le statu du héro et les intéraction
-        class Hero:
+        drawGameMap(centralArea)
 
-            # intégration du sprite du héro
-            hero = QWidget()
-            hero.setFixedSize(50, 48)
-            hero.setStyleSheet("background: url(test/sprites/sprite/Hero.png)")
+    # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
+    def keyPressEvent(self, event):
 
-            # Status du héro
-            pv = 100
-            mp = 100
-            force = 50
-            defense = 50
+        # aller a droite
+        if event.key() == 16777236:  # si l'utilisateur appuie sur la fleche droite
+            if Hero.x <= 12:  # cette ligne empèche le personnage de sortir de la map
+                Hero.x = Hero.x + 1  # j'ajoute 1 sur l'axe des x du hero
+                # j'appelle centralArea pour qu'elle soit connu de ma fonction drawGameMap
+                centralArea = centralWindow(self)
+                # j'appelle borderMap pour qu'elle soit connue de ma fonction keyPressEvent
+                borderMap = drawGameMap(centralArea)
+                borderMap.close()  # J'éfface la map
+                # et je la redéssine la map avec les nouvelle coordonnée du héro
+                drawGameMap(centralArea)
 
-            # Coordonné du héro sur la map
-            x = 1
-            y = 1
+        # monter
+        if event.key() == 16777235:
+            if Hero.y > 0:
+                Hero.y = Hero.y - 1
+                centralArea = centralWindow(self)
+                borderMap = drawGameMap(centralArea)
+                borderMap.close()
+                drawGameMap(centralArea)
 
-            def move_right(map):
-                map.setCellWidget(Hero.y, Hero.x+1, Hero.hero)
+        # decsendre
+        if event.key() == 16777237:
+            if Hero.y <= 8:
+                Hero.y = Hero.y + 1
+                centralArea = centralWindow(self)
+                borderMap = drawGameMap(centralArea)
+                borderMap.close()
+                drawGameMap(centralArea)
 
-            def move_left(map):
-                map.setCellWidget(Hero.y, Hero.x-1, Hero.hero)
-
-            def move_top(map):
-                map.setCellWidget(Hero.y+1, Hero.x, Hero.hero)
-
-            def move_down(map):
-                map.setCellWidget(Hero.y-1, Hero.x, Hero.hero)
-
-            def attack():
-                pass
-
-            def talk():
-                pass
-
-        # Fonction map qui gère la création d'une map
-
-        def map():
-
-            # créer un tableau
-            map = QTableWidget(11, 13, centralArea)
-            map.setFixedSize(800, 600)
-            i = 0
-            while i < 13:
-                map.setColumnWidth(i, 50)
-                map.setRowHeight(i, 48)
-                i = i+1
-
-            map.setCellWidget(Hero.y, Hero.x, Hero.hero)
-            return map
-
-        map()
+        # aller a gauche
+        if event.key() == 16777234:
+            if Hero.x > 0:
+                Hero.x = Hero.x - 1
+                centralArea = centralWindow(self)
+                borderMap = drawGameMap(centralArea)
+                borderMap.close()
+                drawGameMap(centralArea)
 
 
 if __name__ == "__main__":

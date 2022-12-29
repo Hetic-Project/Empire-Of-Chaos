@@ -101,6 +101,11 @@ class MainWindow(QMainWindow):
         progress.setValue(50)
         progress.setGeometry(320, 260, 270, 30)
 
+    def keyPressEvent(self, event):
+
+        key = event.key()
+        print(key)
+
     @Slot()  # un slot est un géstionnaire dévènement
     def buttonClicked(self):
         # je récupère l'éméteur de l'event qui est mon bouton
