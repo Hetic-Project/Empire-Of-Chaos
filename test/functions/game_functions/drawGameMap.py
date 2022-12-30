@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import QWidget
-from Hero import *
-from createCell import *
+from functions.game_functions.Hero import *
+from functions.game_functions.createCell import *
 
 
-def drawGameMap(centralArea):
+def drawGameMap(centralArea, direction):
     # permet de placer les lignes les une en dessous des autres
     yPosition = 0
     # compteur de boucle
@@ -11,7 +11,7 @@ def drawGameMap(centralArea):
     # un tableau qui contient le lignes de la map
     row = []
     # tableau bidimentionnel qui contien toute les coordonner de la map (QWidget)
-    global mapCell
+
     mapCell = []
 
     # borderMap définie les bordures de la map
@@ -42,10 +42,9 @@ def drawGameMap(centralArea):
         # voila a quoi ressemblera mapCell : mapCell [ ligne1[QWidget1, QWidget2 ], ligne2[QWidget1, QWidget2 ], ... ]
         # mapCell contient donc toute les coordonnée X et Y de la map
 
-    global hero
-    # a l'aide de mapCell je place héro sur la map
-    hero = QWidget(mapCell[Hero.y][Hero.x])
-    hero.setGeometry(0, 0, 125, 124)
-    hero.setStyleSheet(
-        "background: url(test/sprites/sprite/Hero.png);" "border: none;")
-    return borderMap
+    character = QWidget(mapCell[Hero.y][Hero.x])
+    character.setGeometry(0, 0, 125, 124)
+    character.setStyleSheet(
+        " {} ".format(direction))
+
+    return borderMap, mapCell
