@@ -1,7 +1,7 @@
 
 from PySide6.QtWidgets import QWidget
-from game_functions.drawGameMap import drawGameMap
-from interface_functions.centralWindow import centralWindow
+from game_functions.drawGameMap import *
+from interface_functions.centralWindow import *
 
 
 def createCharacter(self, direction, positionX, PositionY):

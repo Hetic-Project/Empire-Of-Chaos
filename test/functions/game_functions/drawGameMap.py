@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QWidget
 from functions.game_functions.Hero import *
 from functions.game_functions.createCell import *
+from functions.game_functions.addMonsterInMap import *
 
 
 def drawGameMap(centralArea, direction):
@@ -46,5 +47,7 @@ def drawGameMap(centralArea, direction):
     character.setGeometry(0, 0, 125, 124)
     character.setStyleSheet(
         " {} ".format(direction))
+
+    addMonsterInMap(mapCell)
 
     return borderMap, mapCell
