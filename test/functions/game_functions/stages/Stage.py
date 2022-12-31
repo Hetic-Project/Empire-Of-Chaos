@@ -1,6 +1,7 @@
 class Stage:
 
     randomMonsterInMap = []
+    monsterTarget = []
     keyMapArray = []
     targetCellMap = []
 
