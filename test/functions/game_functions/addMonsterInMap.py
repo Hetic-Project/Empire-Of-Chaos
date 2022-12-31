@@ -1,27 +1,32 @@
 
 from functions.interface_functions.centralWindow import *
-from functions.game_functions.stages.Forest import *
+from functions.game_functions.stages.Stage import *
 
 
 def addMonsterInMap(mapCell):
     # ajouter des monstres de manière aléatoire sur la map
 
-    for m in Forest.randomMonsterInMap:
-        monster = QWidget(mapCell[m[0]][m[1]])
+    for m in Stage.randomMonsterInMap:
+        monster = mapCell[m[0]][m[1]]
         monster.setStyleSheet("background: red")
-        monster.setGeometry(0, 0, 125, 124)
-        Forest.widgetMonsters.append(monster)
+        Stage.infoMonsters.append({
+            "y": m[0],
+            "x": m[1],
+            "name": "Monster-{}".format(m),
+            "life": 25,
+            "strength": 10,
+            "defense": 10,
+            "level": 1
+        })
 
-    for k in Forest.keyMapArray:
-
-        randKey = QWidget(mapCell[k[0]][k[1]])
+    for k in Stage.keyMapArray:
+        randKey = mapCell[k[0]][k[1]]
         randKey.setStyleSheet("background: yellow")
-        randKey.setGeometry(0, 0, 125, 124)
-        Forest.widgetKey.append(randKey)
+        Stage.infoKey.append({"mapPoint": [k[0], k[1]]})
 
-    for t in Forest.targetCellMap:
+    for t in Stage.targetCellMap:
 
-        cellTargeted = QWidget(mapCell[t[0]][t[1]])
+        cellTargeted = mapCell[t[0]][t[1]]
         cellTargeted.setStyleSheet("background: green")
-        cellTargeted.setGeometry(0, 0, 125, 124)
-        Forest.widgetTarget.append(cellTargeted)
+        Stage.infoTarget.append(
+            {"mapPoint": [t[0], t[1]]})
