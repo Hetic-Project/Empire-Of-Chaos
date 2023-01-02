@@ -4,7 +4,7 @@ from functions.game_functions.createCell import *
 from functions.game_functions.addMonsterInMap import *
 
 
-def drawGameMap(centralArea, direction):
+def drawGameMap(centralArea, heroDirection):
     # permet de placer les lignes les une en dessous des autres
     yPosition = 0
     # compteur de boucle
@@ -46,7 +46,7 @@ def drawGameMap(centralArea, direction):
     character = QWidget(mapCell[Hero.y][Hero.x])
     character.setGeometry(0, 0, 125, 124)
     character.setStyleSheet(
-        " {} ".format(direction))
+        " {} ".format(heroDirection))
 
     addMonsterInMap(mapCell)
 

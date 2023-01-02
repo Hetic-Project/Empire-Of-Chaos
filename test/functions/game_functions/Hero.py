@@ -2,23 +2,24 @@
 class Hero:
 
     # Status du héro
-    pv = 100
-    mp = 100
-    force = 50
+    level = 1
+    life = 100
+    strength = 50
     defense = 50
+    exp = 0
 
     # Coordonné du héro sur la map
     x = 0
     y = 0
 
-    front = "background: url(test/sprites/sprite/hero_front-left.png);" + \
+    front = "background: url(test/sprites/hero/hero_front-left.png);" + \
         "background-position: top"
 
-    back = "background: url(test/sprites/sprite/hero_right-back.png);" + \
+    back = "background: url(test/sprites/hero/hero_right-back.png);" + \
         "background-position: bottom"
 
-    left = "background: url(test/sprites/sprite/hero_front-left.png);" + \
+    left = "background: url(test/sprites/hero/hero_front-left.png);" + \
         "background-position: bottom"
 
-    right = "background: url(test/sprites/sprite/hero_right-back.png);" + \
+    right = "background: url(test/sprites/hero/hero_right-back.png);" + \
         "background-position: top"

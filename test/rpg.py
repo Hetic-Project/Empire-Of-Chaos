@@ -1,6 +1,5 @@
 
 import sys
-
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
 from functions.game_functions.drawGameMap import *
@@ -10,6 +9,10 @@ from functions.game_functions.stages.Stage import *
 from functions.game_functions.addMonsterInMap import *
 from functions.game_functions.attackFunction import *
 from functions.game_functions.pickUpFunction import *
+from functions.game_functions.createHeroPanel import *
+from functions.game_functions.createMonsterPanel import *
+from functions.game_functions.Monster import *
+from functions.game_functions.addMonstersSprite import *
 
 
 class GameWindow(QMainWindow):
@@ -24,17 +27,17 @@ class GameWindow(QMainWindow):
         centralArea = centralWindow(self)
 
         generateRandomCoordinate()
-        drawGameMap(centralArea, Hero.front)
-        print(Stage.infoMonsters)
+        mapCell = drawGameMap(centralArea, Hero.front)[1]
+        createHeroPanel(centralArea)
 
     # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
 
     def keyPressEvent(self, event):
 
         centralArea = centralWindow(self)
+        createHeroPanel(centralArea)
 
         # j'appelle borderMap pour qu'elle soit connue de ma fonction keyPressEvent
-        borderMap = drawGameMap(centralArea, Hero.front)[0]
         mapCell = drawGameMap(centralArea, Hero.front)[1]
 
         # aller a droite
@@ -42,16 +45,13 @@ class GameWindow(QMainWindow):
             # cette ligne empèche le personnage de sortir de la map
             if Hero.x <= 12:
                 if "Monster-[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.infoMonsters):
-                    print("il y a un monstre ici")
-                    # un bouton attaquer apparais
-                    attaqueBTN = QPushButton("Attaquer",  centralArea)
-                    attaqueBTN.setGeometry(40, 550, 125, 50)
-                    attaqueBTN.clicked.connect(attackFunction)
-                    # Voire les stats du monstre
-                    drawGameMap(centralArea, Hero.right)
                     for i in Stage.infoMonsters:
+
                         if i["y"] == Hero.y and i["x"] == Hero.x+1:
-                            print(i["name"])
+                            # Voire les stats du monstre
+                            createMonsterPanel(
+                                centralArea, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            drawGameMap(centralArea, Hero.right)
                             return
 
                 elif "'mapPoint': [{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.infoKey):
@@ -64,19 +64,21 @@ class GameWindow(QMainWindow):
 
                 else:
                     Hero.x = Hero.x + 1  # j'ajoute 1 sur l'axe du x du hero
-                    borderMap.close()  # J'éfface la map
                     # et je la redéssine la map avec les nouvelle coordonnée du héro et la direction du sprite
                     drawGameMap(centralArea, Hero.right)
+                    for i in Stage.randomMonsterInMap:
+                        addMonstersSprite(mapCell, i[0], i[1], Monster.front)
 
         # monter
-        if event.key() == 16777235:
+        elif event.key() == 16777235:
             if Hero.y > 0:
                 if "Monster-[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.infoMonsters):
-                    print("il y a un monstre ici")
-                    attaqueBTN = QPushButton("Attaquer",  centralArea)
-                    attaqueBTN.setGeometry(40, 550, 125, 50)
-                    attaqueBTN.clicked.connect(attackFunction)
-                    drawGameMap(centralArea, Hero.back)
+                    for i in Stage.infoMonsters:
+                        if i["y"] == Hero.y-1 and i["x"] == Hero.x:
+                            createMonsterPanel(
+                                centralArea, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            drawGameMap(centralArea, Hero.back)
+                            return
 
                 elif "'mapPoint': [{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.infoKey):
                     print("Voila la clée")
@@ -86,18 +88,19 @@ class GameWindow(QMainWindow):
                     drawGameMap(centralArea, Hero.back)
                 else:
                     Hero.y = Hero.y - 1
-                    borderMap.close()
                     drawGameMap(centralArea, Hero.back)
 
         # decsendre
-        if event.key() == 16777237:
+        elif event.key() == 16777237:
             if Hero.y <= 8:
                 if "Monster-[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.infoMonsters):
-                    print("il y a un monstre ici")
-                    attaqueBTN = QPushButton("Attaquer",  centralArea)
-                    attaqueBTN.setGeometry(40, 550, 125, 50)
-                    attaqueBTN.clicked.connect(attackFunction)
-                    drawGameMap(centralArea, Hero.front)
+                    for i in Stage.infoMonsters:
+                        if i["y"] == Hero.y+1 and i["x"] == Hero.x:
+
+                            createMonsterPanel(
+                                centralArea, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            drawGameMap(centralArea, Hero.front)
+                            return
 
                 elif "'mapPoint': [{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.infoKey):
                     print("Voila la clée")
@@ -108,19 +111,18 @@ class GameWindow(QMainWindow):
 
                 else:
                     Hero.y = Hero.y + 1
-                    borderMap.close()
                     drawGameMap(centralArea, Hero.front)
 
         # aller a gauche
-        if event.key() == 16777234:
+        elif event.key() == 16777234:
             if Hero.x > 0:
                 if "Monster-[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.infoMonsters):
-                    print("il y a un monstre ici")
-                    attaqueBTN = QPushButton("Attaquer",  centralArea)
-                    attaqueBTN.setGeometry(40, 550, 125, 50)
-                    attaqueBTN.clicked.connect(attackFunction)
-                    Stage.monsterTarget.append([Hero.y, Hero.x-1])
-                    drawGameMap(centralArea, Hero.left)
+                    for i in Stage.infoMonsters:
+                        if i["y"] == Hero.y and i["x"] == Hero.x-1:
+                            createMonsterPanel(
+                                centralArea, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            drawGameMap(centralArea, Hero.left)
+                            return
 
                 elif "'mapPoint': [{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.infoKey):
                     print("Voila la clée")
@@ -131,8 +133,67 @@ class GameWindow(QMainWindow):
 
                 else:
                     Hero.x = Hero.x - 1
-                    borderMap.close()
                     drawGameMap(centralArea, Hero.left)
+
+        # si j'appuie sur entrer j'attaque
+        elif event.key() == 16777220:
+            for i in Stage.infoMonsters:
+
+                if i["y"] == Hero.y and i["x"] == Hero.x+1:
+                    createMonsterPanel(
+                        centralArea, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+
+                    if i["life"] <= 0:
+                        print("le monstre est mort")
+                        drawGameMap(centralArea, Hero.right)
+                    else:
+
+                        attack = int(
+                            Hero.strength/(i["defense"]/2)*Hero.level)
+                        i["life"] = i["life"] - attack
+                        drawGameMap(centralArea, Hero.right)
+                        return
+
+                elif i["y"] == Hero.y-1 and i["x"] == Hero.x:
+                    createMonsterPanel(
+                        centralArea, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                    if i["life"] <= 0:
+                        print("le monstre est mort")
+                        drawGameMap(centralArea, Hero.back)
+                    else:
+
+                        attack = int(
+                            Hero.strength/(i["defense"]/2)*Hero.level)
+                        i["life"] = i["life"] - attack
+                        drawGameMap(centralArea, Hero.back)
+                    return
+
+                elif i["y"] == Hero.y+1 and i["x"] == Hero.x:
+                    createMonsterPanel(
+                        centralArea, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+
+                    if i["life"] <= 0:
+                        print("le monstre est mort")
+                        drawGameMap(centralArea, Hero.front)
+                    else:
+                        attack = int(
+                            Hero.strength/(i["defense"]/2)*Hero.level)
+                        i["life"] = i["life"] - attack
+                        drawGameMap(centralArea, Hero.front)
+                    return
+
+                elif i["y"] == Hero.y and i["x"] == Hero.x-1:
+                    createMonsterPanel(
+                        centralArea, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                    if i["life"] <= 0:
+                        print("le monstre est mort")
+                        drawGameMap(centralArea, Hero.left)
+                    else:
+                        attack = int(
+                            Hero.strength/(i["defense"]/2)*Hero.level)
+                        i["life"] = i["life"] - attack
+                        drawGameMap(centralArea, Hero.left)
+                    return
 
 
 if __name__ == "__main__":
