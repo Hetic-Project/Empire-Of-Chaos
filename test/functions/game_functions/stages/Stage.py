@@ -9,3 +9,6 @@ class Stage:
     infoKey = []
     infoTarget = []
 
+    # tableau bidimentionnel qui contien toute les coordonner de la map (QWidget)
+    mapCell = []
+
