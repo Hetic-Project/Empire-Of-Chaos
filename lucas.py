@@ -18,25 +18,25 @@ class MainMenu(QMainWindow):
 
         self.setWindowTitle("Empire Of Chaos")
         self.setWindowIcon(QIcon("icon.png"))
-        self.resize(1650, 1030)
+        self.resize(1200, 1030)
         self.setToolTip("Empire Of Chaos")
 
         centralWidget = QWidget()
 
         self.__button = QPushButton("Create Game", centralWidget)
-        self.__button.setGeometry(620, 360, 300, 40)
+        self.__button.setGeometry(435, 360, 300, 40)
         self.__button.clicked.connect(self.openCreateOption)
 
         self.__button = QPushButton("Load Game", centralWidget)
-        self.__button.setGeometry(620, 400, 300, 40)
+        self.__button.setGeometry(435, 400, 300, 40)
         self.__button.clicked.connect(self.openGameOption)
 
         self.__button = QPushButton("Credits", centralWidget)
-        self.__button.setGeometry(620, 440, 300, 40)
+        self.__button.setGeometry(435, 440, 300, 40)
         self.__button.clicked.connect(self.openCredits)
 
         self.__button = QPushButton("Exit", centralWidget)
-        self.__button.setGeometry(620, 480, 300, 40)
+        self.__button.setGeometry(435, 480, 300, 40)
         self.__button.clicked.connect(self.exitGame)
 
         self.setCentralWidget(centralWidget)
