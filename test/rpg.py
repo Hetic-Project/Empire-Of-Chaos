@@ -1,5 +1,6 @@
 
 import sys
+
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
 from functions.interface_functions.centralWindow import *
@@ -10,6 +11,8 @@ from functions.game_functions.pickUpFunction import *
 from functions.game_functions.createMonsterPanel import *
 from functions.game_functions.Monster import *
 from functions.game_functions.addMonstersSprite import *
+from functions.interface_functions.gameMainTitleScreen import *
+from functions.game_functions.countDown import *
 
 
 class GameWindow(QMainWindow):
@@ -20,15 +23,17 @@ class GameWindow(QMainWindow):
         self.setWindowTitle("Empire Of Chaos")
         self.setMinimumSize(1275, 1000)
         self.setWindowIcon(QIcon("test/icons/rpg.png"))
+        countDown(300000)
+
 
         centralArea = centralWindow(self)
-        generateRandomCoordinate()
-        gameSreen(centralArea)
 
+        gameMainTitleScreen(centralArea)
         
+        generateRandomCoordinate()
+        gameSreen(centralArea)    
 
     # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
-
     def keyPressEvent(self, event):
         
         centralArea = centralWindow(self)
@@ -61,11 +66,9 @@ class GameWindow(QMainWindow):
                     drawGameMap(gameSreenWindow, Hero.right)
 
                 else:
-                    Hero.x = Hero.x + 1  # j'ajoute 1 sur l'axe du x du hero
                     # et je la redéssine la map avec les nouvelle coordonnée du héro et la direction du sprite
+                    Hero.x = Hero.x + 1 
                     drawGameMap(gameSreenWindow, Hero.right)
-                    for i in Stage.randomMonsterInMap:
-                        addMonstersSprite(mapCell, i[0], i[1], Monster.front)
 
         # monter
         elif event.key() == 16777235:
