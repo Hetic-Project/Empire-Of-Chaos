@@ -2,9 +2,9 @@ from PySide6.QtWidgets import QWidget, QLabel, QProgressBar
 from functions.game_functions.Hero import *
 
 
-def createHeroPanel(centralArea):
+def createHeroPanel(gameWindow):
 
-    heroPanel = QWidget(centralArea)
+    heroPanel = QWidget(gameWindow)
     heroPanel.setGeometry(750, 35, 350, 140)
     heroPanel.setStyleSheet("border: 1px solid black")
 

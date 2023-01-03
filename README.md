@@ -24,6 +24,12 @@ Pour créer le dossier d'environement virtuel, tapez dans le terminal :
 python3 -m venv + nom-du-dossier
 ```
 
+si il y a un problème avec le dossier venv
+
+```git
+sudo apt install python3-venv
+```
+
 Ensuite pour installer des lib dans l'environnement virtuel, il faut l'activer avec la commande :
 
 sous linux :

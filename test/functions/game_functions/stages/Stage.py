@@ -8,3 +8,4 @@ class Stage:
     infoMonsters = []
     infoKey = []
     infoTarget = []
+
