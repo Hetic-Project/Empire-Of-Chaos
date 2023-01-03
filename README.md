@@ -35,7 +35,7 @@ sous linux :
 sous Windows :
 
 ```git
-venv\scripts\activate
+source venv\Scripts\activate
 ```
 
 Après avoir tapez la commande ci-dessus, nous voila dans l'environement virtuel pour installer les lib néssécaire au projet
