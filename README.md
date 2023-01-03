@@ -10,7 +10,6 @@ Pour protéger le monde, un héros courageux s'est lancé dans une quête pour r
 
 ## But Du Jeu
 
-<<<<<<< HEAD
 Rassembler les 4 pierres des 4 boss pour avoir la pierre de lumière et vaincre Ouroboros le boss final
 
 # DEV
@@ -107,11 +106,3 @@ def event():
   return
 
 ```
-=======
-Rassembler les 5 pierres des 5 boss pour finir le jeu et éviter la fin du monde
-chaque pierre apporte au hero un pouvoir spéciale qui est propre a l'univer et qui permet de battre le boss suivant.
-
-Terre > Eau > Feu > Air 
-
-Chaque pouvoir est propre à chaque pierres
->>>>>>> cea0d66979bedc1fe641eb744987d28f86d0b3ef

@@ -11,6 +11,7 @@ class MainMenu(QMainWindow):
         self.createOption = None
         self.gameOption = None
         self.credits = None
+        self.gameOption = QWidget()
         self.openGameOption = self.openGameOption
         self.openCreateOption = self.openCreateOption
         self.openCredits = self.openCredits
@@ -23,31 +24,12 @@ class MainMenu(QMainWindow):
 
         centralWidget = QWidget()
 
-        self.__button = QPushButton("Create Game", centralWidget)
-        self.__button.setGeometry(435, 360, 300, 40)
-        self.__button.clicked.connect(self.openCreateOption)
-
-        self.__button = QPushButton("Load Game", centralWidget)
-        self.__button.setGeometry(435, 400, 300, 40)
-        self.__button.clicked.connect(self.openGameOption)
-
-        self.__button = QPushButton("Credits", centralWidget)
-        self.__button.setGeometry(435, 440, 300, 40)
-        self.__button.clicked.connect(self.openCredits)
-
-        self.__button = QPushButton("Exit", centralWidget)
-        self.__button.setGeometry(435, 480, 300, 40)
-        self.__button.clicked.connect(self.exitGame)
+     
 
         self.setCentralWidget(centralWidget)
 
-    def openGameOption(self):
-        self.openGameOption = QWidget()
-        self.gameOption.show()
-        self.close()
 
-    def openCreateOption(self):
-        self.close()
+
 
     def openCredits(self):
         credits = "Développeurs :\n Lucas YALMAN & Mohamed YAICH"
@@ -80,13 +62,18 @@ class MainMenu(QMainWindow):
         self.setCentralWidget(centralWidget)
 
     def exitGame(self):
-        choice = QMessageBox.question(self, "Exit", "Êtes-vous sûrs de vouloir quitter ?",
-                                      QMessageBox.Yes | QMessageBox.No)
+        choice = QMessageBox()
+        choice.setStyleSheet("background-color: white;")
+        choice = choice.question(self, "Exit", "Êtes-vous sûrs de vouloir quitter ?",
+                                    QMessageBox.Yes | QMessageBox.No)
 
         if choice == QMessageBox.Yes:
             sys.exit()
         else:
             pass
+
+
+
 
 
 
