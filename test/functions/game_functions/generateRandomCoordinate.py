@@ -22,6 +22,8 @@ def generateRandomCoordinate():
             x = randX
             y = randY
             Stage.randomMonsterInMap.append([randY, randX])
+        else:
+            m = m -1    
 
     # Génération de coordonnées pour la clée
     randX = random.randint(8, 10)

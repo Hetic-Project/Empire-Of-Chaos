@@ -12,14 +12,38 @@ class Hero:
     x = 0
     y = 0
 
-    front = "background: url(test/sprites/hero/hero_front-left.png);" + \
-        "background-position: top"
+    front = "background: url(test/sprites/hero/Hero_front-left-right.png);" + \
+        "background-position: center"
 
-    back = "background: url(test/sprites/hero/hero_right-back.png);" + \
-        "background-position: bottom"
+    front_left = "background: url(test/sprites/hero/Hero_front-left-right.png);" + \
+        "background-position: left" 
 
-    left = "background: url(test/sprites/hero/hero_front-left.png);" + \
-        "background-position: bottom"
+    front_right = "background: url(test/sprites/hero/Hero_front-left-right.png);" + \
+        "background-position: right"          
 
-    right = "background: url(test/sprites/hero/hero_right-back.png);" + \
-        "background-position: top"
+    back = "background: url(test/sprites/hero/Hero_back-back-right-back-left.png);" + \
+        "background-position: center"
+
+    back_left = "background: url(test/sprites/hero/Hero_back-back-right-back-left.png);" + \
+        "background-position: left" 
+
+    back_right = "background: url(test/sprites/hero/Hero_back-back-right-back-left.png);" + \
+        "background-position: right"       
+
+    left = "background: url(test/sprites/hero/Hero_left-left-left.png);" + \
+        "background-position: center"
+
+    left_left = "background: url(test/sprites/hero/Hero_left-left-left.png);" + \
+        "background-position: left"
+
+    left_right = "background: url(test/sprites/hero/Hero_left-left-left.png);" + \
+        "background-position: right"          
+
+    right = "background: url(test/sprites/hero/Hero_right-right-right.png);" + \
+        "background-position: center"
+
+    right_left = "background: url(test/sprites/hero/Hero_right-right-right.png);" + \
+        "background-position: left"
+
+    right_right = "background: url(test/sprites/hero/Hero_right-right-right.png);" + \
+        "background-position: right"          
