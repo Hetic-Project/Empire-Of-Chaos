@@ -4,7 +4,7 @@ from functions.game_functions.drawGameMap import *
 from functions.game_functions.createHeroPanel import *
 
 
-def gameSreen(centralArea):
+def gameScreen(centralArea):
 
     gameWindow = QWidget(centralArea)
     gameWindow.setGeometry(0, 0, 1175, 900)
