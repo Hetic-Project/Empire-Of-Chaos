@@ -18,8 +18,9 @@ from functions.game_functions.countDown import *
 class WelcomeDialog(QDialog):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Information")
+        self.setWindowTitle("Game Info")
         self.setMinimumSize(600, 250)
+        self.setWindowIcon(QIcon("test/icons/rpg.png"))
         welcome_label = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir \nles 4 clés dispersés dans les 4 biomes que vous devrez explorer ils sont gouvernés \npar des êtres puissants tout cela pour arriver à vos fins, vaincre Ouroubos, \nune créature terrifiante qui a jadis détruit votre rayaume tout entier,\nvous devez donc partir de rien pour arriver à adoucir \ncette haine que vous avez depuis tant d'années.", self)
         welcome_label.move(90, 50)
 
@@ -53,7 +54,6 @@ class GameWindow(QMainWindow):
             gameScreen(centralArea)
            
 
-
         panelMainTitle = QWidget(self)
         panelMainTitle.setGeometry(0, 0, 1175, 900)
         panelMainTitle.setStyleSheet("background: url(home.jpg) no-repeat center;")
@@ -61,18 +61,18 @@ class GameWindow(QMainWindow):
         StartGame = QPushButton("Start", panelMainTitle)
         StartGame.setGeometry(435, 360, 300, 40)
         StartGame.clicked.connect(launchGame)
+        StartGame.setStyleSheet("color : white;" "background : black;")
 
         Credits = QPushButton("Credits", panelMainTitle)
         Credits.setGeometry(435, 400, 300, 40)
+        Credits.setStyleSheet("color : white;" "background : black;")
 
-        
 
         Exit = QPushButton("Exit", panelMainTitle)
         Exit.setGeometry(435, 440, 300, 40)
-
+        Exit.setStyleSheet("color : white;" "background : black;")
 
          
-
     # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
     def keyPressEvent(self, event):
         
