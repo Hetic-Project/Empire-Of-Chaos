@@ -25,6 +25,7 @@ class GameWindow(QMainWindow):
         self.setWindowIcon(QIcon("test/icons/rpg.png"))
 
         centralArea = centralWindow(self)
+       
 
         def launchGame():
             panelMainTitle.deleteLater()
@@ -169,7 +170,9 @@ class GameWindow(QMainWindow):
 
                         attack = int(
                             Hero.strength/(i["defense"]/2)*Hero.level)
+                        drawGameMap(gameScreenWindow, Hero.right)    
                         i["life"] = i["life"] - attack
+                        countDown(5)
                         drawGameMap(gameScreenWindow, Hero.right)
                         return
 
