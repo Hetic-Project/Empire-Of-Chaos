@@ -1,4 +1,5 @@
 import time
+
 def countDown(secs):
     while secs:
         time.sleep(1)

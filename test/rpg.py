@@ -1,6 +1,5 @@
 
 import sys
-
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
 from functions.interface_functions.centralWindow import *
@@ -13,6 +12,7 @@ from functions.game_functions.Monster import *
 from functions.game_functions.addMonstersSprite import *
 from functions.interface_functions.gameMainTitleScreen import *
 from functions.game_functions.countDown import *
+from functions.game_functions.addAttackIndication import *
 
 
 
@@ -75,6 +75,7 @@ class GameWindow(QMainWindow):
                             # Voire les stats du monstre
                             createMonsterPanel(
                                 gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            addAttackIndication(gameScreenWindow, "green")
                             drawGameMap(gameScreenWindow, Hero.right)
                             return
 
@@ -99,6 +100,7 @@ class GameWindow(QMainWindow):
                         if i["y"] == Hero.y-1 and i["x"] == Hero.x:
                             createMonsterPanel(
                                 gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            addAttackIndication(gameScreenWindow, "green")    
                             drawGameMap(gameScreenWindow, Hero.back)
                             return
 
@@ -121,6 +123,7 @@ class GameWindow(QMainWindow):
 
                             createMonsterPanel(
                                 gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            addAttackIndication(gameScreenWindow, "green")    
                             drawGameMap(gameScreenWindow, Hero.front)
                             return
 
@@ -143,6 +146,7 @@ class GameWindow(QMainWindow):
                         if i["y"] == Hero.y and i["x"] == Hero.x-1:
                             createMonsterPanel(
                                 gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            addAttackIndication(gameScreenWindow, "green")    
                             drawGameMap(gameScreenWindow, Hero.left)
                             return
 
@@ -164,18 +168,24 @@ class GameWindow(QMainWindow):
                 if i["y"] == Hero.y and i["x"] == Hero.x+1:
                     createMonsterPanel(
                         gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                    addAttackIndication(gameScreenWindow, "green")
 
                     if i["life"] <= 0:
                         print("le monstre est mort")
                         drawGameMap(gameScreenWindow, Hero.right)
+                        addAttackIndication(gameScreenWindow, "white")
+                        drawGameMap(gameScreenWindow, Hero.right)
                     else:
-
+                        addAttackIndication(gameScreenWindow, "green")
                         attack = int(
                             Hero.strength/(i["defense"]/2)*Hero.level)
-                        drawGameMap(gameScreenWindow, Hero.right)    
                         i["life"] = i["life"] - attack
+                        drawGameMap(gameScreenWindow, Hero.right)
+                        addAttackIndication(gameScreenWindow, "white")
+                        drawGameMap(gameScreenWindow, Hero.right)
                         countDown(5)
                         drawGameMap(gameScreenWindow, Hero.right)
+                        addAttackIndication(gameScreenWindow, "green")
                         return
 
                 elif i["y"] == Hero.y-1 and i["x"] == Hero.x:
