@@ -1,8 +1,8 @@
-
 import sys
 
+from PySide6.QtCore import Signal
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
+from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
 from functions.interface_functions.centralWindow import *
 from functions.game_functions.stages.Stage import *
 from functions.game_functions.addMonsterInMap import *
@@ -15,8 +15,28 @@ from functions.interface_functions.gameMainTitleScreen import *
 from functions.game_functions.countDown import *
 
 
-class GameWindow(QMainWindow):
 
+# 
+
+class WelcomeDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Information")
+        self.setMinimumSize(600, 400)
+
+        welcome_label = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir les 4 clés dispersés dans les 4 biomes que vous devrez explorer ils sont gouvernés par des êtres puissants tout cela pour arriver à vos fins, vaincre Ouroubos, une cré", self)
+        welcome_label.move(100, 50)
+
+        close_button = QPushButton("Close", self)
+        close_button.move(100, 100)
+        close_button.clicked.connect(self.close)
+
+    def close_game(self):
+        self.close()
+        self.close_game_signal.emit()
+
+
+class GameWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
@@ -27,13 +47,17 @@ class GameWindow(QMainWindow):
         centralArea = centralWindow(self)
 
         def launchGame():
+            # Create an instance of the welcome dialog and show it
+            self.welcome_dialog = WelcomeDialog()
+            # Connect the close_game_signal to the close method of the main game window
+            self.welcome_dialog.show()
             panelMainTitle.deleteLater()
             generateRandomCoordinate()
             centralArea = centralWindow(self)
             gameScreen(centralArea)
 
 
-        panelMainTitle = QWidget(centralArea)
+        panelMainTitle = QWidget(self)
         panelMainTitle.setGeometry(0, 0, 1175, 900)
         panelMainTitle.setStyleSheet("background: url(home.jpg) no-repeat center;")
 
@@ -43,6 +67,7 @@ class GameWindow(QMainWindow):
 
         Credits = QPushButton("Credits", panelMainTitle)
         Credits.setGeometry(435, 400, 300, 40)
+
         
 
         Exit = QPushButton("Exit", panelMainTitle)
@@ -109,7 +134,7 @@ class GameWindow(QMainWindow):
                     Hero.y = Hero.y - 1
                     drawGameMap(gameScreenWindow, Hero.back)
 
-        # decsendre
+        # descendre
         elif event.key() == 16777237:
             if Hero.y <= 8:
                 if "Monster-[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.infoMonsters):
@@ -165,6 +190,8 @@ class GameWindow(QMainWindow):
                     if i["life"] <= 0:
                         print("le monstre est mort")
                         drawGameMap(gameScreenWindow, Hero.right)
+                        # gain d'xp
+                        # butin
                     else:
 
                         attack = int(

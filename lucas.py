@@ -82,6 +82,6 @@ if __name__ == "__main__":
 
     mainmenu = MainMenu()
     mainmenu.show()
-    mainmenu.setStyleSheet("background: url(home.jpg) no-repeat center;")
+
 
     sys.exit(app.exec())
