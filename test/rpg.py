@@ -42,13 +42,50 @@ class GameWindow(QMainWindow):
         StartGame = QPushButton("Start", panelMainTitle)
         StartGame.setGeometry(435, 360, 300, 40)
         StartGame.clicked.connect(launchGame)
+        StartGame.setStyleSheet(f"""
+                QPushButton {{
+                            background : black;
+                            color : white;
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #f31d58; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;}}
+                                    """)
 
         Credits = QPushButton("Credits", panelMainTitle)
         Credits.setGeometry(435, 400, 300, 40)
+        Credits.setStyleSheet(f"""
+                QPushButton {{
+                            background : black;
+                            color : white;
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #f31d58; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;}}
+                                    """)
         
 
         Exit = QPushButton("Exit", panelMainTitle)
         Exit.setGeometry(435, 440, 300, 40)
+        #Exit.setStyleSheet("background : black;"  "color : white;")
+        Exit.setStyleSheet(f"""
+                QPushButton {{
+                            background : black;
+                            color : white;
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #f31d58; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;}}
+                                    """)
 
 
          

@@ -3,6 +3,7 @@ from functions.game_functions.generateRandomCoordinate import *
 from functions.game_functions.drawGameMap import *
 from functions.game_functions.createHeroPanel import *
 from functions.game_functions.addInventory import *
+from functions.game_functions.addTextBox import *
 
 
 def gameScreen(centralArea):
@@ -14,4 +15,5 @@ def gameScreen(centralArea):
     drawGameMap(gameWindow, Hero.front)
     createHeroPanel(gameWindow)
     addInventory(gameWindow)
+    addTextBox(gameWindow)
     return gameWindow
