@@ -1,8 +1,12 @@
 import time
+from functions.game_functions.addAttackIndication import addAttackIndication
 
-def countDown(secs):
-    while secs:
-        time.sleep(1)
-        secs -= 1
-        print(secs,"s")
-    print('countDown finish !')    
+def countdown(n, gameWindow, color):
+   while n > 0 :
+    print(n)
+    n = n-1
+    if n == 0:
+        addAttackIndication(gameWindow, color)
+    else:
+        t = int(n/100000)
+        print(t,"s")    

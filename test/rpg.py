@@ -67,8 +67,6 @@ class GameWindow(QMainWindow):
         Credits = QPushButton("Credits", panelMainTitle)
         Credits.setGeometry(435, 400, 300, 40)
 
-        
-
         Exit = QPushButton("Exit", panelMainTitle)
         Exit.setGeometry(435, 440, 300, 40)
 
@@ -193,21 +191,19 @@ class GameWindow(QMainWindow):
 
                     if i["life"] <= 0:
                         print("le monstre est mort")
-                        drawGameMap(gameScreenWindow, Hero.right)
                         addAttackIndication(gameScreenWindow, "white")
                         drawGameMap(gameScreenWindow, Hero.right)
 
                     else:
-                        addAttackIndication(gameScreenWindow, "green")
                         attack = int(
                             Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
                         drawGameMap(gameScreenWindow, Hero.right)
                         addAttackIndication(gameScreenWindow, "white")
                         drawGameMap(gameScreenWindow, Hero.right)
-                        countDown(5)
+                        countdown(400000, gameScreenWindow, "green")
                         drawGameMap(gameScreenWindow, Hero.right)
-                        addAttackIndication(gameScreenWindow, "green")
+                        
                         return
 
                 elif i["y"] == Hero.y-1 and i["x"] == Hero.x:
