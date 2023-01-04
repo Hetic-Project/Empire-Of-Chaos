@@ -15,20 +15,16 @@ from functions.interface_functions.gameMainTitleScreen import *
 from functions.game_functions.countDown import *
 
 
-
-# 
-
 class WelcomeDialog(QDialog):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Information")
-        self.setMinimumSize(600, 400)
+        self.setMinimumSize(600, 250)
+        welcome_label = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir \nles 4 clés dispersés dans les 4 biomes que vous devrez explorer ils sont gouvernés \npar des êtres puissants tout cela pour arriver à vos fins, vaincre Ouroubos, \nune créature terrifiante qui a jadis détruit votre rayaume tout entier,\nvous devez donc partir de rien pour arriver à adoucir \ncette haine que vous avez depuis tant d'années.", self)
+        welcome_label.move(90, 50)
 
-        welcome_label = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir les 4 clés dispersés dans les 4 biomes que vous devrez explorer ils sont gouvernés par des êtres puissants tout cela pour arriver à vos fins, vaincre Ouroubos, une cré", self)
-        welcome_label.move(100, 50)
-
-        close_button = QPushButton("Close", self)
-        close_button.move(100, 100)
+        close_button = QPushButton("Fermer", self)
+        close_button.move(250, 200)
         close_button.clicked.connect(self.close)
 
     def close_game(self):
@@ -55,6 +51,7 @@ class GameWindow(QMainWindow):
             generateRandomCoordinate()
             centralArea = centralWindow(self)
             gameScreen(centralArea)
+           
 
 
         panelMainTitle = QWidget(self)
