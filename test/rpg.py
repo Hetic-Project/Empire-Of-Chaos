@@ -15,6 +15,7 @@ from functions.interface_functions.gameMainTitleScreen import *
 from functions.game_functions.countDown import *
 
 
+
 class GameWindow(QMainWindow):
 
     def __init__(self):
@@ -32,6 +33,7 @@ class GameWindow(QMainWindow):
             generateRandomCoordinate()
             centralArea = centralWindow(self)
             gameScreen(centralArea)
+           
 
 
         panelMainTitle = QWidget(centralArea)
