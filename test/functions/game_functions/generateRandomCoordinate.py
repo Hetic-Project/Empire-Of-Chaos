@@ -18,12 +18,12 @@ def generateRandomCoordinate():
         randX = random.randint(1, 7)
         randY = random.randint(1, 9)
 
-        if m == 0 or x != randX and y != randY:
+        if  x != randX and y != randY:
             x = randX
             y = randY
             Stage.randomMonsterInMap.append([randY, randX])
         else:
-            m = m -1    
+            count = count -1    
 
     # Génération de coordonnées pour la clée
     randX = random.randint(8, 10)
