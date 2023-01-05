@@ -15,20 +15,6 @@ from functions.interface_functions.gameMainTitleScreen import *
 from functions.game_functions.addAttackIndication import *
 
 
-class ExitGame(QDialog) :
-    def __init__(self) :
-        super().__init__()
-        self.setWindowTitle("Quit Game")
-        self.setMinimumSize(100 , 100)
-        exit_label = QLabel("Êtes-vous sûr de vouloir quitter ?")
-        exit_label.move(50, 50)
-
-        yes_button = QPushButton("Oui" , self)
-        yes_button.move(5 , 90)
-        no_button = QPushButton("Non" , self)
-        no_button.move(90 , 90)
-        
-
 class WelcomeDialog(QDialog):
     def __init__(self):
         super().__init__()
@@ -65,15 +51,8 @@ class GameWindow(QMainWindow):
             panelMainTitle.deleteLater()
             generateRandomCoordinate()
             centralArea = centralWindow(self)
-            gameScreen(centralArea)
-        
-        def QuitGame() :
-            
-            self.exit_game = ExitGame()
-            self.exit_game.show()
-            self.close()
-
-
+            gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray))
+           
 
 
         panelMainTitle = QWidget(self)
@@ -83,10 +62,21 @@ class GameWindow(QMainWindow):
         StartGame = QPushButton("Start", panelMainTitle)
         StartGame.setGeometry(435, 360, 300, 40)
         StartGame.clicked.connect(launchGame)
+        StartGame.setStyleSheet(f"""
+                QPushButton {{
+                            background : black;
+                            color : white;
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #f31d58; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;}}
+                                    """)
 
         Credits = QPushButton("Credits", panelMainTitle)
-        Credits.setGeometry(435, 420, 300, 40)
-        Credits.setStyleSheet("background : black;" "color : white;")
+        Credits.setGeometry(435, 400, 300, 40)
 
         Credits.setStyleSheet(f"""
                 QPushButton {{
@@ -104,15 +94,25 @@ class GameWindow(QMainWindow):
 
         Exit = QPushButton("Exit", panelMainTitle)
         Exit.setGeometry(435, 440, 300, 40)
-
-
-         
+        #Exit.setStyleSheet("background : black;"  "color : white;")
+        Exit.setStyleSheet(f"""
+                QPushButton {{
+                            background : black;
+                            color : white;
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #f31d58; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;}}
+                                    """)
 
     # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
     def keyPressEvent(self, event):
        
         centralArea = centralWindow(self)
-        gameScreenWindow = gameScreen(centralArea)
+        gameScreenWindow = gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray))
         createHeroPanel(gameScreenWindow)
 
         # j'appelle borderMap pour qu'elle soit connue de ma fonction keyPressEvent
@@ -270,6 +270,7 @@ class GameWindow(QMainWindow):
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
                             RAND = random.randint(0,len(Items.dropItems)-1)
+                            Stage.countMonster = Stage.countMonster + 1
                            
                             if RAND == 0:
                                 print("aucun objet reçus !")
@@ -294,14 +295,14 @@ class GameWindow(QMainWindow):
 
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
+
                             RAND = random.randint(0,len(Items.dropItems)-1)
-                            
+                            Stage.countMonster = Stage.countMonster + 1
+                           
                             if RAND == 0:
                                 print("aucun objet reçus !")
                             else:
-                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")   
-
-                        drawGameMap(gameScreenWindow, Hero.back)
+                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")  
 
                         time.sleep(2)
 
@@ -310,15 +311,6 @@ class GameWindow(QMainWindow):
 
                         print("Le monstre vous attaque en retour et vous recevez",attackBack,"de dégas")
 
-                        if i["life"] <= 0:
-                            print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
-
-                            RAND = random.randint(0,len(Items.dropItems)-1)
-                           
-                            if RAND == 0:
-                                print("aucun objet reçus !")
-                            else:
-                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")  
 
                         drawGameMap(gameScreenWindow, Hero.back)               
                     return
@@ -349,6 +341,7 @@ class GameWindow(QMainWindow):
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
 
                             RAND = random.randint(0,len(Items.dropItems)-1)
+                            Stage.countMonster = Stage.countMonster + 1
                            
                             if RAND == 0:
                                 print("aucun objet reçus !")
@@ -383,6 +376,7 @@ class GameWindow(QMainWindow):
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
                             RAND = random.randint(0,len(Items.dropItems)-1)
+                            Stage.countMonster = Stage.countMonster + 1
                             
                             if RAND == 0:
                                 print("aucun objet reçus !")
