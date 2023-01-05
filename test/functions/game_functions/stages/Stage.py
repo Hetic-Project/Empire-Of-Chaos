@@ -16,3 +16,7 @@ class Stage:
         "life": 25
     }
 
+    countMonster = 0
+
+    countKey = 0
+

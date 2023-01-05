@@ -51,7 +51,7 @@ class GameWindow(QMainWindow):
             panelMainTitle.deleteLater()
             generateRandomCoordinate()
             centralArea = centralWindow(self)
-            gameScreen(centralArea)
+            gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray))
            
 
 
@@ -108,14 +108,11 @@ class GameWindow(QMainWindow):
                                     border: none;}}
                                     """)
 
-
-         
-
     # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
     def keyPressEvent(self, event):
        
         centralArea = centralWindow(self)
-        gameScreenWindow = gameScreen(centralArea)
+        gameScreenWindow = gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray))
         createHeroPanel(gameScreenWindow)
 
         # j'appelle borderMap pour qu'elle soit connue de ma fonction keyPressEvent
@@ -230,6 +227,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.left)
 
+
                 else:
                     Hero.x = Hero.x - 1
                     drawGameMap(gameScreenWindow, Hero.left)
@@ -272,6 +270,7 @@ class GameWindow(QMainWindow):
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
                             RAND = random.randint(0,len(Items.dropItems)-1)
+                            Stage.countMonster = Stage.countMonster + 1
                            
                             if RAND == 0:
                                 print("aucun objet reçus !")
@@ -296,14 +295,14 @@ class GameWindow(QMainWindow):
 
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
+
                             RAND = random.randint(0,len(Items.dropItems)-1)
-                            
+                            Stage.countMonster = Stage.countMonster + 1
+                           
                             if RAND == 0:
                                 print("aucun objet reçus !")
                             else:
-                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")   
-
-                        drawGameMap(gameScreenWindow, Hero.back)
+                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")  
 
                         time.sleep(2)
 
@@ -312,15 +311,6 @@ class GameWindow(QMainWindow):
 
                         print("Le monstre vous attaque en retour et vous recevez",attackBack,"de dégas")
 
-                        if i["life"] <= 0:
-                            print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
-
-                            RAND = random.randint(0,len(Items.dropItems)-1)
-                           
-                            if RAND == 0:
-                                print("aucun objet reçus !")
-                            else:
-                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")  
 
                         drawGameMap(gameScreenWindow, Hero.back)               
                     return
@@ -351,6 +341,7 @@ class GameWindow(QMainWindow):
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
 
                             RAND = random.randint(0,len(Items.dropItems)-1)
+                            Stage.countMonster = Stage.countMonster + 1
                            
                             if RAND == 0:
                                 print("aucun objet reçus !")
@@ -385,6 +376,7 @@ class GameWindow(QMainWindow):
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
                             RAND = random.randint(0,len(Items.dropItems)-1)
+                            Stage.countMonster = Stage.countMonster + 1
                             
                             if RAND == 0:
                                 print("aucun objet reçus !")

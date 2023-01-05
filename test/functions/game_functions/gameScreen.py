@@ -5,9 +5,11 @@ from functions.game_functions.createHeroPanel import *
 from functions.game_functions.addInventory import *
 from functions.game_functions.addAttackIndication import *
 from functions.game_functions.addTextBox import *
+from functions.game_functions.addPanelGoals import *
 
 
-def gameScreen(centralArea):
+def gameScreen(centralArea ,countMonster , randomMonsterInMap , countKey , keyMapArray):
+
 
     gameWindow = QWidget(centralArea)
     gameWindow.setGeometry(0, 0, 1575, 1000)
@@ -16,4 +18,6 @@ def gameScreen(centralArea):
     createHeroPanel(gameWindow)
     addInventory(gameWindow)
     addTextBox(gameWindow)
+    addPanelGoals(gameWindow , countMonster , randomMonsterInMap , countKey , keyMapArray)
+
     return gameWindow
