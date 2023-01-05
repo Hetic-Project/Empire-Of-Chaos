@@ -44,8 +44,7 @@ def drawGameMap(gameWindow, heroDirection):
 
     character = QWidget(mapCell[Hero.y][Hero.x])
     character.setGeometry(0, 0, 125, 124)
-    character.setStyleSheet(
-        " {} ".format(heroDirection))
+    character.setStyleSheet(" {} ".format(heroDirection))
 
     addMonsterInMap(mapCell)
 
