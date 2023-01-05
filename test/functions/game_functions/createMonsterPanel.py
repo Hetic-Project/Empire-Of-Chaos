@@ -2,9 +2,9 @@ from PySide6.QtWidgets import QWidget, QLabel, QProgressBar
 from functions.game_functions.Hero import *
 
 
-def createMonsterPanel(centralArea, name, life, strength, defense, level, face_image):
+def createMonsterPanel(gameWindow, name, life, strength, defense, level, face_image):
 
-    monsterPanel = QWidget(centralArea)
+    monsterPanel = QWidget(gameWindow)
     monsterPanel.setGeometry(750, 185, 350, 140)
     monsterPanel.setStyleSheet("border: 1px solid black")
 

@@ -51,7 +51,8 @@ class GameWindow(QMainWindow):
             panelMainTitle.deleteLater()
             generateRandomCoordinate()
             centralArea = centralWindow(self)
-            gameScreen(centralArea, "Hello player")
+            gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray), "Hello player")
+
            
 
 
@@ -108,14 +109,11 @@ class GameWindow(QMainWindow):
                                     border: none;}}
                                     """)
 
-
-         
-
     # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
     def keyPressEvent(self, event):
        
         centralArea = centralWindow(self)
-        gameScreenWindow = gameScreen(centralArea, "yo bro !")
+        gameScreenWindow = gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray, "yo bro !"))
         createHeroPanel(gameScreenWindow)
 
         # j'appelle borderMap pour qu'elle soit connue de ma fonction keyPressEvent
@@ -230,6 +228,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.left)
 
+
                 else:
                     Hero.x = Hero.x - 1
                     drawGameMap(gameScreenWindow, Hero.left)
@@ -255,7 +254,7 @@ class GameWindow(QMainWindow):
                         i["life"] = i["life"] - attack
                         hit = QWidget(mapCell[i["y"]][i["x"]])
                         hit.setGeometry(0,0,50,50)
-                        hit.setStyleSheet("background: ")
+                        hit.setStyleSheet("border: 1px solid black ")
 
 
                         addTextBox(gameScreenWindow,"vous attaquer le monstre et lui infliger au monstre {} de dégats".format(attack))
@@ -272,6 +271,7 @@ class GameWindow(QMainWindow):
                         if i["life"] <= 0:
                             addTextBox(gameScreenWindow,"bravos le monstre a été vaincu, vous avez gagner XX d'exp")
                             RAND = random.randint(0,len(Items.dropItems)-1)
+                            Stage.countMonster = Stage.countMonster + 1
                            
                             if RAND == 0:
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
@@ -297,8 +297,10 @@ class GameWindow(QMainWindow):
 
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
+
                             RAND = random.randint(0,len(Items.dropItems)-1)
-                            
+                            Stage.countMonster = Stage.countMonster + 1
+                           
                             if RAND == 0:
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
                             else:
@@ -352,6 +354,7 @@ class GameWindow(QMainWindow):
                             addTextBox(gameScreenWindow,"bravos le monstre a été vaincu, vous avez gagner XX d'exp")
 
                             RAND = random.randint(0,len(Items.dropItems)-1)
+                            Stage.countMonster = Stage.countMonster + 1
                            
                             if RAND == 0:
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
@@ -386,6 +389,7 @@ class GameWindow(QMainWindow):
                         if i["life"] <= 0:
                             addTextBox(gameScreenWindow,"bravos le monstre a été vaincu, vous avez gagner XX d'exp")
                             RAND = random.randint(0,len(Items.dropItems)-1)
+                            Stage.countMonster = Stage.countMonster + 1
                             
                             if RAND == 0:
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
