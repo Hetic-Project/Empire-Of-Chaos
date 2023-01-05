@@ -144,6 +144,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.setGeometry(40, 550, 125, 50)
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.right)
+                    
 
                 else:
                     # et je la redéssine la map avec les nouvelle coordonnée du héro et la direction du sprite
@@ -172,6 +173,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.setGeometry(40, 550, 125, 50)
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.back)
+                    
                 else:
                     Hero.y = Hero.y - 1
                     drawGameMap(gameScreenWindow, Hero.back)
@@ -199,6 +201,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.setGeometry(40, 550, 125, 50)
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.front)
+                    
 
                 else:
                     Hero.y = Hero.y + 1
@@ -226,6 +229,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.setGeometry(40, 550, 125, 50)
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.left)
+                    
 
 
                 else:
@@ -233,7 +237,7 @@ class GameWindow(QMainWindow):
                     drawGameMap(gameScreenWindow, Hero.left)
 
         # si j'appuie sur entrer j'attaque
-        elif event.key() == 16777220 or event.key() == 65 or event.key() == 69:
+        elif event.key() == 16777220:
             for i in Stage.infoMonsters:
 
                 if i["y"] == Hero.y and i["x"] == Hero.x+1:
