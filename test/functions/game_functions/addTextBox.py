@@ -2,5 +2,5 @@ from PySide6.QtWidgets import QWidget
 
 def addTextBox(gameWindow):
     box = QWidget(gameWindow)
-    box.setGeometry(30, 595, 1070, 100)
-    box.setStyleSheet(" border : 1px solid black;" "background : black")
+    box.setGeometry(35, 540, 690, 150)
+    box.setStyleSheet(" border : 1px solid black;" "background : white")
