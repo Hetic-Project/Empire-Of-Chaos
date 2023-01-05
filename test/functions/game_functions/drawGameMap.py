@@ -26,7 +26,7 @@ def drawGameMap(gameWindow, heroDirection):
 
         Y = QWidget(borderMap)
         Y.setGeometry(0, yPosition, 763, 123)
-        Y.setStyleSheet("border: 1px solid black;")
+        Y.setStyleSheet("border: 1px solid black;" "background: none")
         yPosition = yPosition + 49
         y = y + 1
 

@@ -255,7 +255,7 @@ class GameWindow(QMainWindow):
                         i["life"] = i["life"] - attack
                         hit = QWidget(mapCell[i["y"]][i["x"]])
                         hit.setGeometry(0,0,50,50)
-                        hit.setStyleSheet("background: ")
+                        hit.setStyleSheet("border: 1px solid black ")
 
 
                         print("vous attaquer le monstre et lui infliger au monstre",attack,"de dégas")
