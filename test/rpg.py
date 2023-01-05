@@ -218,7 +218,6 @@ class GameWindow(QMainWindow):
                                     gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
                                 addAttackIndication(gameScreenWindow, "green")    
                                 drawGameMap(gameScreenWindow, Hero.left)
-
                             else:
                                 Hero.x = Hero.x - 1 
                                 drawGameMap(gameScreenWindow, Hero.left)    
@@ -251,9 +250,13 @@ class GameWindow(QMainWindow):
                         return
 
                     else:
-                           
+   
                         attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
+                        hit = QWidget(mapCell[i["y"]][i["x"]])
+                        hit.setGeometry(0,0,50,50)
+                        hit.setStyleSheet("background: ")
+
 
                         print("vous attaquer le monstre et lui infliger au monstre",attack,"de dégas")
 
@@ -290,6 +293,15 @@ class GameWindow(QMainWindow):
                         i["life"] = i["life"] - attack
 
                         print("vous attaquer le monstre et lui infliger au monstre",attack,"de dégas")
+
+                        if i["life"] <= 0:
+                            print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
+                            RAND = random.randint(0,len(Items.dropItems)-1)
+                            
+                            if RAND == 0:
+                                print("aucun objet reçus !")
+                            else:
+                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")   
 
                         drawGameMap(gameScreenWindow, Hero.back)
 
@@ -372,6 +384,13 @@ class GameWindow(QMainWindow):
 
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
+                            RAND = random.randint(0,len(Items.dropItems)-1)
+                            
+                            if RAND == 0:
+                                print("aucun objet reçus !")
+                            else:
+                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")   
+
 
                         drawGameMap(gameScreenWindow, Hero.left)               
                     return

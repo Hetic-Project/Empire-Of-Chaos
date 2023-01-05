@@ -39,6 +39,7 @@ def addMonsterInMap(mapCell):
         })
 
     for i in Stage.infoMonsters:
+           
         if i["life"] <= 0:
             addSprite(mapCell, i["y"], i["x"], "")         
     
@@ -51,6 +52,6 @@ def addMonsterInMap(mapCell):
     for t in Stage.targetCellMap:
 
         cellTargeted = mapCell[t[0]][t[1]]
-        cellTargeted.setStyleSheet("background: green")
+        addSprite(mapCell, t[0], t[1], Items.close_gate)
         Stage.infoTarget.append(
             {"mapPoint": [t[0], t[1]]})
