@@ -1,6 +1,6 @@
 import sys
 import time
-from PySide6.QtCore import Signal
+import random
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
 from functions.interface_functions.centralWindow import *
@@ -113,7 +113,7 @@ class GameWindow(QMainWindow):
 
     # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
     def keyPressEvent(self, event):
-        print(event.key())
+       
         centralArea = centralWindow(self)
         gameScreenWindow = gameScreen(centralArea)
         createHeroPanel(gameScreenWindow)
@@ -190,6 +190,7 @@ class GameWindow(QMainWindow):
                                         gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
                                     addAttackIndication(gameScreenWindow, "green")    
                                     drawGameMap(gameScreenWindow, Hero.front)
+
                                 else:
                                     Hero.y = Hero.y + 1 
                                     drawGameMap(gameScreenWindow, Hero.front)    
@@ -217,6 +218,7 @@ class GameWindow(QMainWindow):
                                     gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
                                 addAttackIndication(gameScreenWindow, "green")    
                                 drawGameMap(gameScreenWindow, Hero.left)
+
                             else:
                                 Hero.x = Hero.x - 1 
                                 drawGameMap(gameScreenWindow, Hero.left)    
@@ -266,6 +268,12 @@ class GameWindow(QMainWindow):
 
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
+                            RAND = random.randint(0,len(Items.dropItems)-1)
+                           
+                            if RAND == 0:
+                                print("aucun objet reçus !")
+                            else:
+                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")    
 
                         drawGameMap(gameScreenWindow, Hero.right)               
                     return
@@ -295,6 +303,13 @@ class GameWindow(QMainWindow):
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
 
+                            RAND = random.randint(0,len(Items.dropItems)-1)
+                           
+                            if RAND == 0:
+                                print("aucun objet reçus !")
+                            else:
+                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")  
+
                         drawGameMap(gameScreenWindow, Hero.back)               
                     return
 
@@ -322,6 +337,13 @@ class GameWindow(QMainWindow):
 
                         if i["life"] <= 0:
                             print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
+
+                            RAND = random.randint(0,len(Items.dropItems)-1)
+                           
+                            if RAND == 0:
+                                print("aucun objet reçus !")
+                            else:
+                                print(Items.dropItems[RAND],"reçus et ranger dans l'inventaire")  
 
                         drawGameMap(gameScreenWindow, Hero.front)               
                     return

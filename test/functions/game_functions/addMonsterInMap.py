@@ -40,19 +40,7 @@ def addMonsterInMap(mapCell):
 
     for i in Stage.infoMonsters:
         if i["life"] <= 0:
-            addSprite(mapCell, i["y"], i["x"], "")
-            # dropRAND = random.randint(0,1)
-            # dropItems = ["aucun item", Items.chest]
-            # if  dropRAND == 0 :
-            #     print("aucun objet reçus !")
-            #     return
-            # else:
-            #     addSprite(mapCell, i["y"], i["x"], dropItems[dropRAND])
-            #     print("oh! un item est apparue")
-            #     return
-          
-         
-
+            addSprite(mapCell, i["y"], i["x"], "")         
     
 
     for k in Stage.keyMapArray:
