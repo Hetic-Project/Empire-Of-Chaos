@@ -15,6 +15,20 @@ from functions.interface_functions.gameMainTitleScreen import *
 from functions.game_functions.countDown import *
 
 
+class ExitGame(QDialog) :
+    def __init__(self) :
+        super().__init__()
+        self.setWindowTitle("Quit Game")
+        self.setMinimumSize(100 , 100)
+        exit_label = QLabel("Êtes-vous sûr de vouloir quitter ?")
+        exit_label.move(50, 50)
+
+        yes_button = QPushButton("Oui" , self)
+        yes_button.move(5 , 90)
+        no_button = QPushButton("Non" , self)
+        no_button.move(90 , 90)
+        
+
 class WelcomeDialog(QDialog):
     def __init__(self):
         super().__init__()
@@ -51,7 +65,14 @@ class GameWindow(QMainWindow):
             generateRandomCoordinate()
             centralArea = centralWindow(self)
             gameScreen(centralArea)
-           
+        
+        def QuitGame() :
+            
+            self.exit_game = ExitGame()
+            self.exit_game.show()
+            self.close()
+
+
 
 
         panelMainTitle = QWidget(self)
@@ -61,14 +82,18 @@ class GameWindow(QMainWindow):
         StartGame = QPushButton("Start", panelMainTitle)
         StartGame.setGeometry(435, 360, 300, 40)
         StartGame.clicked.connect(launchGame)
+        StartGame.setStyleSheet("background : black;" "color : white")
 
         Credits = QPushButton("Credits", panelMainTitle)
-        Credits.setGeometry(435, 400, 300, 40)
+        Credits.setGeometry(435, 420, 300, 40)
+        Credits.setStyleSheet("background : black;" "color : white;")
 
         
 
         Exit = QPushButton("Exit", panelMainTitle)
-        Exit.setGeometry(435, 440, 300, 40)
+        Exit.setGeometry(435, 480, 300, 40)
+        Exit.clicked.connect(QuitGame)
+        Exit.setStyleSheet("background : black;" "color : white;")
 
 
          
