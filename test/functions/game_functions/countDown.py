@@ -1,9 +1,12 @@
 import time
-def countDown(secs):
-    while secs:
-        m, s = divmod(secs, 60)
-        sec_format = '{:02d}:{:02d}'.format(m, s)
-        time.sleep(1)
-        secs -= 1
-        print(secs, "s")
-    print('countDown finish !')    
+from functions.game_functions.addAttackIndication import addAttackIndication
+
+def countdown(n, gameWindow, color):
+   while n > 0 :
+    print(n)
+    n = n-1
+    if n == 0:
+        addAttackIndication(gameWindow, color)
+    else:
+        t = int(n/100000)
+        print(t,"s")    

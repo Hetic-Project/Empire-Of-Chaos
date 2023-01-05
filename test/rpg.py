@@ -13,11 +13,11 @@ from functions.game_functions.Monster import *
 from functions.game_functions.addMonstersSprite import *
 from functions.interface_functions.gameMainTitleScreen import *
 from functions.game_functions.countDown import *
+from functions.game_functions.addAttackIndication import *
+from functions.game_functions.closeFunction import *
 
 
-def close_game(self):
-    self.close()
-    self.close_game_signal.emit()
+
 
 class WelcomeDialog(QDialog):
     def __init__(self):
@@ -59,7 +59,7 @@ class GameWindow(QMainWindow):
         def show_credits():
             credits_window = QDialog()
             credits_window.setWindowTitle("Credits")
-            credits_window.setMinimumSize(400, 250)
+            credits_window.setMinimumSize(400, 250) 
             credits_window.setWindowIcon(QIcon("test/icons/rpg.png"))
             credits_label = QLabel("Développeurs : \n\n\nWilliam Vandal\nLucas Yalman\nMohamed Yaich\nKen's", credits_window)
             credits_label.move(250, 50)
@@ -76,21 +76,53 @@ class GameWindow(QMainWindow):
         StartGame = QPushButton("Start", panelMainTitle)
         StartGame.setGeometry(435, 360, 300, 40)
         StartGame.clicked.connect(launchGame)
-        StartGame.setFont(font)
-        StartGame.setStyleSheet("color : white;" "background : black;")
+        StartGame.setStyleSheet(f"""
+                QPushButton {{
+                            background : black;
+                            color : white;
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #f31d58; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;}}
+                                    """)
 
         credits = QPushButton("Credits", panelMainTitle)
         credits.setGeometry(435, 400, 300, 40)
         credits.clicked.connect(show_credits) 
         credits.setFont(font)
         credits.setStyleSheet("color : white;" "background : black;")
-
+        credits.setStyleSheet(f"""
+                QPushButton {{
+                            background : black;
+                            color : white;
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #f31d58; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;}}
+                                    """)
+        
 
         Exit = QPushButton("Exit", panelMainTitle)
         Exit.setGeometry(435, 440, 300, 40)
-        Exit.setFont(font)
-        Exit.setStyleSheet("color : white;" "background : black;")
-
+        #Exit.setStyleSheet("background : black;"  "color : white;")
+        Exit.setStyleSheet(f"""
+                QPushButton {{
+                            background : black;
+                            color : white;
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #f31d58; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;}}
+                                    """)
 
 
 
@@ -115,6 +147,7 @@ class GameWindow(QMainWindow):
                             # Voire les stats du monstre
                             createMonsterPanel(
                                 gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            addAttackIndication(gameScreenWindow, "green")
                             drawGameMap(gameScreenWindow, Hero.right)
                             return
 
@@ -139,6 +172,7 @@ class GameWindow(QMainWindow):
                         if i["y"] == Hero.y-1 and i["x"] == Hero.x:
                             createMonsterPanel(
                                 gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            addAttackIndication(gameScreenWindow, "green")    
                             drawGameMap(gameScreenWindow, Hero.back)
                             return
 
@@ -161,6 +195,7 @@ class GameWindow(QMainWindow):
 
                             createMonsterPanel(
                                 gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            addAttackIndication(gameScreenWindow, "green")    
                             drawGameMap(gameScreenWindow, Hero.front)
                             return
 
@@ -183,6 +218,7 @@ class GameWindow(QMainWindow):
                         if i["y"] == Hero.y and i["x"] == Hero.x-1:
                             createMonsterPanel(
                                 gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                            addAttackIndication(gameScreenWindow, "green")    
                             drawGameMap(gameScreenWindow, Hero.left)
                             return
 
@@ -204,18 +240,23 @@ class GameWindow(QMainWindow):
                 if i["y"] == Hero.y and i["x"] == Hero.x+1:
                     createMonsterPanel(
                         gameScreenWindow, i["name"], i["life"], i["strength"], i["defense"], i["level"], Monster.face)
+                    addAttackIndication(gameScreenWindow, "green")
 
                     if i["life"] <= 0:
                         print("le monstre est mort")
+                        addAttackIndication(gameScreenWindow, "white")
                         drawGameMap(gameScreenWindow, Hero.right)
-                        # gain d'xp
-                        # butin
-                    else:
 
+                    else:
                         attack = int(
                             Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
                         drawGameMap(gameScreenWindow, Hero.right)
+                        addAttackIndication(gameScreenWindow, "white")
+                        drawGameMap(gameScreenWindow, Hero.right)
+                        countdown(400000, gameScreenWindow, "green")
+                        drawGameMap(gameScreenWindow, Hero.right)
+                        
                         return
 
                 elif i["y"] == Hero.y-1 and i["x"] == Hero.x:
