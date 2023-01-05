@@ -7,7 +7,7 @@ from functions.game_functions.addAttackIndication import *
 from functions.game_functions.addTextBox import *
 
 
-def gameScreen(centralArea):
+def gameScreen(centralArea, text):
 
     gameWindow = QWidget(centralArea)
     gameWindow.setGeometry(0, 0, 1575, 1000)
@@ -15,5 +15,5 @@ def gameScreen(centralArea):
     drawGameMap(gameWindow, Hero.front)
     createHeroPanel(gameWindow)
     addInventory(gameWindow)
-    addTextBox(gameWindow)
+    addTextBox(gameWindow, text)
     return gameWindow
