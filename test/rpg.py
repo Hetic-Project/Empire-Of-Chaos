@@ -212,6 +212,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.left)
 
+
                 else:
                     Hero.x = Hero.x - 1
                     drawGameMap(gameScreenWindow, Hero.left)
