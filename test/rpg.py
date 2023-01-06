@@ -113,7 +113,7 @@ class GameWindow(QMainWindow):
     def keyPressEvent(self, event):
        
         centralArea = centralWindow(self)
-        gameScreenWindow = gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray, "yo bro !"))
+        gameScreenWindow = gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray), "yo bro !")
         createHeroPanel(gameScreenWindow)
 
         # j'appelle borderMap pour qu'elle soit connue de ma fonction keyPressEvent
@@ -269,6 +269,8 @@ class GameWindow(QMainWindow):
                         addTextBox(gameScreenWindow,"Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
 
                         if i["life"] <= 0:
+                            i["statut"] = "dead"
+                            print(i)
                             addTextBox(gameScreenWindow,"bravos le monstre a été vaincu, vous avez gagner XX d'exp")
                             RAND = random.randint(0,len(Items.dropItems)-1)
                             Stage.countMonster = Stage.countMonster + 1

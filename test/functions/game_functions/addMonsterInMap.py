@@ -13,6 +13,17 @@ def addMonsterInMap(mapCell):
 
     for m in Stage.randomMonsterInMap:
 
+        Stage.infoMonsters.append({
+            "y": m[0],
+            "x": m[1],
+            "name": "Monster-{}".format(m),
+            "life": 25,
+            "strength": 35,
+            "defense": 10,
+            "level": 1,
+            "statut": "alive"
+        })   
+        
         if m[0] == Hero.y and m[1] == Hero.x+1:
             addSprite(mapCell, m[0], m[1], Monster.left)
 
@@ -24,24 +35,14 @@ def addMonsterInMap(mapCell):
 
         elif m[0] == Hero.y-1 and m[1] == Hero.x:
             addSprite(mapCell, m[0], m[1], Monster.front)
-
         else:
-            addSprite(mapCell, m[0], m[1], Monster.front)
-
-        Stage.infoMonsters.append({
-            "y": m[0],
-            "x": m[1],
-            "name": "Monster-{}".format(m),
-            "life": 25,
-            "strength": 35,
-            "defense": 10,
-            "level": 1
-        })
+            addSprite(mapCell, m[0], m[1], Monster.front) 
+           
 
     for i in Stage.infoMonsters:
-           
-        if i["life"] <= 0:
-            addSprite(mapCell, i["y"], i["x"], "")         
+
+        if i["statut"] == "dead":
+            addSprite(mapCell, i["y"], i["x"], "")             
     
 
     for k in Stage.keyMapArray:
