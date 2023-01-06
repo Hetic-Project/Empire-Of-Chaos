@@ -12,3 +12,11 @@ class Stage:
     # tableau bidimentionnel qui contien toute les coordonner de la map (QWidget)
     mapCell = []
 
+    monster = {
+        "life": 25
+    }
+
+    countMonster = 0
+
+    countKey = 0
+

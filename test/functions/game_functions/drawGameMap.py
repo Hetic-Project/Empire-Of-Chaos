@@ -19,14 +19,14 @@ def drawGameMap(gameWindow, heroDirection):
     global borderMap
     borderMap = QWidget(gameWindow)
     borderMap.setGeometry(0, 0, 763, 565)
-    borderMap.setStyleSheet("border: 1px solid black;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center cover;")
+    borderMap.setStyleSheet("border: 1px solid black;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center;")
 
     # dans borderMap je crée 10 ligne
     while y < 10:
 
         Y = QWidget(borderMap)
         Y.setGeometry(0, yPosition, 763, 123)
-        Y.setStyleSheet("border: 1px solid black;")
+        Y.setStyleSheet("border: 1px solid black;" "background: none")
         yPosition = yPosition + 49
         y = y + 1
 
