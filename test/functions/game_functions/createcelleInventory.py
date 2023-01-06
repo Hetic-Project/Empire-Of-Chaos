@@ -15,7 +15,7 @@ def createCellInYPositionInventory(widget):
     for x in range(6):
 
         X = QWidget(widget)
-        X.setGeometry(xPosition, 0, 45, 40)
+        X.setGeometry(xPosition, 0, 40, 40)
         X.setStyleSheet("border: 1px solid black;")
         x = x + 1
         xPosition = xPosition + 50
