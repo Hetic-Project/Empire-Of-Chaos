@@ -1,17 +1,8 @@
 import sys
-<<<<<<<<< Temporary merge branch 1
-
-from PySide6.QtCore import Signal
-from PySide6.QtGui import QIcon, QFont
-=========
 import time
 import random
-from PySide6.QtGui import QIcon
-=======
-
 from PySide6.QtCore import Signal
 from PySide6.QtGui import QIcon, QFont
->>>>>>> 231dd8792e350ef3c118063d687742156a89007e
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
 from functions.interface_functions.centralWindow import *
 from functions.game_functions.stages.Stage import *
@@ -38,7 +29,6 @@ class WelcomeDialog(QDialog):
         self.setWindowIcon(QIcon("test/icons/rpg.png"))
         welcome_label = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir \nles 4 clés dispersés dans les 4 biomes que vous devrez explorer ils sont gouvernés \npar des êtres puissants tout cela pour arriver à vos fins, vaincre Ouroubos, \nune créature terrifiante qui a jadis détruit votre rayaume tout entier,\nvous devez donc partir de rien pour arriver à adoucir \ncette haine que vous avez depuis tant d'années.", self)
         welcome_label.move(90, 50)
-
         close_button = QPushButton("Fermer", self)
         close_button.move(250, 200)
         close_button.clicked.connect(self.close)
@@ -68,8 +58,6 @@ class GameWindow(QMainWindow):
             centralArea = centralWindow(self)
             gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray), "Hello player")
 
-           
->>>>>>>>> Temporary merge branch 2
 
         def show_credits():
             credits_window = QDialog()
@@ -78,6 +66,7 @@ class GameWindow(QMainWindow):
             credits_window.setWindowIcon(QIcon("test/icons/rpg.png"))
             credits_label = QLabel("Développeurs : \n\n\nWilliam Vandal\nLucas Yalman\nMohamed Yaich\nKen's", credits_window)
             credits_label.move(250, 50)
+            credits_label.setStyleSheet("color : white;" "background : black;")
             credits_window.show()
             close_game_signal.connect(show_credits)
 
@@ -138,6 +127,16 @@ class GameWindow(QMainWindow):
                                     font-size : 18px; 
                                     border: none;}}
                                     """)
+        Exit.clicked.connect(self.exitGame)
+
+    def exitGame(self):
+        choice = QMessageBox.question(self, "Exit", "Êtes-vous sûrs de vouloir quitter ?",
+                                      QMessageBox.   Yes | QMessageBox.No)
+
+        if choice == QMessageBox.Yes:
+            sys.exit()
+        else:
+            pass
 
     # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
     def keyPressEvent(self, event):
