@@ -1,3 +1,4 @@
+import signal
 import sys
 import time
 import random
@@ -58,6 +59,10 @@ class GameWindow(QMainWindow):
             centralArea = centralWindow(self)
             gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray), "Hello player")
 
+<<<<<<< HEAD
+=======
+           
+>>>>>>> c20f23aa1d48002c875e6ebd482bb2566b11b815
 
         def show_credits():
             credits_window = QDialog()
@@ -311,7 +316,14 @@ class GameWindow(QMainWindow):
                             if RAND == 0:
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
                             else:
-                                addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Items.dropItems[RAND]))    
+                                addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Items.dropItems[RAND]))
+                                if Items.dropItems[RAND] in Items.dropInfo :
+                                    Items.SaveDropItems.append(Items.dropInfo["{}".format(Items.dropItems[RAND])]["image"])
+
+                                    
+                                
+                                
+
 
                         drawGameMap(gameScreenWindow, Hero.right)               
                     return

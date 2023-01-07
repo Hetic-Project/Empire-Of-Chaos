@@ -2,6 +2,7 @@ import sys
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, QLabel
 from functions.game_functions.createcelleInventory import *
+from functions.game_functions.addItemsInInventory import *
 
 
 def addInventory(gameWindow) :
@@ -36,7 +37,10 @@ def addInventory(gameWindow) :
         MapcellInventory.append(cellsInv)
         # voila a quoi ressemblera mapCell : mapCell [ ligne1[QWidget1, QWidget2 ], ligne2[QWidget1, QWidget2 ], ... ]
         # mapCell contient donc toute les coordonnée X et Y de la map
+    
+    addItemsInInventory(MapcellInventory)
 
+    return MapcellInventory
 
 
 
