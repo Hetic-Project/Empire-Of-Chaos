@@ -59,10 +59,6 @@ class GameWindow(QMainWindow):
             centralArea = centralWindow(self)
             gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray), "Hello player")
 
-<<<<<<< HEAD
-=======
-           
->>>>>>> c20f23aa1d48002c875e6ebd482bb2566b11b815
 
         def show_credits():
             credits_window = QDialog()
