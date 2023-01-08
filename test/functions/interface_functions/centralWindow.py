@@ -2,7 +2,8 @@ from PySide6.QtWidgets import QWidget
 
 
 def centralWindow(self):
+
     centralArea = QWidget()
-    centralArea.setGeometry(0, 0, 800, 600)
+    centralArea.setStyleSheet("border : 1px solid blue;")
     self.setCentralWidget(centralArea)
     return centralArea

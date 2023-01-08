@@ -8,14 +8,13 @@ from functions.game_functions.addTextBox import *
 from functions.game_functions.addPanelGoals import *
 
 
-def gameScreen(centralArea ,countMonster , randomMonsterInMap , countKey , keyMapArray, text):
+def gameScreen(world, stage, centralArea, text):
 
     gameWindow = QWidget(centralArea)
-    gameWindow.setGeometry(0, 0, 1575, 1000)
+    gameWindow.setGeometry(0, 0, 1200, 700)
 
-    drawGameMap(gameWindow, Hero.front)
+    drawGameMap(world, stage, gameWindow, Hero.front)
     createHeroPanel(gameWindow)
     addInventory(gameWindow)
     addTextBox(gameWindow, text)
-    addPanelGoals(gameWindow , countMonster , randomMonsterInMap , countKey , keyMapArray)
     return gameWindow

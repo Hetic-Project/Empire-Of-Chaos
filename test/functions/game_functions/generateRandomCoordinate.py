@@ -6,7 +6,7 @@ from functions.game_functions.Hero import Hero
 from functions.game_functions.stages.Stage import *
 
 
-def generateRandomCoordinate():
+def generateRandomCoordinate(world, stage):
 
     count = random.randint(3, 5)
     x=0
@@ -24,7 +24,7 @@ def generateRandomCoordinate():
                 print("impossible de placer le monstre !")
             else:
                 x = randX
-                Stage.randomMonsterInMap.append([Y, randX])
+                Stage.world[world]["stages"][stage]["monsters"]["coordinate"].append([Y, randX])
                 Y = Y + 2   
          
 
@@ -32,10 +32,10 @@ def generateRandomCoordinate():
     randX = random.randint(8, 10)
     randY = random.randint(0, 9)
 
-    Stage.keyMapArray.append([randY, randX])
+    Stage.world[world]["stages"][stage]["chest"]["coordinate"].append([randY, randX])
 
     # Génération de coordonnées pour la case d'arriver
     randX = random.randint(11, 13)
     randY = random.randint(0, 9)
 
-    Stage.targetCellMap.append([randY, randX])
+    Stage.world[world]["stages"][stage]["target"]["coordinate"].append([randY, randX])
