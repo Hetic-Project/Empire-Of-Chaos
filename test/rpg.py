@@ -156,7 +156,9 @@ class GameWindow(QMainWindow):
                                     i["strength"], 
                                     i["defense"], 
                                     i["level"], 
-                                    Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"]
+                                    i["progressPV"],
+                                    Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+                                
                                 )
                                 addAttackIndication(gameScreenWindow, "green")
                                 drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
@@ -193,7 +195,9 @@ class GameWindow(QMainWindow):
                                     i["strength"], 
                                     i["defense"], 
                                     i["level"], 
-                                    Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"]
+                                    i["progressPV"],
+                                    Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+                                
                                 )
                                 addAttackIndication(gameScreenWindow, "green")    
                                 drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
@@ -226,7 +230,9 @@ class GameWindow(QMainWindow):
                                         i["strength"], 
                                         i["defense"], 
                                         i["level"], 
-                                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"]
+                                        i["progressPV"],
+                                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+                                        
                                     )
                                     addAttackIndication(gameScreenWindow, "green")    
                                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
@@ -261,7 +267,9 @@ class GameWindow(QMainWindow):
                                     i["strength"], 
                                     i["defense"], 
                                     i["level"], 
-                                    Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"]
+                                    i["progressPV"],
+                                    Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+                                
                                 )
                                 addAttackIndication(gameScreenWindow, "green")    
                                 drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
@@ -294,7 +302,9 @@ class GameWindow(QMainWindow):
                         i["strength"], 
                         i["defense"], 
                         i["level"], 
-                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"]
+                        i["progressPV"],
+                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+        
                     )
                     addAttackIndication(gameScreenWindow, "green")
 
@@ -308,8 +318,10 @@ class GameWindow(QMainWindow):
    
                         attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
+                        i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
+
                         hit = QWidget(mapCell[i["y"]][i["x"]])
-                        hit.setGeometry(0,0,50,50)
+                        hit.setGeometry(0,0,100,100)
                         hit.setStyleSheet("border: 1px solid black ")
 
 
@@ -321,6 +333,7 @@ class GameWindow(QMainWindow):
 
                         attackBack = int(i['strength']/(Hero.defense/2)*i["level"])
                         Hero.life = Hero.life - attackBack
+                        Hero.progressHeroPv = Hero.progressHeroPv - ((attackBack*100)/Hero.life)
 
                         addTextBox(gameScreenWindow,"Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
 
@@ -347,7 +360,9 @@ class GameWindow(QMainWindow):
                         i["strength"], 
                         i["defense"], 
                         i["level"], 
-                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"]
+                        i["progressPV"],
+                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+        
                     )
                     if i["life"] <= 0:
                         addTextBox(gameScreenWindow,"le monstre est mort")
@@ -356,6 +371,7 @@ class GameWindow(QMainWindow):
 
                         attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
+                        i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
 
                         addTextBox(gameScreenWindow,"vous attaquer le monstre et lui infliger au monstre {} de dégats".format(attack))
 
@@ -376,6 +392,7 @@ class GameWindow(QMainWindow):
 
                         attackBack = int(i['strength']/(Hero.defense/2)*i["level"])
                         Hero.life = Hero.life - attackBack
+                        Hero.progressHeroPv = Hero.progressHeroPv - ((attackBack*100)/Hero.life)
 
                         addTextBox(gameScreenWindow,"Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
 
@@ -400,7 +417,9 @@ class GameWindow(QMainWindow):
                         i["strength"], 
                         i["defense"], 
                         i["level"], 
-                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"]
+                        i["progressPV"],
+                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+        
                     )
 
                     if i["life"] <= 0:
@@ -409,6 +428,8 @@ class GameWindow(QMainWindow):
                     else:
                         attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
+                        i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
+                        
 
                         addTextBox(gameScreenWindow,"vous attaquer le monstre et lui infliger au monstre {} de dégats".format(attack))
 
@@ -418,6 +439,7 @@ class GameWindow(QMainWindow):
 
                         attackBack = int(i['strength']/(Hero.defense/2)*i["level"])
                         Hero.life = Hero.life - attackBack
+                        Hero.progressHeroPv = Hero.progressHeroPv - ((attackBack*100)/Hero.life)
 
                         addTextBox(gameScreenWindow,"Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
 
@@ -443,7 +465,9 @@ class GameWindow(QMainWindow):
                         i["strength"], 
                         i["defense"], 
                         i["level"], 
-                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"]
+                        i["progressPV"],
+                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+        
                     )
                     if i["life"] <= 0:
                         addTextBox(gameScreenWindow,"le monstre est mort")
@@ -452,6 +476,7 @@ class GameWindow(QMainWindow):
 
                         attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
+                        i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
 
                         addTextBox(gameScreenWindow,"vous attaquer le monstre et lui infliger au monstre {} de dégats".format(attack))
 
@@ -461,6 +486,7 @@ class GameWindow(QMainWindow):
 
                         attackBack = int(i['strength']/(Hero.defense/2)*i["level"])
                         Hero.life = Hero.life - attackBack
+                        Hero.progressHeroPv = Hero.progressHeroPv - ((attackBack*100)/Hero.life)
 
                         addTextBox(gameScreenWindow,"Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
 

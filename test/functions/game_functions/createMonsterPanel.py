@@ -1,8 +1,9 @@
 from PySide6.QtWidgets import QWidget, QLabel, QProgressBar
 from functions.game_functions.Hero import *
+from functions.game_functions.stages.Stage import *
 
 
-def createMonsterPanel(gameWindow, name, life, strength, defense, level, face_image):
+def createMonsterPanel(gameWindow, name, life, strength, defense, level, progress, face_image,):
 
     monsterPanel = QWidget(gameWindow)
     monsterPanel.setGeometry(750, 185, 350, 140)
@@ -21,8 +22,9 @@ def createMonsterPanel(gameWindow, name, life, strength, defense, level, face_im
     labelPV.setGeometry(150, 40, 85, 20)
     labelPV.setStyleSheet("border: none")
 
+
     progressPV = QProgressBar(monsterPanel)
-    progressPV.setValue(life)
+    progressPV.setValue(progress)
     progressPV.setGeometry(240, 40, 100, 20)
     progressPV.setStyleSheet("text-align: center")
 
@@ -33,3 +35,4 @@ def createMonsterPanel(gameWindow, name, life, strength, defense, level, face_im
     labelDEF = QLabel("Défense : {}".format(defense), monsterPanel)
     labelDEF.setGeometry(150, 90, 100, 20)
     labelDEF.setStyleSheet("border: none")
+
