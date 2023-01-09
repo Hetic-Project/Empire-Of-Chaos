@@ -5,10 +5,13 @@ def addTextBox(gameWindow, text):
     box = QWidget(gameWindow)
     box.setGeometry(35, 540, 690, 150)
     box.setStyleSheet(""" background : #ffffff; border-radius: 10px;""")
+
     message = QTextEdit("{}".format(text),box) 
     message.setGeometry(10, 20, 670, 70)
     message.setEnabled(False)
-    message.lineWrapMode ()
+    #message.lineWrapMode ()
+    message.setText(text)
+
     #message.setWordWrapMode ()
     message.setStyleSheet("""
             border: 3px solid #ffffff;
