@@ -9,7 +9,8 @@ def addTextBox(gameWindow, text):
     message = QTextEdit("{}".format(text),box) 
     message.setGeometry(10, 20, 670, 70)
     message.setEnabled(False)
-    message.lineWrapMode ()
+    #message.lineWrapMode ()
+    message.setText(text)
     #message.setWordWrapMode ()
     message.setStyleSheet("""
             border: 3px solid #ffffff;

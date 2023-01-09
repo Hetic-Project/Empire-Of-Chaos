@@ -12,17 +12,19 @@ def addPanelGoals(gameWindow , countMonster , MonsterList , countKey , KeyList) 
     limitePanelGoals.setStyleSheet("""
                                         border: 1px black;
                                         background : #ffffff;
-                                        border-radius: 30px;
+                                        border-radius: 22px;
+                                        background-color: #262626;
+                                        background-attachment: scroll;
                                 """)
 
 
     objectivePanel = QLabel("OBJECTIFS :" , gameWindow)
     objectivePanel.setGeometry(890 , 542 , 350 , 40)
-    objectivePanel.setStyleSheet("font-size : 18px;")
+    objectivePanel.setStyleSheet("font-size : 18px;" "color : green;" "font-weight : bold;")
 
     objective1Panel = QLabel(" - Monstres tués : {} / {} " .format(countMonster , MonsterList) , gameWindow)
     objective1Panel.setGeometry(773 , 580, 500 , 40)
-    objective1Panel.setStyleSheet("font-size : 14px;")
+    objective1Panel.setStyleSheet("font-size : 14px;" "color : white;")
 
 
     objective2Panel = QLabel(" - Clé restante : {} / {} " .format(countKey , KeyList) , gameWindow)
