@@ -9,13 +9,20 @@ def addPanelGoals(gameWindow , countMonster , world, stage , countKey) :
 
 
     limitePanelGoals = QWidget(gameWindow)
-    limitePanelGoals.setGeometry(750 , 540 , 350 , 150)
-    limitePanelGoals.setStyleSheet("border: 1px solid black")
+    limitePanelGoals.setGeometry(770 , 540 , 320 , 150)
+    limitePanelGoals.setStyleSheet("""
+                                        border: 1px black;
+                                        background : #ffffff;
+
+                                        border-radius: 22px;
+                                        background-color: #262626;
+                                        background-attachment: scroll;
+                                """)
 
 
-    objectivePanel = QLabel("Objectifs :" , gameWindow)
-    objectivePanel.setGeometry(870 , 542 , 350 , 40)
-    objectivePanel.setStyleSheet("font-size : 20px;")
+    objectivePanel = QLabel("OBJECTIFS :" , gameWindow)
+    objectivePanel.setGeometry(890 , 542 , 350 , 40)
+    objectivePanel.setStyleSheet("font-size : 18px;" "color : green;" "font-weight : bold;")
 
     objective1Panel = QLabel("- Monstres tués : {} / {} " .format(countMonster , len(Stage.world[world]["stages"][stage]["monsters"]["coordinate"])) , gameWindow)
     objective1Panel.setGeometry(753 , 580, 500 , 40)

@@ -12,10 +12,10 @@ def createCellInYPositionInventory(widget):
     # permet de placer les cellules les une a coté des autres sur une ligne
     xPosition = 0
 
-    for x in range(6):
+    for x in range(3):
 
         X = QWidget(widget)
-        X.setGeometry(xPosition, 0, 45, 40)
+        X.setGeometry(xPosition, 0, 40, 40)
         X.setStyleSheet("border: 1px solid black;")
         x = x + 1
         xPosition = xPosition + 50
