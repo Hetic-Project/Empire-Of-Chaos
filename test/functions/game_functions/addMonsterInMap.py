@@ -33,6 +33,7 @@ def addMonsterInMap(mapCell, world, stage):
             addSprite(mapCell, m[0], m[1], Stage.world[world]["stages"][stage]["monsters"]["back"])
 
         elif m[0] == Hero.y-1 and m[1] == Hero.x:
+  
             addSprite(mapCell, m[0], m[1], Stage.world[world]["stages"][stage]["monsters"]["front"])
         else:
             addSprite(mapCell, m[0], m[1], Stage.world[world]["stages"][stage]["monsters"]["front"]) 
