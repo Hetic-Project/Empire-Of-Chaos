@@ -67,13 +67,15 @@ class GameWindow(QMainWindow):
                 QPushButton {{
                             background : black;
                             color : white;
+                            border: 2px solid #1e1e2d
                 }}
                 QPushButton:pressed {{
                                     background : white; 
                                     color: #f31d58; 
                                     font-weight: bold; 
                                     font-size : 18px; 
-                                    border: none;}}
+                                    border: none;
+                                    border-radius: 10px;}}
                                     """)
 
         Credits = QPushButton("Credits", panelMainTitle)
@@ -83,13 +85,16 @@ class GameWindow(QMainWindow):
                 QPushButton {{
                             background : black;
                             color : white;
+                            border: 1px solid #ffffff
+                            
                 }}
                 QPushButton:pressed {{
                                     background : white; 
                                     color: #f31d58; 
                                     font-weight: bold; 
                                     font-size : 18px; 
-                                    border: none;}}
+                                    border: none;
+                                    border-radius: 10px;}}
                                     """)
         
 
@@ -100,13 +105,16 @@ class GameWindow(QMainWindow):
                 QPushButton {{
                             background : black;
                             color : white;
+                            border: 2px solid #1e1e2d
+                            
                 }}
                 QPushButton:pressed {{
                                     background : white; 
                                     color: #f31d58; 
                                     font-weight: bold; 
                                     font-size : 18px; 
-                                    border: none;}}
+                                    border: none;
+                                    border-radius: 10px;}}
                                     """)
 
     # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
