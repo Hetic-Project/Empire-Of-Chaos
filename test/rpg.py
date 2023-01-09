@@ -140,6 +140,7 @@ class GameWindow(QMainWindow):
     def keyPressEvent(self, event):
        
         centralArea = centralWindow(self)
+
         gameScreenWindow = gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray), "yo bro !")
         createHeroPanel(gameScreenWindow)
 

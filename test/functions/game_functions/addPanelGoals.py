@@ -12,6 +12,7 @@ def addPanelGoals(gameWindow , countMonster , MonsterList , countKey , KeyList) 
     limitePanelGoals.setStyleSheet("""
                                         border: 1px black;
                                         background : #ffffff;
+
                                         border-radius: 22px;
                                         background-color: #262626;
                                         background-attachment: scroll;

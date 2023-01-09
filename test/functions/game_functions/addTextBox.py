@@ -11,6 +11,7 @@ def addTextBox(gameWindow, text):
     message.setEnabled(False)
     #message.lineWrapMode ()
     message.setText(text)
+
     #message.setWordWrapMode ()
     message.setStyleSheet("""
             border: 3px solid #ffffff;

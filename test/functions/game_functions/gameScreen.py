@@ -15,7 +15,7 @@ def gameScreen(centralArea ,countMonster , randomMonsterInMap , countKey , keyMa
 
     drawGameMap(gameWindow, Hero.front)
     createHeroPanel(gameWindow)
-    addInventory(gameWindow)
     addTextBox(gameWindow, text)
+    addInventory(gameWindow)
     addPanelGoals(gameWindow , countMonster , randomMonsterInMap , countKey , keyMapArray)
     return gameWindow
