@@ -11,7 +11,7 @@ from functions.game_functions.addPanelGoals import *
 def gameScreen(world, stage, centralArea, text):
 
     gameWindow = QWidget(centralArea)
-    gameWindow.setGeometry(0, 0, 1200, 700)
+    gameWindow.setGeometry(0, 0, 1300, 700)
 
     drawGameMap(world, stage, gameWindow, Hero.front)
     createHeroPanel(gameWindow)

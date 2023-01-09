@@ -194,7 +194,7 @@ class GameWindow(QMainWindow):
                                     Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
                                 
                                 )
-                                addAttackIndication(gameScreenWindow, "green")
+            
                                 drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
                                 return
                             else:
@@ -233,7 +233,7 @@ class GameWindow(QMainWindow):
                                     Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
                                 
                                 )
-                                addAttackIndication(gameScreenWindow, "green")    
+                
                                 drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
                             else:
                                 Hero.y = Hero.y -1
@@ -268,7 +268,7 @@ class GameWindow(QMainWindow):
                                         Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
                                         
                                     )
-                                    addAttackIndication(gameScreenWindow, "green")    
+                    
                                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
 
                                 else:
@@ -305,7 +305,7 @@ class GameWindow(QMainWindow):
                                     Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
                                 
                                 )
-                                addAttackIndication(gameScreenWindow, "green")    
+                
                                 drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
                             else:
                                 Hero.x = Hero.x - 1 
@@ -340,7 +340,7 @@ class GameWindow(QMainWindow):
                         Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
         
                     )
-                    addAttackIndication(gameScreenWindow, "green")
+
 
                     if i["life"] <= 0:
                         print("le monstre est mort")
