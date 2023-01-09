@@ -1,11 +1,10 @@
 class Stage:
 
-    currentWorld = "demonicland"
+    currentWorld = "lavaland"
     currentStage = 1
  
     countMonster = 0
     countKey = 0
-
 
     world = {
         "grassland":{

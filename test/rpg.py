@@ -124,8 +124,8 @@ class GameWindow(QMainWindow):
     # keyPressEvent est une fonction native a Qt elle permet de gérer les évènement
     def keyPressEvent(self, event):
        
-        centralArea = centralWindow(self)
 
+        centralArea = centralWindow(self)
         gameScreenWindow = gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage), centralArea , "yo bro !")
         addPanelGoals(
             gameScreenWindow, 
