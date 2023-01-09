@@ -1,7 +1,9 @@
+import signal
 import sys
 import time
 import random
-from PySide6.QtGui import QIcon
+from PySide6.QtCore import Signal
+from PySide6.QtGui import QIcon, QFont
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
 from functions.interface_functions.centralWindow import *
 from functions.game_functions.stages.Stage import *
@@ -13,13 +15,17 @@ from functions.game_functions.Monster import *
 from functions.game_functions.addSprite import *
 from functions.interface_functions.gameMainTitleScreen import *
 from functions.game_functions.addAttackIndication import *
+from functions.game_functions.closeFunction import *
+
+
 
 
 class WelcomeDialog(QDialog):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Information")
+        self.setWindowTitle("Game Info")
         self.setMinimumSize(600, 250)
+        self.setWindowIcon(QIcon("test/icons/rpg.png"))
         welcome_label = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir \nles 4 clés dispersés dans les 4 biomes que vous devrez explorer ils sont gouvernés \npar des êtres puissants tout cela pour arriver à vos fins, vaincre Ouroubos, \nune créature terrifiante qui a jadis détruit votre rayaume tout entier,\nvous devez donc partir de rien pour arriver à adoucir \ncette haine que vous avez depuis tant d'années.", self)
         welcome_label.move(90, 50)
 
@@ -40,13 +46,12 @@ class GameWindow(QMainWindow):
         self.setMinimumSize(1275, 1000)
         self.setWindowIcon(QIcon("test/icons/rpg.png"))
 
+        close_game_signal = Signal()
+
         centralArea = centralWindow(self)
-       
 
         def launchGame():
-            # Create an instance of the welcome dialog and show it
             self.welcome_dialog = WelcomeDialog()
-            # Connect the close_game_signal to the close method of the main game window
             self.welcome_dialog.show()
             panelMainTitle.deleteLater()
             generateRandomCoordinate()
@@ -55,6 +60,18 @@ class GameWindow(QMainWindow):
 
            
 
+        def show_credits():
+            credits_window = QDialog()
+            credits_window.setWindowTitle("Credits")
+            credits_window.setMinimumSize(400, 250) 
+            credits_window.setWindowIcon(QIcon("test/icons/rpg.png"))
+            credits_label = QLabel("Développeurs : \n\n\nWilliam Vandal\nLucas Yalman\nMohamed Yaich\nKen's", credits_window)
+            credits_label.move(250, 50)
+            credits_window.show()
+            close_game_signal.connect(show_credits)
+
+
+        font = QFont(" ")
 
         panelMainTitle = QWidget(self)
         panelMainTitle.setGeometry(0, 0, 1175, 900)
@@ -78,10 +95,12 @@ class GameWindow(QMainWindow):
                                     border-radius: 10px;}}
                                     """)
 
-        Credits = QPushButton("Credits", panelMainTitle)
-        Credits.setGeometry(435, 400, 300, 40)
-
-        Credits.setStyleSheet(f"""
+        credits = QPushButton("Credits", panelMainTitle)
+        credits.setGeometry(435, 400, 300, 40)
+        credits.clicked.connect(show_credits) 
+        credits.setFont(font)
+        credits.setStyleSheet("color : white;" "background : black;")
+        credits.setStyleSheet(f"""
                 QPushButton {{
                             background : black;
                             color : white;
@@ -121,6 +140,7 @@ class GameWindow(QMainWindow):
     def keyPressEvent(self, event):
        
         centralArea = centralWindow(self)
+
         gameScreenWindow = gameScreen(centralArea , Stage.countMonster , len(Stage.randomMonsterInMap) , Stage.countKey , len(Stage.keyMapArray), "yo bro !")
         createHeroPanel(gameScreenWindow)
 
@@ -153,6 +173,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.setGeometry(40, 550, 125, 50)
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.right)
+                    
 
                 else:
                     # et je la redéssine la map avec les nouvelle coordonnée du héro et la direction du sprite
@@ -181,6 +202,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.setGeometry(40, 550, 125, 50)
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.back)
+                    
                 else:
                     Hero.y = Hero.y - 1
                     drawGameMap(gameScreenWindow, Hero.back)
@@ -208,6 +230,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.setGeometry(40, 550, 125, 50)
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.front)
+                    
 
                 else:
                     Hero.y = Hero.y + 1
@@ -235,6 +258,7 @@ class GameWindow(QMainWindow):
                     pickUpBTN.setGeometry(40, 550, 125, 50)
                     pickUpBTN.clicked.connect(pickUpFunction)
                     drawGameMap(gameScreenWindow, Hero.left)
+                    
 
 
                 else:
@@ -286,7 +310,14 @@ class GameWindow(QMainWindow):
                             if RAND == 0:
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
                             else:
-                                addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Items.dropItems[RAND]))    
+                                addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Items.dropItems[RAND]))
+                                if Items.dropItems[RAND] in Items.dropInfo :
+                                    Items.SaveDropItems.append(Items.dropInfo["{}".format(Items.dropItems[RAND])]["image"])
+
+                                    
+                                
+                                
+
 
                         drawGameMap(gameScreenWindow, Hero.right)               
                     return
