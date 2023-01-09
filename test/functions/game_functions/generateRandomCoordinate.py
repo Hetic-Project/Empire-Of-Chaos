@@ -24,7 +24,9 @@ def generateRandomCoordinate(world, stage):
                 print("impossible de placer le monstre !")
             else:
                 x = randX
+
                 Stage.world[world]["stages"][stage]["monsters"]["coordinate"].append([Y, randX])
+                
                 Y = Y + 2   
          
 
