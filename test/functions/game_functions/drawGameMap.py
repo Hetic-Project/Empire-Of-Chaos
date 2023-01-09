@@ -4,7 +4,7 @@ from functions.game_functions.createCell import *
 from functions.game_functions.addMonsterInMap import *
 
 
-def drawGameMap(gameWindow, heroDirection):
+def drawGameMap(world, stage, gameWindow, heroDirection):
     # permet de placer les lignes les une en dessous des autres
     yPosition = 0
     # compteur de boucle
@@ -12,14 +12,15 @@ def drawGameMap(gameWindow, heroDirection):
     # un tableau qui contient le lignes de la map
     row = []
     # tableau bidimentionnel qui contien toute les coordonner de la map (QWidget)
-
     mapCell = []
+
+    
 
     # borderMap définie les bordures de la map
     global borderMap
     borderMap = QWidget(gameWindow)
     borderMap.setGeometry(0, 0, 763, 565)
-    borderMap.setStyleSheet("border: 1px solid black;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center;")
+    borderMap.setStyleSheet(Stage.world[world]["stages"][stage]["background"])
 
     # dans borderMap je crée 10 ligne
     while y < 10:
@@ -46,6 +47,6 @@ def drawGameMap(gameWindow, heroDirection):
     character.setGeometry(0, 0, 125, 124)
     character.setStyleSheet(" {} ".format(heroDirection))
 
-    addMonsterInMap(mapCell)
+    addMonsterInMap(mapCell, Stage.currentWorld, "stage {}".format(Stage.currentStage))
 
     return borderMap, mapCell
