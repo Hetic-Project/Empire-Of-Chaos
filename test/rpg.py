@@ -381,7 +381,8 @@ class GameWindow(QMainWindow):
                             if RAND == 0:
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
                             else:
-                                addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))    
+                                addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
+                                Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
 
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)               
                     return
@@ -410,19 +411,6 @@ class GameWindow(QMainWindow):
 
                         addTextBox(gameScreenWindow,"vous attaquer le monstre et lui infliger au monstre {} de dégats".format(attack))
 
-                        if i["life"] <= 0:
-                            print("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
-
-                            RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
-                            Stage.countMonster = Stage.countMonster + 1
-                           
-                            if RAND == 0:
-                                addTextBox(gameScreenWindow,"aucun objet reçus !")
-                            else:
-                                addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))    
-
-                            drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
-
                         time.sleep(2)
 
                         attackBack = int(i['strength']/(Hero.defense/2)*i["level"])
@@ -440,7 +428,7 @@ class GameWindow(QMainWindow):
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
                             else:
                                 addTextBox(gameScreenWindow,"{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))  
-
+                                Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)               
                     return
 #Bas=============================================================================================================================================
@@ -488,7 +476,7 @@ class GameWindow(QMainWindow):
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
                             else:
                                 addTextBox(gameScreenWindow,"{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))  
-
+                                Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)               
                     return
 #Gauche============================================================================================================================================
@@ -534,7 +522,7 @@ class GameWindow(QMainWindow):
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
                             else:
                                 addTextBox(gameScreenWindow,"{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))   
-
+                                Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
 
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)               
                     return

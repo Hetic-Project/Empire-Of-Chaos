@@ -2,7 +2,7 @@ class Stage:
 
     currentWorld = "grassland"
     currentStage = 1
-    SaveDropItems = []
+    saveDropItems = []
  
     countMonster = 0
     countKey = 0
@@ -874,15 +874,15 @@ class Stage:
     dropInfo = {
         "petite potion de hp": {
             "description": "",
-            "image": "background: url(test/sprites/items/hp_potion.png);"
+            "image": "border-image: url(test/sprites/items/hp_potion.png) 0 0 0 0 no-repeat streach streach;" 
         },
         "petit bouclier": {
             "description": "",
-            "image": "background: url(test/sprites/items/petit_bouclier.png);"
+            "image": "border-image: url(test/sprites/items/petit_bouclier.png) 0 0 0 0 no-repeat streach streach;"
         },
         "clée du donjon": {
             "description": "",
-            "image": "background: url(test/sprites/items/dunjon_key.png);"
+            "image": "border-image: url(test/sprites/items/dunjon_key.png) 0 0 0 0 no-repeat streach streach;"
         }
 
     }

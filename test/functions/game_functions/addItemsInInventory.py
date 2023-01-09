@@ -7,7 +7,7 @@ def addItemsInInventory(MapCellInventory):
 
     count = 0
     
-    for i in Stage.SaveDropItems:
+    for i in Stage.saveDropItems:
         ItemImage = MapCellInventory[count][0]
         ItemImage.setGeometry(0 ,0 , 40 , 40)
         ItemImage.setStyleSheet(i)
