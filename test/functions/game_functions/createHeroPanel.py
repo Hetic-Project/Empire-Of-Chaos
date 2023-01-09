@@ -22,7 +22,7 @@ def createHeroPanel(gameWindow):
     labelPV.setStyleSheet("border: none")
 
     progressPV = QProgressBar(heroPanel)
-    progressPV.setValue((Hero.life*100) / Hero.life)
+    progressPV.setValue(Hero.progressHeroPv)
     progressPV.setGeometry(240, 35, 100, 20)
     progressPV.setStyleSheet("text-align: center")
 

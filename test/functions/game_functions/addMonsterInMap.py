@@ -19,7 +19,8 @@ def addMonsterInMap(mapCell, world, stage):
             "life": Stage.world[world]["stages"][stage]["monsters"]["life"],
             "strength": Stage.world[world]["stages"][stage]["monsters"]["strength"],
             "defense": Stage.world[world]["stages"][stage]["monsters"]["defense"],
-            "level": Stage.world[world]["stages"][stage]["monsters"]["level"],   
+            "level": Stage.world[world]["stages"][stage]["monsters"]["level"],
+            "progressPV": Stage.world[world]["stages"][stage]["monsters"]["progressPV"] 
         })   
         
         if m[0] == Hero.y and m[1] == Hero.x+1:

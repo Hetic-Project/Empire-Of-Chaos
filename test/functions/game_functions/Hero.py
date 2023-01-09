@@ -4,8 +4,9 @@ class Hero:
     # Status du héro
     level = 1
     life = 100
+    progressHeroPv = 100
     strength = 50
-    defense = 50
+    defense = 30
     exp = 0
 
     # Coordonné du héro sur la map

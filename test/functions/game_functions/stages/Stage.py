@@ -1,12 +1,10 @@
 class Stage:
 
-    currentWorld = "iceland"
+    currentWorld = "lavaland"
     currentStage = 1
  
     countMonster = 0
     countKey = 0
-
-    worldSelection = ["grassland", "iceland", "lavaland", "cloudland", "demonicland"]
 
     world = {
         "grassland":{
@@ -21,7 +19,8 @@ class Stage:
                     "monsters": {
                         "name": "Orc",
                         "life": 25,
-                        "strength": 35,
+                        "progressPV": 100,
+                        "strength": 50,
                         "defense": 10,
                         "level": 1,
                         "info": [],
@@ -194,18 +193,19 @@ class Stage:
                     "monsters": {
                         "name": "Slime",
                         "life": 25,
+                        "progressPV": 100,
                         "strength": 35,
                         "defense": 10,
                         "level": 1,  
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
-                        "front": "background: url(test/sprites/monsters/monster-stage1_front-left.png);" "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage1_right-back.png);" "background-position: bottom",
-                        "left": "background: url(test/sprites/monsters/monster-stage1_front-left.png);" "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage1_right-back.png);" "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage1.png);",
+                        "front": "background: url(test/sprites/monsters/monster-stage2_front-left.png);" "background-position: top",
+                        "back": "background: url(test/sprites/monsters/monster-stage2_right-back.png);" "background-position: bottom",
+                        "left": "background: url(test/sprites/monsters/monster-stage2_front-left.png);" "background-position: bottom",
+                        "right": "background: url(test/sprites/monsters/monster-stage2_right-back.png);" "background-position: top",
+                        "face": "background: url(test/sprites/monsters/monster-face_stage2.png);",
+                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage2.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
@@ -365,18 +365,19 @@ class Stage:
                     "monsters": {
                         "name": "Chimère",
                         "life": 25,
+                        "progressPV": 100,
                         "strength": 35,
                         "defense": 10,
                         "level": 1,                      
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
-                        "front":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: bottom",
-                        "left":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage1.png);",
+                        "front":"background: url(test/sprites/monsters/monster-stage3_front-left.png);"  "background-position: top",
+                        "back": "background: url(test/sprites/monsters/monster-stage3_right-back.png);"  "background-position: bottom",
+                        "left":"background: url(test/sprites/monsters/monster-stage3_front-left.png);"  "background-position: bottom",
+                        "right": "background: url(test/sprites/monsters/monster-stage3_right-back.png);"  "background-position: top",
+                        "face": "background: url(test/sprites/monsters/monster-face_stage3.png);",
+                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage3.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
@@ -536,18 +537,19 @@ class Stage:
                     "monsters": {
                         "name": "Chien-Dragon",
                         "life": 25,
+                        "progressPV": 100,
                         "strength": 35,
                         "defense": 10,
                         "level": 1,                      
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
-                        "front":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: bottom",
-                        "left":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage1.png);",
+                        "front":"background: url(test/sprites/monsters/monster-stage4_front-left.png);"  "background-position: top",
+                        "back": "background: url(test/sprites/monsters/monster-stage4_right-back.png);"  "background-position: bottom",
+                        "left":"background: url(test/sprites/monsters/monster-stage4_front-left.png);"  "background-position: bottom",
+                        "right": "background: url(test/sprites/monsters/monster-stage4_right-back.png);"  "background-position: top",
+                        "face": "background: url(test/sprites/monsters/monster-face_stage4.png);",
+                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage4.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
@@ -707,18 +709,19 @@ class Stage:
                     "monsters": {
                         "name": "Diablotin",
                         "life": 25,
+                        "progressPV": 100,
                         "strength": 35,
                         "defense": 10,
                         "level": 1,                      
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
-                        "front":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: bottom",
-                        "left":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage1.png);",
+                        "front":"background: url(test/sprites/monsters/monster-stage5_front-left.png);"  "background-position: top",
+                        "back": "background: url(test/sprites/monsters/monster-stage5_right-back.png);"  "background-position: bottom",
+                        "left":"background: url(test/sprites/monsters/monster-stage5_front-left.png);"  "background-position: bottom",
+                        "right": "background: url(test/sprites/monsters/monster-stage5_right-back.png);"  "background-position: top",
+                        "face": "background: url(test/sprites/monsters/monster-face_stage5.png);",
+                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage5.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
