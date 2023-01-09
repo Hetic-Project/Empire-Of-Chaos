@@ -2,6 +2,7 @@ class Stage:
 
     currentWorld = "iceland"
     currentStage = 1
+    SaveDropItems = []
  
     countMonster = 0
     countKey = 0

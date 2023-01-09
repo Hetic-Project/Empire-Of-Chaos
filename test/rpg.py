@@ -357,7 +357,7 @@ class GameWindow(QMainWindow):
                             else:
                                 addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))    
 
-                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)               
+                            drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)               
                     return
 #==========================================================================================================================================
 #Monter===========================================================================================================================================
@@ -392,7 +392,7 @@ class GameWindow(QMainWindow):
                             else:
                                 addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))    
 
-                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
+                            drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
 
                         time.sleep(2)
 
