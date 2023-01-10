@@ -57,6 +57,7 @@ class GameWindow(QMainWindow):
             generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
             centralArea = centralWindow(self)
             gameWindow = gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+            createHeroPanel(gameWindow)
             addPanelGoals(
                 gameWindow, 
                 Stage.countMonster, 
@@ -182,7 +183,7 @@ class GameWindow(QMainWindow):
                     for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
                         if i["y"] == Hero.y and i["x"] == Hero.x+1:
                             # Voire les stats du monstre
-                            if i["life"] > 0 :
+                            if i["life"] > 0:
                                 createMonsterPanel(
                                     gameScreenWindow, 
                                     i["name"],
@@ -329,35 +330,21 @@ class GameWindow(QMainWindow):
             for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
 
                 if i["y"] == Hero.y and i["x"] == Hero.x+1:
-                    createMonsterPanel(
-                        gameScreenWindow, 
-                        i["name"],
-                        i["life"],
-                        i["strength"], 
-                        i["defense"], 
-                        i["level"], 
-                        i["progressPV"],
-                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
-        
-                    )
-
-
-                    if i["life"] <= 0:
-                        print("le monstre est mort")
-                        addAttackIndication(gameScreenWindow, "white")
-                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
-                        return
-
-                    else:
-   
+                                  
                         attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
                         i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
 
-                        hit = QWidget(mapCell[i["y"]][i["x"]])
-                        hit.setGeometry(0,0,100,100)
-                        hit.setStyleSheet("border: 1px solid black ")
-
+                        createMonsterPanel(
+                        gameScreenWindow, 
+                            i["name"],
+                            i["life"],
+                            i["strength"], 
+                            i["defense"], 
+                            i["level"], 
+                            i["progressPV"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],       
+                        )
 
                         addTextBox(gameScreenWindow,"vous attaquer le monstre et lui infliger au monstre {} de dégats".format(attack))
 
@@ -369,45 +356,54 @@ class GameWindow(QMainWindow):
                         Hero.life = Hero.life - attackBack
                         Hero.progressHeroPv = Hero.progressHeroPv - ((attackBack*100)/Hero.life)
 
+                        createHeroPanel(gameScreenWindow)
+
                         addTextBox(gameScreenWindow,"Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
 
                         if i["life"] <= 0:
 
-                            print(i)
-                            addTextBox(gameScreenWindow,"bravos le monstre a été vaincu, vous avez gagner XX d'exp")
-                            RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
                             Stage.countMonster = Stage.countMonster + 1
+
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            )
+
+                            addTextBox(gameScreenWindow,"bravos le monstre a été vaincu, vous avez gagner XX d'exp")
+
+                            
+                            RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
                            
                             if RAND == 0:
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
                             else:
                                 addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                 Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
+                                addInventory(gameScreenWindow)
 
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)               
-                    return
+                        return
 #==========================================================================================================================================
 #Monter===========================================================================================================================================
                 elif i["y"] == Hero.y-1 and i["x"] == Hero.x:
-                    createMonsterPanel(
-                        gameScreenWindow, 
-                        i["name"],
-                        i["life"],
-                        i["strength"], 
-                        i["defense"], 
-                        i["level"], 
-                        i["progressPV"],
-                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
-        
-                    )
-                    if i["life"] <= 0:
-                        addTextBox(gameScreenWindow,"le monstre est mort")
-                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
-                    else:
 
                         attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
                         i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
+
+                        createMonsterPanel(
+                            gameScreenWindow, 
+                            i["name"],
+                            i["life"],
+                            i["strength"], 
+                            i["defense"], 
+                            i["level"], 
+                            i["progressPV"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],       
+                        )
 
                         addTextBox(gameScreenWindow,"vous attaquer le monstre et lui infliger au monstre {} de dégats".format(attack))
 
@@ -417,9 +413,22 @@ class GameWindow(QMainWindow):
                         Hero.life = Hero.life - attackBack
                         Hero.progressHeroPv = Hero.progressHeroPv - ((attackBack*100)/Hero.life)
 
+                        createHeroPanel(gameScreenWindow)
+
                         addTextBox(gameScreenWindow,"Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
 
                         if i["life"] <= 0:
+
+                            Stage.countMonster = Stage.countMonster + 1
+
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            )
+
                             addTextBox(gameScreenWindow,"bravos le monstre a été vaincu, vous avez gagner XX d'exp")
 
                             RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
@@ -429,29 +438,27 @@ class GameWindow(QMainWindow):
                             else:
                                 addTextBox(gameScreenWindow,"{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))  
                                 Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
+                                addInventory(gameScreenWindow)
+
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)               
-                    return
+                        return
 #Bas=============================================================================================================================================
                 elif i["y"] == Hero.y+1 and i["x"] == Hero.x:
-                    createMonsterPanel(
-                        gameScreenWindow, 
-                        i["name"],
-                        i["life"],
-                        i["strength"], 
-                        i["defense"], 
-                        i["level"], 
-                        i["progressPV"],
-                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
-        
-                    )
-
-                    if i["life"] <= 0:
-                        addTextBox(gameScreenWindow,"le monstre est mort")
-                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
-                    else:
+                 
                         attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
                         i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
+
+                        createMonsterPanel(
+                            gameScreenWindow, 
+                            i["name"],
+                            i["life"],
+                            i["strength"], 
+                            i["defense"], 
+                            i["level"], 
+                            i["progressPV"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+                        )
                         
 
                         addTextBox(gameScreenWindow,"vous attaquer le monstre et lui infliger au monstre {} de dégats".format(attack))
@@ -464,42 +471,53 @@ class GameWindow(QMainWindow):
                         Hero.life = Hero.life - attackBack
                         Hero.progressHeroPv = Hero.progressHeroPv - ((attackBack*100)/Hero.life)
 
+                        createHeroPanel(gameScreenWindow)
+
                         addTextBox(gameScreenWindow,"Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
 
                         if i["life"] <= 0:
+
+                            Stage.countMonster = Stage.countMonster + 1
+
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            )
+
                             addTextBox(gameScreenWindow,"bravos le monstre a été vaincu, vous avez gagner XX d'exp")
 
                             RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
-                            Stage.countMonster = Stage.countMonster + 1
+                           
                            
                             if RAND == 0:
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
                             else:
                                 addTextBox(gameScreenWindow,"{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))  
                                 Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
+                                addInventory(gameScreenWindow)
+
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)               
-                    return
+                        return
 #Gauche============================================================================================================================================
                 elif i["y"] == Hero.y and i["x"] == Hero.x-1:
-                    createMonsterPanel(
-                        gameScreenWindow, 
-                        i["name"],
-                        i["life"],
-                        i["strength"], 
-                        i["defense"], 
-                        i["level"], 
-                        i["progressPV"],
-                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
-        
-                    )
-                    if i["life"] <= 0:
-                        addTextBox(gameScreenWindow,"le monstre est mort")
-                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
-                    else:
 
                         attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                         i["life"] = i["life"] - attack
                         i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
+
+                        createMonsterPanel(
+                            gameScreenWindow, 
+                            i["name"],
+                            i["life"],
+                            i["strength"], 
+                            i["defense"], 
+                            i["level"], 
+                            i["progressPV"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+                        )
 
                         addTextBox(gameScreenWindow,"vous attaquer le monstre et lui infliger au monstre {} de dégats".format(attack))
 
@@ -511,21 +529,35 @@ class GameWindow(QMainWindow):
                         Hero.life = Hero.life - attackBack
                         Hero.progressHeroPv = Hero.progressHeroPv - ((attackBack*100)/Hero.life)
 
+                        createHeroPanel(gameScreenWindow)
+
                         addTextBox(gameScreenWindow,"Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
 
                         if i["life"] <= 0:
-                            addTextBox(gameScreenWindow,"bravos le monstre a été vaincu, vous avez gagner XX d'exp")
-                            RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
+
                             Stage.countMonster = Stage.countMonster + 1
+
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            )
+
+                            addTextBox(gameScreenWindow,"bravos le monstre a été vaincu, vous avez gagner XX d'exp")
+
+                            RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
                             
                             if RAND == 0:
                                 addTextBox(gameScreenWindow,"aucun objet reçus !")
                             else:
                                 addTextBox(gameScreenWindow,"{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))   
                                 Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
+                                addInventory(gameScreenWindow)
 
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)               
-                    return
+                        return
 
 
 if __name__ == "__main__":

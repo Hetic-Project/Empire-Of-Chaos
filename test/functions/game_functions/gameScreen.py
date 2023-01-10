@@ -14,7 +14,6 @@ def gameScreen(world, stage, centralArea, text):
     gameWindow.setGeometry(0, 0, 1300, 700)
 
     drawGameMap(world, stage, gameWindow, Hero.front)
-    createHeroPanel(gameWindow)
     addTextBox(gameWindow, text)
     addInventory(gameWindow)
     return gameWindow
