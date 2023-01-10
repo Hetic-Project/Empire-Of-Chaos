@@ -3,7 +3,7 @@ import sys
 import time
 import random
 from PySide6.QtCore import Signal
-from PySide6.QtGui import QIcon, QFont
+from PySide6.QtGui import QIcon, QFont, QFontDatabase
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
 from functions.interface_functions.centralWindow import *
 from functions.game_functions.stages.Stage import *
@@ -27,10 +27,24 @@ class WelcomeDialog(QDialog):
         self.setWindowTitle("Game Info")
         self.setMinimumSize(600, 250)
         self.setWindowIcon(QIcon("test/icons/rpg.png"))
+        self.setStyleSheet("background-color: #000000;")
         welcome_label = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir \nles 4 clés dispersés dans les 4 biomes que vous devrez explorer ils sont gouvernés \npar des êtres puissants tout cela pour arriver à vos fins, vaincre Ouroubos, \nune créature terrifiante qui a jadis détruit votre rayaume tout entier,\nvous devez donc partir de rien pour arriver à adoucir \ncette haine que vous avez depuis tant d'années.", self)
         welcome_label.move(90, 50)
+        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        welcome_label.setFont(QFont("Yeon Sung"))
+        welcome_label.setStyleSheet("color: white;")
         close_button = QPushButton("Fermer", self)
         close_button.move(250, 200)
+        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        close_button.setFont(QFont("Yeon Sung"))
+        close_button.setStyleSheet(f"""
+                QPushButton {{
+                            color: white;
+                            font-size: 18px;
+                            background: none;
+                            border: none;}}
+                }}
+            """)
         close_button.clicked.connect(self.close)
 
     def close_game(self):
@@ -41,6 +55,7 @@ class WelcomeDialog(QDialog):
 class GameWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.main_menu = self
 
         self.setWindowTitle("Empire Of Chaos")
         self.setMinimumSize(1275, 1000)
@@ -74,29 +89,30 @@ class GameWindow(QMainWindow):
             credits_window.setWindowIcon(QIcon("test/icons/rpg.png"))
             credits_label = QLabel("Développeurs : \n\n\nWilliam Vandal\nLucas Yalman\nMohamed Yaich\nKen's", credits_window)
             credits_label.move(250, 50)
-            credits_label.setStyleSheet("color : white;" "background : black;")
+            id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+            credits_label.setFont(QFont("Yeon Sung", 10))
+            credits_window.setStyleSheet("color : white;" "background : black;")
             credits_window.show()
             close_game_signal.connect(show_credits)
 
 
-        font = QFont(" ")
-
         panelMainTitle = QWidget(self)
-        panelMainTitle.setGeometry(0, 0, 1175, 900)
+        panelMainTitle.setGeometry(0, 0, 1275, 900)
         panelMainTitle.setStyleSheet("background: url(home.jpg) no-repeat center;")
 
         StartGame = QPushButton("Start", panelMainTitle)
-        StartGame.setGeometry(435, 360, 300, 40)
+        StartGame.setGeometry(500, 340, 300, 40)
         StartGame.clicked.connect(launchGame)
+        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        StartGame.setFont(QFont("Yeon Sung", 25))
         StartGame.setStyleSheet(f"""
                 QPushButton {{
-                            background : black;
-                            color : white;
-                            border: 2px solid #1e1e2d
+                            background : none;
+                            border: none;}}
                 }}
                 QPushButton:pressed {{
                                     background : white; 
-                                    color: #f31d58; 
+                                    color: #000000; 
                                     font-weight: bold; 
                                     font-size : 18px; 
                                     border: none;
@@ -104,20 +120,19 @@ class GameWindow(QMainWindow):
                                     """)
 
         credits = QPushButton("Credits", panelMainTitle)
-        credits.setGeometry(435, 400, 300, 40)
+        credits.setGeometry(500, 400, 300, 40)
         credits.clicked.connect(show_credits) 
-        credits.setFont(font)
+        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        credits.setFont(QFont("Yeon Sung", 25))
         credits.setStyleSheet("color : white;" "background : black;")
         credits.setStyleSheet(f"""
                 QPushButton {{
-                            background : black;
-                            color : white;
-                            border: 1px solid #ffffff
-                            
+                            background : none;
+                            border: none;}}
                 }}
                 QPushButton:pressed {{
                                     background : white; 
-                                    color: #f31d58; 
+                                    color: #000000; 
                                     font-weight: bold; 
                                     font-size : 18px; 
                                     border: none;
@@ -126,18 +141,17 @@ class GameWindow(QMainWindow):
         
 
         Exit = QPushButton("Exit", panelMainTitle)
-        Exit.setGeometry(435, 440, 300, 40)
-        #Exit.setStyleSheet("background : black;"  "color : white;")
+        Exit.setGeometry(500, 460, 300, 40)
+        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        Exit.setFont(QFont("Yeon Sung", 25))
         Exit.setStyleSheet(f"""
                 QPushButton {{
-                            background : black;
-                            color : white;
-                            border: 2px solid #1e1e2d
-                            
+                            background : none;
+                            border: none;}}
                 }}
                 QPushButton:pressed {{
                                     background : white; 
-                                    color: #f31d58; 
+                                    color: #000000; 
                                     font-weight: bold; 
                                     font-size : 18px; 
                                     border: none;
@@ -147,7 +161,7 @@ class GameWindow(QMainWindow):
 
     def exitGame(self):
         choice = QMessageBox.question(self, "Exit", "Êtes-vous sûrs de vouloir quitter ?",
-                                      QMessageBox.   Yes | QMessageBox.No)
+                                      QMessageBox.Yes | QMessageBox.No)
 
         if choice == QMessageBox.Yes:
             sys.exit()
@@ -181,7 +195,7 @@ class GameWindow(QMainWindow):
                 if "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
                     for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
                         if i["y"] == Hero.y and i["x"] == Hero.x+1:
-                            # Voire les stats du monstre
+                            # Voir les stats du monstre
                             if i["life"] > 0 :
                                 createMonsterPanel(
                                     gameScreenWindow, 
@@ -343,7 +357,6 @@ class GameWindow(QMainWindow):
 
 
                     if i["life"] <= 0:
-                        print("le monstre est mort")
                         addAttackIndication(gameScreenWindow, "white")
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
                         return

@@ -1,2 +1,2 @@
 def pickUpFunction():
-    print("Rammasser")
+    pass
