@@ -207,8 +207,8 @@ class GameWindow(QMainWindow):
                     print("un coffre !")
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
 
-                elif  "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
-                    pass   
+                elif  "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right) 
 
                 else:
                     # et je la redéssine la map avec les nouvelle coordonnée du héro et la direction du sprite
@@ -243,6 +243,10 @@ class GameWindow(QMainWindow):
                 elif "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]):
                     print("un coffre !")
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
+
+                elif  "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
+
                 else:
                     Hero.y = Hero.y - 1
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
@@ -277,6 +281,9 @@ class GameWindow(QMainWindow):
                     print("un coffre !")
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
 
+                elif  "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)  
+
                 else:
                     Hero.y = Hero.y + 1
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
@@ -310,14 +317,17 @@ class GameWindow(QMainWindow):
                     print("un coffre !")
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
 
+                elif  "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)      
 
                 else:
                     Hero.x = Hero.x - 1
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
-#Droite ========================================================================================================================================
-        # si j'appuie sur entrer j'attaque
-        elif event.key() == 16777220 :
 
+        elif event.key() == 16777220 :
+#========================================================================================================================================================================================================
+# GESTION DU SYSTEME DE COMBATS            
+#========================================================================================================================================================================================================
             for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
 
                 if i["y"] == Hero.y and i["x"] == Hero.x+1:
@@ -406,8 +416,7 @@ class GameWindow(QMainWindow):
 
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)               
                         return
-#==========================================================================================================================================
-#Monter===========================================================================================================================================
+
                 elif i["y"] == Hero.y-1 and i["x"] == Hero.x:
 
                     if i["life"] == 0:
@@ -490,7 +499,7 @@ class GameWindow(QMainWindow):
 
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)               
                         return
-#Bas=============================================================================================================================================
+
                 elif i["y"] == Hero.y+1 and i["x"] == Hero.x:
 
                     if i["life"] == 0:
@@ -577,7 +586,7 @@ class GameWindow(QMainWindow):
 
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)               
                         return
-#Gauche============================================================================================================================================
+
                 elif i["y"] == Hero.y and i["x"] == Hero.x-1:
 
                     if i["life"] == 0:
@@ -662,6 +671,9 @@ class GameWindow(QMainWindow):
 
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)               
                         return
+#=========================================================================================================================================================================================================
+# GESTION DES INTERACTIONS AVEC LE COFFRE SUR LA MAP
+#==========================================================================================================================================================================================================            
             for k in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]:
                 if k[0] == Hero.y and k[1] == Hero.x+1:
 
@@ -704,8 +716,7 @@ class GameWindow(QMainWindow):
                             addInventory(gameScreenWindow)
                     else:
                         print("il reste des monstre a tuer") 
-
-                    
+                 
                 elif k[0] == Hero.y+1 and k[1] == Hero.x:
 
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
@@ -734,7 +745,17 @@ class GameWindow(QMainWindow):
                             addInventory(gameScreenWindow)
                     else:
                         print("il reste des monstre a tuer") 
-                
+#========================================================================================================================================================================================================= 
+# GESTION DES INTERACTIONS AVEC LA CASE D ARRIVEE SUR LA MAP           
+#=========================================================================================================================================================================================================            
+            if "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                pass
+            if "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                pass 
+            if "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                pass 
+            if "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                pass     
 
 
 if __name__ == "__main__":
