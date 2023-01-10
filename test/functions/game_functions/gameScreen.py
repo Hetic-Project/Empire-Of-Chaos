@@ -15,7 +15,6 @@ def gameScreen(world, stage, centralArea, text):
     gameWindow.setStyleSheet("background-color: #149414;")
 
     drawGameMap(world, stage, gameWindow, Hero.front)
-    createHeroPanel(gameWindow)
     addTextBox(gameWindow, text)
     addInventory(gameWindow)
     return gameWindow
