@@ -174,10 +174,12 @@ class GameWindow(QMainWindow):
 
         # j'appelle borderMap pour qu'elle soit connue de ma fonction keyPressEvent
         mapCell = drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)[1]
-       
-        # aller a droite
-        if event.key() == 16777236:  # si l'utilisateur appuie sur la fleche droite
-            # cette ligne empèche le personnage de sortir de la map
+#===========================================================================================================================================================================================================
+# GESTION DES MOUVEMENTS DU HERO SUR LA MAP
+#==========================================================================================================================================================================================================       
+        
+        # DROITE
+        if event.key() == 16777236:
             if Hero.x <= 12:
                 if "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
                     for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
@@ -211,11 +213,11 @@ class GameWindow(QMainWindow):
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right) 
 
                 else:
-                    # et je la redéssine la map avec les nouvelle coordonnée du héro et la direction du sprite
+                   
                     Hero.x = Hero.x + 1 
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
 
-        # monter
+        # HAUT
         elif event.key() == 16777235:
             if Hero.y > 0:
                 if "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
@@ -251,7 +253,7 @@ class GameWindow(QMainWindow):
                     Hero.y = Hero.y - 1
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
 
-        # descendre
+        # BAS
         elif event.key() == 16777237:
             if Hero.y <= 8:
                 if "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
@@ -288,7 +290,7 @@ class GameWindow(QMainWindow):
                     Hero.y = Hero.y + 1
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
 
-        # aller a gauche
+        # GAUCHE
         elif event.key() == 16777234:
             if Hero.x > 0:
                 if "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
@@ -325,11 +327,15 @@ class GameWindow(QMainWindow):
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
 
         elif event.key() == 16777220 :
+
 #========================================================================================================================================================================================================
 # GESTION DU SYSTEME DE COMBATS            
 #========================================================================================================================================================================================================
+
+            # EVENT SUR LA TOUCHE ENTRER
             for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
 
+                # DROITE
                 if i["y"] == Hero.y and i["x"] == Hero.x+1:
 
                     if i["life"] == 0:
@@ -417,6 +423,7 @@ class GameWindow(QMainWindow):
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)               
                         return
 
+                # HAUT
                 elif i["y"] == Hero.y-1 and i["x"] == Hero.x:
 
                     if i["life"] == 0:
@@ -500,6 +507,7 @@ class GameWindow(QMainWindow):
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)               
                         return
 
+                # BAS
                 elif i["y"] == Hero.y+1 and i["x"] == Hero.x:
 
                     if i["life"] == 0:
@@ -587,6 +595,7 @@ class GameWindow(QMainWindow):
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)               
                         return
 
+                # GAUCHE
                 elif i["y"] == Hero.y and i["x"] == Hero.x-1:
 
                     if i["life"] == 0:
@@ -671,10 +680,15 @@ class GameWindow(QMainWindow):
 
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)               
                         return
+
 #=========================================================================================================================================================================================================
 # GESTION DES INTERACTIONS AVEC LE COFFRE SUR LA MAP
-#==========================================================================================================================================================================================================            
+#==========================================================================================================================================================================================================
+            
+            # EVENT SUR LA TOUCHE ENTRER
             for k in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]:
+
+                # DROITE
                 if k[0] == Hero.y and k[1] == Hero.x+1:
 
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
@@ -700,8 +714,9 @@ class GameWindow(QMainWindow):
 
 
                     else:
-                        print("il reste des monstre a tuer")    
-                    
+                        print("il reste des monstre a tuer")
+
+                # HAUT    
                 elif k[0] == Hero.y-1 and k[1] == Hero.x:
 
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
@@ -716,7 +731,8 @@ class GameWindow(QMainWindow):
                             addInventory(gameScreenWindow)
                     else:
                         print("il reste des monstre a tuer") 
-                 
+
+                # BAS 
                 elif k[0] == Hero.y+1 and k[1] == Hero.x:
 
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
@@ -730,7 +746,8 @@ class GameWindow(QMainWindow):
                             addInventory(gameScreenWindow)
                     else:
                         print("il reste des monstre a tuer") 
-                    
+
+                # GAUCHE    
                 elif k[0] == Hero.y and k[1] == Hero.x-1:
 
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
@@ -745,15 +762,26 @@ class GameWindow(QMainWindow):
                             addInventory(gameScreenWindow)
                     else:
                         print("il reste des monstre a tuer") 
+
 #========================================================================================================================================================================================================= 
 # GESTION DES INTERACTIONS AVEC LA CASE D ARRIVEE SUR LA MAP           
-#=========================================================================================================================================================================================================            
+#=========================================================================================================================================================================================================
+
+            # EVENT SUR LA TOUCHE ENTRER
+            
+            #  DROITE            
             if "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
                 pass
+
+            # HAUT
             if "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
                 pass 
+
+            # BAS
             if "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
-                pass 
+                pass
+
+            # GAUCHE 
             if "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
                 pass     
 
