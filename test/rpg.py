@@ -207,6 +207,9 @@ class GameWindow(QMainWindow):
                     print("un coffre !")
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
 
+                elif  "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                    pass   
+
                 else:
                     # et je la redéssine la map avec les nouvelle coordonnée du héro et la direction du sprite
                     Hero.x = Hero.x + 1 
@@ -319,7 +322,7 @@ class GameWindow(QMainWindow):
 
                 if i["y"] == Hero.y and i["x"] == Hero.x+1:
 
-                    if i["life"] <= 0:
+                    if i["life"] == 0:
                         print("le monstre est mort")
 
                     else:              
@@ -407,7 +410,7 @@ class GameWindow(QMainWindow):
 #Monter===========================================================================================================================================
                 elif i["y"] == Hero.y-1 and i["x"] == Hero.x:
 
-                    if i["life"] <= 0:
+                    if i["life"] == 0:
                         print("le monstre est mort")
                         
                     else:
@@ -490,7 +493,7 @@ class GameWindow(QMainWindow):
 #Bas=============================================================================================================================================
                 elif i["y"] == Hero.y+1 and i["x"] == Hero.x:
 
-                    if i["life"] <= 0:
+                    if i["life"] == 0:
                         print("le monstre est mort")
                         
                     else:
@@ -577,7 +580,7 @@ class GameWindow(QMainWindow):
 #Gauche============================================================================================================================================
                 elif i["y"] == Hero.y and i["x"] == Hero.x-1:
 
-                    if i["life"] <= 0:
+                    if i["life"] == 0:
                         print("le monstre est mort")
                         
                     else:

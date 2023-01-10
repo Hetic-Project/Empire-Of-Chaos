@@ -46,7 +46,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_green-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_green-door.png);"
                     },
                 },
 
@@ -79,7 +80,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -112,7 +114,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -145,11 +148,12 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
-                "Finalstage" : {
+                "stage 5" : {
 
                     "name": "Grassland : Stage final",
                     "description": "",
@@ -179,7 +183,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -225,7 +230,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -258,7 +264,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -291,7 +298,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -324,11 +332,12 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
-                "Finalstage" : {
+                "stage 5" : {
 
                     "name": "",
                     "description": "",
@@ -358,7 +367,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
             },
@@ -402,7 +412,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -435,7 +446,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -468,7 +480,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -501,11 +514,12 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
-                "Finalstage" : {
+                "stage 5" : {
 
                     "name": "",
                     "description": "",
@@ -535,7 +549,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
             },
@@ -579,7 +594,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -612,7 +628,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -645,7 +662,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -678,11 +696,12 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
-                "Finalstage" : {
+                "stage 5" : {
 
                     "name": "",
                     "description": "",
@@ -712,7 +731,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
             },
@@ -756,7 +776,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -789,7 +810,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -822,7 +844,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -855,11 +878,12 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
-                "Finalstage" : {
+                "stage 5" : {
 
                     "name": "",
                     "description": "",
@@ -889,7 +913,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
             },
