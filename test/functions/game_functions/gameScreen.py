@@ -8,12 +8,12 @@ from functions.game_functions.addTextBox import *
 from functions.game_functions.addPanelGoals import *
 
 
-def gameScreen(world, stage, centralArea, text):
+def gameScreen(world, stage, centralArea):
 
     gameWindow = QWidget(centralArea)
     gameWindow.setGeometry(0, 0, 1300, 1100)
 
     drawGameMap(world, stage, gameWindow, Hero.front)
-    addTextBox(gameWindow, text)
+    addTextBox(gameWindow)
     addInventory(gameWindow)
     return gameWindow

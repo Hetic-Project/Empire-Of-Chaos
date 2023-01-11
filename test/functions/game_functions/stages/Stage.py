@@ -1,9 +1,10 @@
 class Stage:
 
-    currentWorld = "demonicland"
+    currentWorld = "grassland"
     currentStage = 1
     saveDropItems = []
     isOpen = False
+    messageTab = []
  
     countMonster = 0
     countKey = 0
