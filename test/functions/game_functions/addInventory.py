@@ -21,13 +21,15 @@ def addInventory(gameWindow) :
     limiteInventaire.setStyleSheet("border : none;")
 
 
-    for y in range(14) :
+    for y in range(4) :
         Y = QWidget(limiteInventaire)
         Y.setGeometry(29 , yPosition , 325 , 40)
         Y.setStyleSheet("border : none;")
         yPosition = yPosition + 44
         
         rowInventory.append(Y)
+
+
     
     for i in rowInventory:
         # a chaque itération j'appel la fonction createCellInYPosition qui

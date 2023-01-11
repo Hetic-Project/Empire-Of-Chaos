@@ -17,6 +17,7 @@ def addTextBox(gameWindow, text):
             border: 3px solid #ffffff;
             border-radius: 10px;
             background : white;
-            font-size: 12px;
+            font-size: 14px;
             background-attachment: scroll;
+            font-weight : bold;
         """)
