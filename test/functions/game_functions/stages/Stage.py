@@ -17,7 +17,8 @@ class Stage:
 
                     "name": "Grassland : Stage 1",
                     "description": "",
-                    "background": "border: 1px solid black;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center;",
+                    "top-background": "background: url(test/images/map/top-grassland.png) no-repeat center center;",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center;",
                     "monsters": {
                         "name": "Orc",
                         "life": 25,
@@ -56,9 +57,15 @@ class Stage:
 
                     "name": "Grassland : Stage 2",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-grassland.png) no-repeat center center;",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center;",
                     "monsters": {
-                        "name": "",
+                        "name": "Orc",
+                        "life": 30,
+                        "progressPV": 100,
+                        "strength": 55,
+                        "defense": 15,
+                        "level": 2,
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
@@ -81,8 +88,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_green-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_green-door.png);"
                     },
                 },
 
@@ -90,9 +97,15 @@ class Stage:
 
                     "name": "Grassland : Stage 3",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-grassland-stage3_4.png) no-repeat center center;",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/grassland-stage3_4.png) no-repeat center center;",
                     "monsters": {
                         "name": "",
+                        "life": 35,
+                        "progressPV": 100,
+                        "strength": 60,
+                        "defense": 20,
+                        "level": 3,
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
@@ -115,8 +128,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_green-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_green-door.png);"
                     },
                 },
 

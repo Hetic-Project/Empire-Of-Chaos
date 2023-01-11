@@ -16,10 +16,12 @@ def drawGameMap(world, stage, gameWindow, heroDirection):
 
     
 
-    # borderMap définie les bordures de la map
-    global borderMap
+    mapTop = QWidget(gameWindow)
+    mapTop.setGeometry(37, 37, 689, 400)
+    mapTop.setStyleSheet(Stage.world[world]["stages"][stage]["top-background"])
+
     borderMap = QWidget(gameWindow)
-    borderMap.setGeometry(0, 0, 763, 565)
+    borderMap.setGeometry(0, 125, 763, 565)
     borderMap.setStyleSheet(Stage.world[world]["stages"][stage]["background"])
 
     # dans borderMap je crée 10 ligne
@@ -27,7 +29,7 @@ def drawGameMap(world, stage, gameWindow, heroDirection):
 
         Y = QWidget(borderMap)
         Y.setGeometry(0, yPosition, 763, 123)
-        Y.setStyleSheet("border: 1px solid black;" "background: none")
+        Y.setStyleSheet("border: none;" "background: none")
         yPosition = yPosition + 49
         y = y + 1
 

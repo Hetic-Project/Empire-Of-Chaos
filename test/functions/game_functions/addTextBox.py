@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QWidget, QLabel, QTextEdit, QLineEdit
 
 def addTextBox(gameWindow, text):
     box = QWidget(gameWindow)
-    box.setGeometry(35, 540, 690, 150)
+    box.setGeometry(35, 680, 690, 150)
     box.setStyleSheet(""" background : #ffffff; border-radius: 10px;""")
 
     message = QTextEdit("{}".format(text),box) 
