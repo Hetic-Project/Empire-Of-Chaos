@@ -1,2 +1,0 @@
-def pickUpFunction():
-    print("Rammasser")
