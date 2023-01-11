@@ -42,7 +42,7 @@ class WelcomeDialog(QDialog):
                             font-size: 18px;
                             background: none;
                             border: none;}}
-                }}
+                
             """)
         close_button.clicked.connect(self.close)
 
@@ -109,7 +109,7 @@ class GameWindow(QMainWindow):
                 QPushButton {{
                             background : none;
                             border: none;}}
-                }}
+                
                 QPushButton:pressed {{
                                     background : white; 
                                     color: #000000; 
@@ -129,7 +129,7 @@ class GameWindow(QMainWindow):
                 QPushButton {{
                             background : none;
                             border: none;}}
-                }}
+                
                 QPushButton:pressed {{
                                     background : white; 
                                     color: #000000; 
@@ -148,7 +148,7 @@ class GameWindow(QMainWindow):
                 QPushButton {{
                             background : none;
                             border: none;}}
-                }}
+                
                 QPushButton:pressed {{
                                     background : white; 
                                     color: #000000; 
