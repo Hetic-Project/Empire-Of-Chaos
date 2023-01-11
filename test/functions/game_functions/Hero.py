@@ -1,4 +1,7 @@
 # Une class qui gère le statu du héro et ces coordonnées sur la map
+from functions.game_functions.stages.Stage import *
+
+
 class Hero:
 
     # Status du héro
@@ -10,9 +13,8 @@ class Hero:
     exp = 0
     progressEXP = 0
 
-    # Coordonné du héro sur la map
     x = 0
-    y = 0
+    y = 1    
 
     front = "background: url(test/sprites/hero/Hero_front-left-right.png);" + \
         "background-position: center"

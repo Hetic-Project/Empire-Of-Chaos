@@ -179,126 +179,90 @@ class GameWindow(QMainWindow):
         
         # FLECHE DE DROITE
         if event.key() == 16777236:
-            if Hero.x <= 12:
-                if "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
-                    for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
-                        if i["y"] == Hero.y and i["x"] == Hero.x+1:
-                            # Voire les stats du monstre
-                            if i["life"] > 0:
-                                createMonsterPanel(
-                                    gameScreenWindow, 
-                                    i["name"],
-                                    i["life"],
-                                    i["strength"], 
-                                    i["defense"], 
-                                    i["level"], 
-                                    i["progressPV"],
-                                    Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
-                                
-                                )
-            
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
-                                return
-                            else:
-                                Hero.x = Hero.x + 1 
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)  
-                                return
+            if Stage.currentStage < 5 :
+                if Hero.x <= 12:
+                    if "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
+                        for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
+                            if i["y"] == Hero.y and i["x"] == Hero.x+1:
+                                # Voire les stats du monstre
+                                if i["life"] > 0:
+                                    createMonsterPanel(
+                                        gameScreenWindow, 
+                                        i["name"],
+                                        i["life"],
+                                        i["strength"], 
+                                        i["defense"], 
+                                        i["level"], 
+                                        i["progressPV"],
+                                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+                                    
+                                    )
+                
+                                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
+                                    return
+                                else:
+                                    Hero.x = Hero.x + 1 
+                                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)  
+                                    return
 
-                elif "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]):
-                    print("un coffre !")
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
+                    elif "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]):
+                        print("un coffre !")
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
 
-                elif  "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right) 
+                    elif  "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right) 
 
-                elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
-                    print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
+                    elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                        print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
 
-                    Stage.currentStage = Stage.currentStage + 1
-                    Hero.y = 0
-                    Hero.x = 0
-                    Stage.isOpen = False
-                    Stage.countKey = 0
-                    Stage.countMonster = 0
+                        Stage.currentStage = Stage.currentStage + 1
+                        Hero.y = 0
+                        Hero.x = 0
+                        Stage.isOpen = False
+                        Stage.countKey = 0
+                        Stage.countMonster = 0
 
-                    generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                    gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
-                    createHeroPanel(gameScreenWindow, Hero.life)
-                    addPanelGoals(
-                        gameScreenWindow, 
-                        Stage.countMonster, 
-                        Stage.currentWorld, 
-                        "stage {}".format(Stage.currentStage), 
-                        Stage.countKey
-                    )
+                        generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        addPanelGoals(
+                            gameScreenWindow, 
+                            Stage.countMonster, 
+                            Stage.currentWorld, 
+                            "stage {}".format(Stage.currentStage), 
+                            Stage.countKey
+                        )
 
-                else:
+                    else:
+                        Hero.x = Hero.x + 1 
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
+            else: 
+                if Hero.x <= 12:
                     Hero.x = Hero.x + 1 
+                    if Hero.x == 6 and Hero.y == 1:
+                        createMonsterPanel(
+                            gameScreenWindow, 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["name"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["life"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["strength"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["defense"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["level"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["progressPV"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["face"],
+                        )
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
+                else:
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
+
 
         # FLECHE DU HAUT
         elif event.key() == 16777235:
-            if Hero.y > 0:
-                if "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
-                    for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
-                        if i["y"] == Hero.y-1 and i["x"] == Hero.x:
-                            if i["life"] > 0 :
-                                createMonsterPanel(
-                                    gameScreenWindow, 
-                                    i["name"],
-                                    i["life"],
-                                    i["strength"], 
-                                    i["defense"], 
-                                    i["level"], 
-                                    i["progressPV"],
-                                    Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
-                                
-                                )
-                
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
-                            else:
-                                Hero.y = Hero.y -1
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
-                            return
 
-                elif "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]):
-                    print("un coffre !")
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
-
-                elif  "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
-
-                elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
-                    print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
-
-                    Stage.currentStage = Stage.currentStage + 1
-                    Hero.y = 0
-                    Hero.x = 0
-                    Stage.isOpen = False
-                    Stage.countKey = 0
-                    Stage.countMonster = 0
-
-                    generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                    gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
-                    createHeroPanel(gameScreenWindow, Hero.life)
-                    addPanelGoals(
-                        gameScreenWindow, 
-                        Stage.countMonster, 
-                        Stage.currentWorld, 
-                        "stage {}".format(Stage.currentStage), 
-                        Stage.countKey
-                    )
-
-                else:
-                    Hero.y = Hero.y - 1
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
-
-        # FLECHE DU BAS
-        elif event.key() == 16777237:
-            if Hero.y <= 3:
-                if "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
-                    for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
-                            if i["y"] == Hero.y+1 and i["x"] == Hero.x:
+            if Stage.currentStage < 5 :
+                if Hero.y > 0:
+                    if "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
+                        for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
+                            if i["y"] == Hero.y-1 and i["x"] == Hero.x:
                                 if i["life"] > 0 :
                                     createMonsterPanel(
                                         gameScreenWindow, 
@@ -309,107 +273,230 @@ class GameWindow(QMainWindow):
                                         i["level"], 
                                         i["progressPV"],
                                         Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
-                                        
+                                    
                                     )
                     
-                                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
-
+                                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
                                 else:
-                                    Hero.y = Hero.y + 1 
-                                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)    
+                                    Hero.y = Hero.y -1
+                                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
                                 return
 
-                elif "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]):
-                    print("un coffre !")
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
+                    elif "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]):
+                        print("un coffre !")
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
 
-                elif  "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)  
+                    elif  "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
 
-                elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
-                    print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld)) 
-                    
-                    Stage.currentStage = Stage.currentStage + 1
-                    Hero.y = 0
-                    Hero.x = 0
-                    Stage.isOpen = False
-                    Stage.countKey = 0
-                    Stage.countMonster = 0
+                    elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                        print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
 
-                    generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                    gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
-                    createHeroPanel(gameScreenWindow, Hero.life)
-                    addPanelGoals(
-                        gameScreenWindow, 
-                        Stage.countMonster, 
-                        Stage.currentWorld, 
-                        "stage {}".format(Stage.currentStage), 
-                        Stage.countKey
-                    )
+                        Stage.currentStage = Stage.currentStage + 1
+                        Hero.y = 0
+                        Hero.x = 0
+                        Stage.isOpen = False
+                        Stage.countKey = 0
+                        Stage.countMonster = 0
 
+                        generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        addPanelGoals(
+                            gameScreenWindow, 
+                            Stage.countMonster, 
+                            Stage.currentWorld, 
+                            "stage {}".format(Stage.currentStage), 
+                            Stage.countKey
+                        )
 
+                    else:
+                        Hero.y = Hero.y - 1
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
+            else:
+                if Hero.y > 1:
+                    Hero.y = Hero.y - 1
+                    if Hero.x == 6 and Hero.y == 1:
+                        createMonsterPanel(
+                            gameScreenWindow, 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["name"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["life"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["strength"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["defense"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["level"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["progressPV"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["face"],
+                        )
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)  
 
                 else:
+                    if Hero.x == 6 and Hero.y == 1:
+                        createMonsterPanel(
+                            gameScreenWindow, 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["name"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["life"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["strength"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["defense"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["level"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["progressPV"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["face"],
+                        )
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)    
+                    
+
+        # FLECHE DU BAS
+        elif event.key() == 16777237:
+
+            if Stage.currentStage < 5 :
+                if Hero.y <= 3:
+                    if "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
+                        for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
+                                if i["y"] == Hero.y+1 and i["x"] == Hero.x:
+                                    if i["life"] > 0 :
+                                        createMonsterPanel(
+                                            gameScreenWindow, 
+                                            i["name"],
+                                            i["life"],
+                                            i["strength"], 
+                                            i["defense"], 
+                                            i["level"], 
+                                            i["progressPV"],
+                                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+                                            
+                                        )
+                        
+                                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
+
+                                    else:
+                                        Hero.y = Hero.y + 1 
+                                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)    
+                                    return
+
+                    elif "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]):
+                        print("un coffre !")
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
+
+                    elif  "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)  
+
+                    elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                        print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld)) 
+                        
+                        Stage.currentStage = Stage.currentStage + 1
+                        Hero.y = 0
+                        Hero.x = 0
+                        Stage.isOpen = False
+                        Stage.countKey = 0
+                        Stage.countMonster = 0
+
+                        generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        addPanelGoals(
+                            gameScreenWindow, 
+                            Stage.countMonster, 
+                            Stage.currentWorld, 
+                            "stage {}".format(Stage.currentStage), 
+                            Stage.countKey
+                        )
+
+
+
+                    else:
+                        Hero.y = Hero.y + 1
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
+            else :
+                if Hero.y <= 1:
                     Hero.y = Hero.y + 1
+                    if Hero.x == 6 and Hero.y == 1:
+                        createMonsterPanel(
+                            gameScreenWindow, 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["name"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["life"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["strength"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["defense"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["level"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["progressPV"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["face"],
+                        )
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
+                else:
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)    
 
         # FLACHE DE GAUCHE
         elif event.key() == 16777234:
-            if Hero.x > 0:
-                if "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
-                    for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
-                        if i["y"] == Hero.y and i["x"] == Hero.x-1:
-                            if i["life"] > 0 :
-                                createMonsterPanel(
-                                    gameScreenWindow, 
-                                    i["name"],
-                                    i["life"],
-                                    i["strength"], 
-                                    i["defense"], 
-                                    i["level"], 
-                                    i["progressPV"],
-                                    Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
-                                
-                                )
-                
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
-                            else:
-                                Hero.x = Hero.x - 1 
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)    
-                            return
+            if Stage.currentStage < 5 :
+                if Hero.x > 0:
+                    if "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
+                        for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
+                            if i["y"] == Hero.y and i["x"] == Hero.x-1:
+                                if i["life"] > 0 :
+                                    createMonsterPanel(
+                                        gameScreenWindow, 
+                                        i["name"],
+                                        i["life"],
+                                        i["strength"], 
+                                        i["defense"], 
+                                        i["level"], 
+                                        i["progressPV"],
+                                        Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["face"],
+                                    
+                                    )
+                    
+                                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
+                                else:
+                                    Hero.x = Hero.x - 1 
+                                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)    
+                                return
 
-                elif "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]):
-                    print("un coffre !")
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
+                    elif "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["coordinate"]):
+                        print("un coffre !")
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
 
-                elif  "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)      
+                    elif  "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)      
 
-                elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
-                    print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
+                    elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                        print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
 
-                    Stage.currentStage = Stage.currentStage + 1
-                    Hero.y = 0
-                    Hero.x = 0
-                    Stage.isOpen = False
-                    Stage.countKey = 0
-                    Stage.countMonster = 0
+                        Stage.currentStage = Stage.currentStage + 1
+                        Hero.y = 0
+                        Hero.x = 0
+                        Stage.isOpen = False
+                        Stage.countKey = 0
+                        Stage.countMonster = 0
 
-                    generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                    gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
-                    createHeroPanel(gameScreenWindow, Hero.life)
-                    addPanelGoals(
-                        gameScreenWindow, 
-                        Stage.countMonster, 
-                        Stage.currentWorld, 
-                        "stage {}".format(Stage.currentStage), 
-                        Stage.countKey
-                    )
+                        generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        addPanelGoals(
+                            gameScreenWindow, 
+                            Stage.countMonster, 
+                            Stage.currentWorld, 
+                            "stage {}".format(Stage.currentStage), 
+                            Stage.countKey
+                        )
 
-                else:
+                    else:
+                        Hero.x = Hero.x - 1
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
+            else:
+                if Hero.x > 0:
                     Hero.x = Hero.x - 1
+                    if Hero.x == 6 and Hero.y == 1:
+                        createMonsterPanel(
+                            gameScreenWindow, 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["name"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["life"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["strength"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["defense"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["level"], 
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["progressPV"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["face"],
+                        )
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
-
+                else:
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)   
 #===========================================================================================================================================================================================================
 # GESTION DES INTERACTIONS DU HERO AVEC LA TOUCHE ENTRER
 #=========================================================================================================================================================================================================
