@@ -196,13 +196,8 @@ class GameWindow(QMainWindow):
                 if "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
                     for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
                         if i["y"] == Hero.y and i["x"] == Hero.x+1:
-<<<<<<< HEAD
-                            # Voir les stats du monstre
-                            if i["life"] > 0 :
-=======
                             # Voire les stats du monstre
                             if i["life"] > 0:
->>>>>>> 5cdbe51cae4a17bd3d75af63adc73c9dd09be001
                                 createMonsterPanel(
                                     gameScreenWindow, 
                                     i["name"],
@@ -339,13 +334,9 @@ class GameWindow(QMainWindow):
                 if i["y"] == Hero.y and i["x"] == Hero.x+1:
 
                     if i["life"] <= 0:
-<<<<<<< HEAD
                         addAttackIndication(gameScreenWindow, "white")
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
                         return
-=======
-                        print("le monstre est mort")
->>>>>>> 5cdbe51cae4a17bd3d75af63adc73c9dd09be001
 
                     else:              
                         attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
