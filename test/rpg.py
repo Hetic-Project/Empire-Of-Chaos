@@ -9,7 +9,6 @@ from functions.interface_functions.centralWindow import *
 from functions.game_functions.stages.Stage import *
 from functions.game_functions.addMonsterInMap import *
 from functions.game_functions.gameScreen import *
-from functions.game_functions.pickUpFunction import *
 from functions.game_functions.createMonsterPanel import *
 from functions.game_functions.addSprite import *
 from functions.interface_functions.gameMainTitleScreen import *
@@ -175,10 +174,10 @@ class GameWindow(QMainWindow):
         # j'appelle borderMap pour qu'elle soit connue de ma fonction keyPressEvent
         mapCell = drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)[1]
 #===========================================================================================================================================================================================================
-# GESTION DES MOUVEMENTS DU HERO SUR LA MAP
+# GESTION DES MOUVEMENTS DU HERO AVEC LES FLECHES DU CLAVIER
 #==========================================================================================================================================================================================================       
         
-        # DROITE
+        # FLECHE DE DROITE
         if event.key() == 16777236:
             if Hero.x <= 12:
                 if "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
@@ -212,12 +211,27 @@ class GameWindow(QMainWindow):
                 elif  "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right) 
 
+                elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                    print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
+
+                    Stage.currentStage = Stage.currentStage + 1
+
+                    generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                    gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                    createHeroPanel(gameScreenWindow, Hero.life)
+                    addPanelGoals(
+                        gameScreenWindow, 
+                        Stage.countMonster, 
+                        Stage.currentWorld, 
+                        "stage {}".format(Stage.currentStage), 
+                        Stage.countKey
+                    )
+
                 else:
-                   
                     Hero.x = Hero.x + 1 
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
 
-        # HAUT
+        # FLECHE DU HAUT
         elif event.key() == 16777235:
             if Hero.y > 0:
                 if "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
@@ -249,11 +263,14 @@ class GameWindow(QMainWindow):
                 elif  "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
 
+                elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                    print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
+
                 else:
                     Hero.y = Hero.y - 1
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
 
-        # BAS
+        # FLECHE DU BAS
         elif event.key() == 16777237:
             if Hero.y <= 8:
                 if "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
@@ -286,11 +303,14 @@ class GameWindow(QMainWindow):
                 elif  "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)  
 
+                elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                    print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
+
                 else:
                     Hero.y = Hero.y + 1
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
 
-        # GAUCHE
+        # FLACHE DE GAUCHE
         elif event.key() == 16777234:
             if Hero.x > 0:
                 if "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
@@ -322,10 +342,18 @@ class GameWindow(QMainWindow):
                 elif  "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)      
 
+                elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                    print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
+
                 else:
                     Hero.x = Hero.x - 1
                     drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)
 
+#===========================================================================================================================================================================================================
+# GESTION DES INTERACTIONS DU HERO AVEC LA TOUCHE ENTRER
+#=========================================================================================================================================================================================================
+
+        # TOUCHE ENTRER
         elif event.key() == 16777220 :
 
 #========================================================================================================================================================================================================
@@ -729,6 +757,16 @@ class GameWindow(QMainWindow):
                             addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["drop"][0]))
                             Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["drop"][0])]["image"])
                             addInventory(gameScreenWindow)
+
+                            Stage.countKey = Stage.countKey +1
+
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            ) 
                     else:
                         print("il reste des monstre a tuer") 
 
@@ -744,6 +782,16 @@ class GameWindow(QMainWindow):
                             addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["drop"][0]))
                             Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["drop"][0])]["image"])
                             addInventory(gameScreenWindow)
+
+                            Stage.countKey = Stage.countKey +1
+
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            ) 
                     else:
                         print("il reste des monstre a tuer") 
 
@@ -760,6 +808,16 @@ class GameWindow(QMainWindow):
                             addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["drop"][0]))
                             Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["drop"][0])]["image"])
                             addInventory(gameScreenWindow)
+
+                            Stage.countKey = Stage.countKey +1
+
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            ) 
                     else:
                         print("il reste des monstre a tuer") 
 
@@ -771,19 +829,62 @@ class GameWindow(QMainWindow):
             
             #  DROITE            
             if "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
-                pass
+
+                if (Stage.countMonster == len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]) 
+                    and Stage.countKey == len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "chest"]["coordinate"])
+                    ):
+                    Stage.isOpen = True
+                    print("vous avez utiliser la clée pour sortir du portail")
+                    Stage.saveDropItems.remove(Stage.dropInfo["clée du donjon"]["image"])
+                    addInventory(gameScreenWindow)
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
+                else:
+                    print("Vous n'avez pas remplie toute les conditions")    
+                    
 
             # HAUT
             if "[{}, {}]".format(Hero.y-1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
-                pass 
+
+                if (Stage.countMonster == len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]) 
+                    and Stage.countKey == len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "chest"]["coordinate"])
+                    ):
+                    Stage.isOpen = True
+                    print("vous avez utiliser la clée pour sortir du portail")
+                    Stage.saveDropItems.remove(Stage.dropInfo["clée du donjon"]["image"])
+                    addInventory(gameScreenWindow)
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
+                else:
+                    print("Vous n'avez pas remplie toute les conditions")     
 
             # BAS
             if "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
-                pass
+
+                if (Stage.countMonster == len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]) 
+                    and Stage.countKey == len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "chest"]["coordinate"])
+                    ):
+                    Stage.isOpen = True
+                    print("vous avez utiliser la clée pour sortir du portail")
+                    Stage.saveDropItems.remove(Stage.dropInfo["clée du donjon"]["image"])
+                    addInventory(gameScreenWindow)
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
+                else:
+                    print("Vous n'avez pas remplie toute les conditions")     
+                
 
             # GAUCHE 
             if "[{}, {}]".format(Hero.y, Hero.x-1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
-                pass     
+
+                if (Stage.countMonster == len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]) 
+                    and Stage.countKey == len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "chest"]["coordinate"])
+                    ):
+                    Stage.isOpen = True
+                    print("vous avez utiliser la clée pour sortir du portail")
+                    Stage.saveDropItems.remove(Stage.dropInfo["clée du donjon"]["image"])
+                    addInventory(gameScreenWindow)
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)
+                else:
+                    print("Vous n'avez pas remplie toute les conditions")     
+                     
 
 
 if __name__ == "__main__":

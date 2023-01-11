@@ -54,7 +54,7 @@ def addMonsterInMap(mapCell, world, stage):
 
     for t in Stage.world[world]["stages"][stage]["target"]["coordinate"]:
 
-        if Stage.countKey == len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "chest"]["coordinate"]):
+        if Stage.isOpen == True:
             
            addSprite(mapCell, t[0], t[1], Stage.world[world]["stages"][stage]["target"]["open_door-image"])
         else: 
