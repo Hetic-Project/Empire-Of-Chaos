@@ -25,9 +25,9 @@ def addPanelGoals(gameWindow , countMonster , world, stage , countKey) :
 
     objective1Panel = QLabel("- Monstres tués : {} / {} " .format(countMonster , len(Stage.world[world]["stages"][stage]["monsters"]["coordinate"])) , limitePanelGoals)
     objective1Panel.setGeometry(10 , 50, 200 , 40)
-    objective1Panel.setStyleSheet("font-size : 14px;")
+    objective1Panel.setStyleSheet("font-size : 14px; color : green;")
 
 
     objective2Panel = QLabel("- Clé restante : {} / {} " .format(countKey , len(Stage.world[world]["stages"][stage]["chest"]["coordinate"])) , limitePanelGoals)
     objective2Panel.setGeometry(10 , 80 , 200 , 40)
-    objective2Panel.setStyleSheet("font-size : 14px;")
+    objective2Panel.setStyleSheet("font-size : 14px; color : green;")

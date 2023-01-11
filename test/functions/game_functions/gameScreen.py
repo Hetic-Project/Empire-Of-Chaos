@@ -11,7 +11,8 @@ from functions.game_functions.addPanelGoals import *
 def gameScreen(world, stage, centralArea, text):
 
     gameWindow = QWidget(centralArea)
-    gameWindow.setGeometry(0, 0, 1300, 1100)
+    gameWindow.setGeometry(0, 0, 1275, 900)
+    gameWindow.setStyleSheet("background-color: #149414;")
 
     drawGameMap(world, stage, gameWindow, Hero.front)
     addTextBox(gameWindow, text)
