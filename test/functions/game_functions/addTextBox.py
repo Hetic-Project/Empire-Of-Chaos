@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QLabel, QTextEdit, QLineEdit
+from PySide6.QtWidgets import QWidget, QLabel, QTextEdit, QLineEdit, QVBoxLayout
 
 
 def addTextBox(gameWindow, text):
@@ -6,7 +6,7 @@ def addTextBox(gameWindow, text):
     box.setGeometry(35, 540, 690, 150)
     box.setStyleSheet(""" background : #ffffff; border-radius: 10px;""")
 
-    message = QTextEdit("{}".format(text),box) 
+    message = QTextEdit("{}".format(text),box)
     message.setGeometry(10, 20, 670, 70)
     message.setEnabled(False)
     #message.lineWrapMode ()
@@ -19,4 +19,4 @@ def addTextBox(gameWindow, text):
             background : white;
             font-size: 12px;
             background-attachment: scroll;
-        """)
+            """)
