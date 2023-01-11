@@ -8,6 +8,7 @@ class Hero:
     strength = 50
     defense = 30
     exp = 0
+    progressEXP = 0
 
     # Coordonné du héro sur la map
     x = 0

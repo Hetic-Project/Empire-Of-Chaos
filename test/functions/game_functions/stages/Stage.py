@@ -3,6 +3,7 @@ class Stage:
     currentWorld = "demonicland"
     currentStage = 1
     saveDropItems = []
+    isOpen = False
  
     countMonster = 0
     countKey = 0
@@ -16,7 +17,8 @@ class Stage:
 
                     "name": "Grassland : Stage 1",
                     "description": "",
-                    "background": "border: 1px solid black;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center;",
+                    "top-background": "background: url(test/images/map/top-grassland.png);",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center;",
                     "monsters": {
                         "name": "Orc",
                         "life": 25,
@@ -38,6 +40,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -45,7 +48,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_green-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_green-door.png);"
                     },
                 },
 
@@ -53,9 +57,15 @@ class Stage:
 
                     "name": "Grassland : Stage 2",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-grassland.png);",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center;",
                     "monsters": {
-                        "name": "",
+                        "name": "Orc",
+                        "life": 30,
+                        "progressPV": 100,
+                        "strength": 55,
+                        "defense": 15,
+                        "level": 2,
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
@@ -70,6 +80,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -77,7 +88,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_green-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_green-door.png);"
                     },
                 },
 
@@ -85,9 +97,15 @@ class Stage:
 
                     "name": "Grassland : Stage 3",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-grassland-stage3_4.png);",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/grassland-stage3_4.png) no-repeat center center;",
                     "monsters": {
                         "name": "",
+                        "life": 45,
+                        "progressPV": 100,
+                        "strength": 60,
+                        "defense": 30,
+                        "level": 3,
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
@@ -102,6 +120,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -109,17 +128,23 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_green-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_green-door.png);"
                     },
                 },
 
                 "stage 4" : {
 
                     "name": "Grassland : Stage 4",
-                    "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-grassland-stage3_4.png);",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/grassland-stage3_4.png) no-repeat center center;",
                     "monsters": {
                         "name": "",
+                        "life": 65,
+                        "progressPV": 100,
+                        "strength": 80,
+                        "defense": 50,
+                        "level": 4,
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
@@ -134,6 +159,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -141,11 +167,12 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_green-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_green-door.png);"
                     },
                 },
 
-                "Finalstage" : {
+                "stage 5" : {
 
                     "name": "Grassland : Stage final",
                     "description": "",
@@ -167,6 +194,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -174,7 +202,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -212,6 +241,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -219,7 +249,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -244,6 +275,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -251,7 +283,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -276,6 +309,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -283,7 +317,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -308,6 +343,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -315,11 +351,12 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
-                "Finalstage" : {
+                "stage 5" : {
 
                     "name": "",
                     "description": "",
@@ -341,6 +378,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -348,7 +386,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
             },
@@ -384,6 +423,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -391,7 +431,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -416,6 +457,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -423,7 +465,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -448,6 +491,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -455,7 +499,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -480,6 +525,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -487,11 +533,12 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
-                "Finalstage" : {
+                "stage 5" : {
 
                     "name": "",
                     "description": "",
@@ -513,6 +560,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -520,7 +568,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
             },
@@ -556,6 +605,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -563,7 +613,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -588,6 +639,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -595,7 +647,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -620,6 +673,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -627,7 +681,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -652,6 +707,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -659,11 +715,12 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
-                "Finalstage" : {
+                "stage 5" : {
 
                     "name": "",
                     "description": "",
@@ -685,6 +742,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -692,7 +750,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
             },
@@ -728,6 +787,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -735,7 +795,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -760,6 +821,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -767,7 +829,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -792,6 +855,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -799,7 +863,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
@@ -824,6 +889,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -831,11 +897,12 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
 
-                "Finalstage" : {
+                "stage 5" : {
 
                     "name": "",
                     "description": "",
@@ -857,6 +924,7 @@ class Stage:
                         "name": "Coffre du donjon",
                         "description": "",
                         "image": "background: url(test/sprites/items/chest1.png);"  "background-position: top",
+                        "openImage": "background: url(test/sprites/items/chest2.png);"  "background-position: bottom",
                         "coordinate" : [],
                         "drop": ["clée du donjon"],
                     },
@@ -864,7 +932,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "image": "background: url(test/sprites/items/close_gate.png);",
+                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
+                        "open_door-image": ""
                     },
                 },
             },

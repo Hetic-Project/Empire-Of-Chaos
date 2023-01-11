@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget, QLabel, QProgressBar
 from functions.game_functions.Hero import *
 
 
-def createHeroPanel(gameWindow):
+def createHeroPanel(gameWindow, life):
 
     heroPanel = QWidget(gameWindow)
     heroPanel.setGeometry(750, 35, 350, 140)
@@ -17,7 +17,7 @@ def createHeroPanel(gameWindow):
     labelHero.setGeometry(180, 5, 100, 20)
     labelHero.setStyleSheet("border: none")
 
-    labelPV = QLabel("PV : {}".format(Hero.life), heroPanel)
+    labelPV = QLabel("PV : {}".format(life), heroPanel)
     labelPV.setGeometry(150, 35, 85, 20)
     labelPV.setStyleSheet("border: none")
 
@@ -39,6 +39,6 @@ def createHeroPanel(gameWindow):
     labelEXP.setStyleSheet("border: none")
 
     progressEXP = QProgressBar(heroPanel)
-    progressEXP.setValue(Hero.exp)
+    progressEXP.setValue(Hero.progressEXP)
     progressEXP.setGeometry(185, 110, 155, 20)
     progressEXP.setStyleSheet("text-align: center")
