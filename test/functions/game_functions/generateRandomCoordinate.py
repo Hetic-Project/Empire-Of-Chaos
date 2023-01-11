@@ -8,17 +8,17 @@ from functions.game_functions.stages.Stage import *
 
 def generateRandomCoordinate(world, stage):
 
-    count = random.randint(3, 5)
+    # count = random.randint(3, 3)
     x=0
 
-    Y = 1
+    Y = 0
     
     # Génération de coordonnées pour les monstres
-    for m in range(count):
+    for m in range(3):
 
-        randX = random.randint(1, 7)
+        randX = random.randint(1, 6)
 
-        if Y < 9 :
+        if Y < 5 :
 
             if  x == randX :
                 print("impossible de placer le monstre !")
@@ -31,13 +31,13 @@ def generateRandomCoordinate(world, stage):
          
 
     # Génération de coordonnées pour la clée
-    randX = random.randint(8, 10)
-    randY = random.randint(0, 9)
+    randX = random.randint(9, 10)
+    randY = random.randint(0, 4)
 
     Stage.world[world]["stages"][stage]["chest"]["coordinate"].append([randY, randX])
 
     # Génération de coordonnées pour la case d'arriver
     randX = random.randint(11, 13)
-    randY = random.randint(0, 9)
+    randY = random.randint(0, 4)
 
     Stage.world[world]["stages"][stage]["target"]["coordinate"].append([randY, randX])

@@ -17,7 +17,7 @@ class Stage:
 
                     "name": "Grassland : Stage 1",
                     "description": "",
-                    "top-background": "background: url(test/images/map/top-grassland.png) no-repeat center center;",
+                    "top-background": "background: url(test/images/map/top-grassland.png);",
                     "background": "border: none;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center;",
                     "monsters": {
                         "name": "Orc",
@@ -57,7 +57,7 @@ class Stage:
 
                     "name": "Grassland : Stage 2",
                     "description": "",
-                    "top-background": "background: url(test/images/map/top-grassland.png) no-repeat center center;",
+                    "top-background": "background: url(test/images/map/top-grassland.png);",
                     "background": "border: none;" "margin: auto;" "background: url(test/images/map/Grassland.png) no-repeat center center;",
                     "monsters": {
                         "name": "Orc",
@@ -97,14 +97,14 @@ class Stage:
 
                     "name": "Grassland : Stage 3",
                     "description": "",
-                    "top-background": "background: url(test/images/map/top-grassland-stage3_4.png) no-repeat center center;",
+                    "top-background": "background: url(test/images/map/top-grassland-stage3_4.png);",
                     "background": "border: none;" "margin: auto;" "background: url(test/images/map/grassland-stage3_4.png) no-repeat center center;",
                     "monsters": {
                         "name": "",
-                        "life": 35,
+                        "life": 45,
                         "progressPV": 100,
                         "strength": 60,
-                        "defense": 20,
+                        "defense": 30,
                         "level": 3,
                         "info": [],
                         "coordinate" : [],
@@ -136,10 +136,15 @@ class Stage:
                 "stage 4" : {
 
                     "name": "Grassland : Stage 4",
-                    "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-grassland-stage3_4.png);",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/grassland-stage3_4.png) no-repeat center center;",
                     "monsters": {
                         "name": "",
+                        "life": 65,
+                        "progressPV": 100,
+                        "strength": 80,
+                        "defense": 50,
+                        "level": 4,
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
@@ -162,8 +167,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_green-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_green-door.png);"
                     },
                 },
 
