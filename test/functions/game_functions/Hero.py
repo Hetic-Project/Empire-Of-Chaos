@@ -7,11 +7,13 @@ class Hero:
     # Status du héro
     level = 1
     life = 100
+    maxlife = 100
     progressHeroPv = 100
     strength = 50
     defense = 30
     exp = 0
     progressEXP = 0
+    
 
     x = 0
     y = 1    

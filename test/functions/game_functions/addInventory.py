@@ -12,22 +12,24 @@ def addInventory(gameWindow) :
     rowInventory = []
     MapcellInventory = []
 
-    title = QLabel("Inventaire" , gameWindow)
-    title.setGeometry(1140, 28 , 350 , 40 )
-    title.setStyleSheet("font-size : 25px;")
+    title = QLabel("I" , gameWindow)
+    title.setGeometry(1166, 28 , 350 , 40 )
+    title.setStyleSheet("font-size : 35px;" "color : white;" "background : none;")
 
     limiteInventaire = QWidget(gameWindow)
     limiteInventaire.setGeometry(1100 ,70 , 350 , 840)
-    limiteInventaire.setStyleSheet("border : none;")
+    limiteInventaire.setStyleSheet("border : none;" "background : none;")
 
 
-    for y in range(14) :
+    for y in range(16) :
         Y = QWidget(limiteInventaire)
-        Y.setGeometry(29 , yPosition , 325 , 40)
+        Y.setGeometry(50 , yPosition , 325 , 40)
         Y.setStyleSheet("border : none;")
         yPosition = yPosition + 44
         
         rowInventory.append(Y)
+
+
     
     for i in rowInventory:
         # a chaque itération j'appel la fonction createCellInYPosition qui

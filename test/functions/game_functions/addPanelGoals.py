@@ -40,15 +40,15 @@ def addPanelGoals(gameWindow , countMonster , world, stage , countKey) :
                                     """)
 
 
-        objectivePanel = QLabel("OBJECTIFS :" , limitePanelGoals)
-        objectivePanel.setGeometry(100 , 0 , 100 , 40)
-        objectivePanel.setStyleSheet("font-size : 18px;" "color : green;" "font-weight : bold;")
+    objectivePanel = QLabel("OBJECTIFS :" , limitePanelGoals)
+    objectivePanel.setGeometry(100 , 0 , 100 , 40)
+    objectivePanel.setStyleSheet("font-size : 18px;" "color : green;" "font-weight : bold;")
 
-        objective1Panel = QLabel("- Monstres tués : {} / {} " .format(countMonster , len(Stage.world[world]["stages"][stage]["monsters"]["coordinate"])) , limitePanelGoals)
-        objective1Panel.setGeometry(10 , 50, 200 , 40)
-        objective1Panel.setStyleSheet("font-size : 14px;")
+    objective1Panel = QLabel("- Monstres tués : {} / {} " .format(countMonster , len(Stage.world[world]["stages"][stage]["monsters"]["coordinate"])) , limitePanelGoals)
+    objective1Panel.setGeometry(10 , 50, 200 , 40)
+    objective1Panel.setStyleSheet("font-size : 14px;")
 
 
-        objective2Panel = QLabel("- Clé restante : {} / {} " .format(countKey , len(Stage.world[world]["stages"][stage]["chest"]["coordinate"])) , limitePanelGoals)
-        objective2Panel.setGeometry(10 , 80 , 200 , 40)
-        objective2Panel.setStyleSheet("font-size : 14px;")
+    objective2Panel = QLabel("- Clé restante : {} / {} " .format(countKey , len(Stage.world[world]["stages"][stage]["chest"]["coordinate"])) , limitePanelGoals)
+    objective2Panel.setGeometry(10 , 80 , 200 , 40)
+    objective2Panel.setStyleSheet("font-size : 14px;")
