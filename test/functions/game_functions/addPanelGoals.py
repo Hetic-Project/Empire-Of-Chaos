@@ -14,7 +14,7 @@ def addPanelGoals(gameWindow , countMonster , world, stage , countKey) :
                                         border: 1px black;
                                         background : #ffffff;
                                         border-radius: 22px;
-                                        background-color: #262626;
+                                        background-color: white;
                                         background-attachment: scroll;
                                 """)
 

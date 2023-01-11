@@ -1,6 +1,6 @@
 class Stage:
 
-    currentWorld = "grassland"
+    currentWorld = "demonicland"
     currentStage = 1
     saveDropItems = []
     isOpen = False
