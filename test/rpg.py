@@ -295,7 +295,7 @@ class GameWindow(QMainWindow):
 
         # FLECHE DU BAS
         elif event.key() == 16777237:
-            if Hero.y <= 8:
+            if Hero.y <= 3:
                 if "[{}, {}]".format(Hero.y+1, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
                     for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
                             if i["y"] == Hero.y+1 and i["x"] == Hero.x:
