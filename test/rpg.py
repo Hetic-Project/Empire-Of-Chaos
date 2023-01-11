@@ -482,6 +482,7 @@ class GameWindow(QMainWindow):
                             if Hero.progressEXP == 100:
                                 Hero.level = Hero.level +1
                                 Hero.life = Hero.life+5
+                                Hero.maxlife = Hero.maxlife+5
                                 Hero.strength = Hero.strength+5
                                 Hero.defense = Hero.defense+5
                                 Hero.progressEXP = 0
@@ -489,6 +490,7 @@ class GameWindow(QMainWindow):
                             elif Hero.progressEXP > 100:
                                 Hero.level = Hero.level +1
                                 Hero.life = Hero.life+5
+                                Hero.maxlife = Hero.maxlife+5
                                 Hero.strength = Hero.strength+5
                                 Hero.defense = Hero.defense+5
                                 reste = Hero.progressEXP - exp
@@ -569,6 +571,7 @@ class GameWindow(QMainWindow):
                             if Hero.progressEXP == 100:
                                 Hero.level = Hero.level +1
                                 Hero.life = Hero.life+5
+                                Hero.maxlife = Hero.maxlife+5
                                 Hero.strength = Hero.strength+5
                                 Hero.defense = Hero.defense+5
                                 Hero.progressEXP = 0
@@ -576,6 +579,7 @@ class GameWindow(QMainWindow):
                             elif Hero.progressEXP > 100:
                                 Hero.level = Hero.level +1
                                 Hero.life = Hero.life+5
+                                Hero.maxlife = Hero.maxlife+5
                                 Hero.strength = Hero.strength+5
                                 Hero.defense = Hero.defense+5
                                 reste = Hero.progressEXP - exp
@@ -656,6 +660,7 @@ class GameWindow(QMainWindow):
                             if Hero.progressEXP == 100:
                                 Hero.level = Hero.level +1
                                 Hero.life = Hero.life+5
+                                Hero.maxlife = Hero.maxlife+5
                                 Hero.strength = Hero.strength+5
                                 Hero.defense = Hero.defense+5
                                 Hero.progressEXP = 0
@@ -663,6 +668,7 @@ class GameWindow(QMainWindow):
                             elif Hero.progressEXP > 100:
                                 Hero.level = Hero.level +1
                                 Hero.life = Hero.life+5
+                                Hero.maxlife = Hero.maxlife+5
                                 Hero.strength = Hero.strength+5
                                 Hero.defense = Hero.defense+5
                                 reste = Hero.progressEXP - exp
@@ -743,6 +749,7 @@ class GameWindow(QMainWindow):
                             if Hero.progressEXP == 100:
                                 Hero.level = Hero.level +1
                                 Hero.life = Hero.life+5
+                                Hero.maxlife = Hero.maxlife+5
                                 Hero.strength = Hero.strength+5
                                 Hero.defense = Hero.defense+5
                                 Hero.progressEXP = 0
@@ -750,6 +757,7 @@ class GameWindow(QMainWindow):
                             elif Hero.progressEXP > 100:
                                 Hero.level = Hero.level +1
                                 Hero.life = Hero.life+5
+                                Hero.maxlife = Hero.maxlife+5
                                 Hero.strength = Hero.strength+5
                                 Hero.defense = Hero.defense+5
                                 reste = Hero.progressEXP - exp

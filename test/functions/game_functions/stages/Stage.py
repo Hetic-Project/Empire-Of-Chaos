@@ -5,6 +5,7 @@ class Stage:
     saveDropItems = []
     isOpen = False
  
+    Shield_use = False
     countMonster = 0
     countKey = 0
 
