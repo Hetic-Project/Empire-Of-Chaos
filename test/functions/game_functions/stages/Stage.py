@@ -1,11 +1,12 @@
 class Stage:
 
     currentWorld = "grassland"
-    currentStage = 1
+    currentStage = 5
     saveDropItems = []
     isOpen = False
     messageTab = []
  
+    Shield_use = False
     countMonster = 0
     countKey = 0
 
@@ -101,7 +102,7 @@ class Stage:
                     "top-background": "background: url(test/images/map/top-grassland-stage3_4.png);",
                     "background": "border: none;" "margin: auto;" "background: url(test/images/map/grassland-stage3_4.png) no-repeat center center;",
                     "monsters": {
-                        "name": "",
+                        "name": "Orc",
                         "life": 45,
                         "progressPV": 100,
                         "strength": 60,
@@ -140,7 +141,7 @@ class Stage:
                     "top-background": "background: url(test/images/map/top-grassland-stage3_4.png);",
                     "background": "border: none;" "margin: auto;" "background: url(test/images/map/grassland-stage3_4.png) no-repeat center center;",
                     "monsters": {
-                        "name": "",
+                        "name": "Orc",
                         "life": 65,
                         "progressPV": 100,
                         "strength": 80,
@@ -177,18 +178,20 @@ class Stage:
 
                     "name": "Grassland : Stage final",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-grassland-stage_5.png);",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/grassland-stage_5.png) no-repeat center center;",
                     "boss": {
-                        "name": "",          
+                        "name": "Emulan", 
+                        "life": 100,
+                        "progressPV": 100,
+                        "strength": 105,
+                        "defense": 80,
+                        "level": 5,     
                         "info": [],
                         "coordinate" : [],
                         "drop": ["pierre eternel"],
-                        "front":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: bottom",
-                        "left": "background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: top",
+                        "front":"background: url(test/sprites/monsters/boss-stage_1.png);",
                         "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage1.png);",
                         "pierre" : "background: url(test/sprites/monsters/Dead_monster-stage1.png);", 
                     },
                     "chest": {
@@ -203,8 +206,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_red-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_red-door.png);"
                     },
                 },
 

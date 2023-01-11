@@ -3,7 +3,7 @@ from functions.game_functions.stages.Stage import *
 
 def addTextBox(gameWindow):
     box = QWidget(gameWindow)
-    box.setGeometry(35, 645, 690, 150)
+    box.setGeometry(390, 645, 690, 150)
     box.setStyleSheet(""" background : #ffffff; border-radius: 10px;""")
 
     positiony = 0
