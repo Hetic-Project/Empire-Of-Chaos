@@ -12,7 +12,7 @@ def gameScreen(world, stage, centralArea, text):
 
     gameWindow = QWidget(centralArea)
     gameWindow.setGeometry(0, 0, 1275, 900)
-    gameWindow.setStyleSheet("background-color: #149414;")
+    gameWindow.setStyleSheet("background: url(Fond.jpg) no-repeat center;")
 
     drawGameMap(world, stage, gameWindow, Hero.front)
     addTextBox(gameWindow, text)

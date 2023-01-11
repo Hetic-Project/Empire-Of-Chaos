@@ -15,7 +15,7 @@ def addItemsInInventory(MapCellInventory):
         ItemImage = QPushButton(MapCellInventory[count][0])
         ItemImage.setGeometry(0 ,0 , 40 , 40)
         ItemImage.setStyleSheet(i)
-        ItemImage.clicked.connect(UseItems(i))
+        ItemImage.clicked.connect(UseItems)
         count = count + 1
         
 

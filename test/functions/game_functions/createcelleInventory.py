@@ -16,7 +16,7 @@ def createCellInYPositionInventory(widget):
 
         X = QWidget(widget)
         X.setGeometry(xPosition, 0, 40, 40)
-        X.setStyleSheet("border: 1px solid black;")
+        X.setStyleSheet("border: 5px solid white;")
         x = x + 1
         xPosition = xPosition + 50
         # Une fois la cellule créer elle est ajouter dans une liste appeler cell

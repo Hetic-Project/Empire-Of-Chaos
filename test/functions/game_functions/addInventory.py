@@ -12,13 +12,13 @@ def addInventory(gameWindow) :
     rowInventory = []
     MapcellInventory = []
 
-    title = QLabel("Inventaire" , gameWindow)
-    title.setGeometry(1135, 28 , 350 , 40 )
-    title.setStyleSheet("font-size : 18px;")
+    title = QLabel("I" , gameWindow)
+    title.setGeometry(1166, 28 , 350 , 40 )
+    title.setStyleSheet("font-size : 35px;" "color : white;" "background : none;")
 
     limiteInventaire = QWidget(gameWindow)
     limiteInventaire.setGeometry(1100 ,70 , 350 , 840)
-    limiteInventaire.setStyleSheet("border : none;")
+    limiteInventaire.setStyleSheet("border : none;" "background : none;")
 
 
     for y in range(16) :
