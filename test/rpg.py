@@ -2,7 +2,8 @@ import signal
 import sys
 import time
 import random
-from PySide6.QtCore import Signal
+from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
+from PySide6.QtCore import Signal, QUrl
 from PySide6.QtGui import QIcon, QFont, QFontDatabase
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
 from functions.interface_functions.centralWindow import *
@@ -80,7 +81,19 @@ class GameWindow(QMainWindow):
                 Stage.countKey
             )
 
-
+        def play_music():
+            self.player = QMediaPlayer()
+            audioOutput = QAudioOutput()
+            self.player.setAudioOutput(audioOutput)
+            file_path = "C:/Users/yalma/Desktop/Empire-Of-Chaos/music/DMT.mp3"
+            self.player.setSource(QUrl.fromLocalFile(file_path))
+            audioOutput.setVolume(80)
+            self.player.setLoops(-1)
+            self.player.play()
+            if self.player.state() == QMediaPlayer.PlayingState:
+                print("Music is playing")
+            else:
+                print("Music is not playing")
 
         def show_credits():
             credits_window = QDialog()
@@ -158,6 +171,26 @@ class GameWindow(QMainWindow):
                                     border-radius: 10px;}}
                                     """)
         Exit.clicked.connect(self.exitGame)
+
+        music = QPushButton("Play Music", panelMainTitle)
+        music.setGeometry(930, 10, 300, 40)
+        music.clicked.connect(play_music) 
+        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        music.setFont(QFont("Yeon Sung", 15))
+        music.setStyleSheet("color : white;" "background : black;")
+        music.setStyleSheet(f"""
+                QPushButton {{
+                            background : none;
+                            border: none;}}
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #000000; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;
+                                    border-radius: 10px;}}
+                                    """)
 
     def exitGame(self):
         choice = QMessageBox.question(self, "Exit", "Êtes-vous sûrs de vouloir quitter ?",
