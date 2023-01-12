@@ -11,44 +11,38 @@ def addPanelGoals(gameWindow , countMonster , world, stage , countKey) :
     if Stage.currentStage == 5 :
 
         limitePanelGoals = QWidget(gameWindow)
-        limitePanelGoals.setGeometry(770 , 378 , 300 , 150)
+        limitePanelGoals.setGeometry(40 , 378 , 300 , 150)
         limitePanelGoals.setStyleSheet("""
-                                            border: 1px black;
-                                            background : #ffffff;
-                                            border-radius: 22px;
-                                            background-color: #262626;
-                                            background-attachment: scroll;
+                                            border: none;
+                                            background : none;
                                     """)
 
         objectivePanel = QLabel("OBJECTIFS :" , limitePanelGoals)
-        objectivePanel.setGeometry(100 , 0 , 100 , 40)
-        objectivePanel.setStyleSheet("font-size : 18px;" "color : green;" "font-weight : bold;")
+        objectivePanel.setGeometry(100 , 0 , 150 , 40)
+        objectivePanel.setStyleSheet("font-size : 23px;" "color : white;" "font-weight : bold;")
 
         objective1Panel = QLabel("- Tuer le boss : {} / {} " .format(countMonster , len(Stage.world[world]["stages"][stage]["boss"]["coordinate"])) , limitePanelGoals)
         objective1Panel.setGeometry(10 , 50, 200 , 40)
-        objective1Panel.setStyleSheet("font-size : 14px;")
+        objective1Panel.setStyleSheet("font-size : 18px;" "color: white;")
 
     else: 
         limitePanelGoals = QWidget(gameWindow)
-        limitePanelGoals.setGeometry(770 , 378 , 300 , 150)
+        limitePanelGoals.setGeometry(40 , 378 , 300 , 150)
         limitePanelGoals.setStyleSheet("""
-                                            border: 1px black;
-                                            background : #ffffff;
-                                            border-radius: 22px;
-                                            background-color: #262626;
-                                            background-attachment: scroll;
+                                            border: none;
+                                            background : none;
                                     """)
 
 
         objectivePanel = QLabel("OBJECTIFS :" , limitePanelGoals)
-        objectivePanel.setGeometry(100 , 0 , 100 , 40)
-        objectivePanel.setStyleSheet("font-size : 18px;" "color : green;" "font-weight : bold;")
+        objectivePanel.setGeometry(100 , 0 , 150 , 40)
+        objectivePanel.setStyleSheet("font-size : 23px;" "color : white;" "font-weight : bold;")
 
         objective1Panel = QLabel("- Monstres tués : {} / {} " .format(countMonster , len(Stage.world[world]["stages"][stage]["monsters"]["coordinate"])) , limitePanelGoals)
         objective1Panel.setGeometry(10 , 50, 200 , 40)
-        objective1Panel.setStyleSheet("font-size : 14px;")
+        objective1Panel.setStyleSheet("font-size : 18px;" "color: white;")
 
 
         objective2Panel = QLabel("- Clé restante : {} / {} " .format(countKey , len(Stage.world[world]["stages"][stage]["chest"]["coordinate"])) , limitePanelGoals)
         objective2Panel.setGeometry(10 , 80 , 200 , 40)
-        objective2Panel.setStyleSheet("font-size : 14px;")
+        objective2Panel.setStyleSheet("font-size : 18px;" "color: white;")
