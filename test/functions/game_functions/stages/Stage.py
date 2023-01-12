@@ -1,8 +1,9 @@
 class Stage:
 
     currentWorld = "grassland"
-    currentStage = 5
+    currentStage = 1
     saveDropItems = []
+    messageTab = []
     isOpen = False
  
     Shield_use = False
