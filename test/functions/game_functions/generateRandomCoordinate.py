@@ -11,8 +11,7 @@ def generateRandomCoordinate(world, stage):
     if Stage.currentStage != 5 :
 
         # count = random.randint(3, 3)
-        x=0
-
+        x= 0
         Y = 0
         
         # Génération de coordonnées pour les monstres

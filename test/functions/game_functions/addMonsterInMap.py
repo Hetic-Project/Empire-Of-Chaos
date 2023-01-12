@@ -21,7 +21,9 @@ def addMonsterInMap(mapCell, world, stage):
                 "strength": Stage.world[world]["stages"][stage]["monsters"]["strength"],
                 "defense": Stage.world[world]["stages"][stage]["monsters"]["defense"],
                 "level": Stage.world[world]["stages"][stage]["monsters"]["level"],
-                "progressPV": Stage.world[world]["stages"][stage]["monsters"]["progressPV"] 
+                "progressPV": Stage.world[world]["stages"][stage]["monsters"]["progressPV"],
+                "isDroped" : Stage.world[world]["stages"][stage]["monsters"]["isDroped"],
+                "isAlive": Stage.world[world]["stages"][stage]["monsters"]["isAlive"]
             })   
             
             if m[0] == Hero.y and m[1] == Hero.x+1:
@@ -43,7 +45,7 @@ def addMonsterInMap(mapCell, world, stage):
         for i in Stage.world[world]["stages"][stage]["monsters"]["info"]:
 
             if i["life"] <= 0:
-                addSprite(mapCell, i["y"], i["x"], "")             
+                addSprite(mapCell, i["y"], i["x"], Stage.world[world]["stages"][stage]["monsters"]["dead"])             
         
 
         for k in Stage.world[world]["stages"][stage]["chest"]["coordinate"]:
@@ -72,7 +74,9 @@ def addMonsterInMap(mapCell, world, stage):
                 "strength": Stage.world[world]["stages"][stage]["boss"]["strength"],
                 "defense": Stage.world[world]["stages"][stage]["boss"]["defense"],
                 "level": Stage.world[world]["stages"][stage]["boss"]["level"],
-                "progressPV": Stage.world[world]["stages"][stage]["boss"]["progressPV"] 
+                "progressPV": Stage.world[world]["stages"][stage]["boss"]["progressPV"],
+                "isDroped" : Stage.world[world]["stages"][stage]["boss"]["isDroped"],
+                "isAlive": Stage.world[world]["stages"][stage]["monsters"]["isAlive"]
             })
             addSprite(mapCell, m[0], m[1], Stage.world[world]["stages"][stage]["boss"]["front"])
 
