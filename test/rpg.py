@@ -1,10 +1,11 @@
-import signal
+import os
 import sys
 import time
 import random
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, QUrl 
 from PySide6.QtGui import QIcon, QFont, QFontDatabase
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
+from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
 from functions.interface_functions.centralWindow import *
 from functions.game_functions.stages.Stage import *
 from functions.game_functions.addMonsterInMap import *
@@ -16,7 +17,6 @@ from functions.game_functions.addAttackIndication import *
 from functions.game_functions.closeFunction import *
 from functions.game_functions.stages.nextStage import *
 from functions.game_functions.stages.nextStage import *
-
 
 
 
@@ -60,6 +60,7 @@ class GameWindow(QMainWindow):
         self.setMinimumSize(1275, 1000)
         self.setWindowIcon(QIcon("test/icons/rpg.png"))
 
+
         close_game_signal = Signal()
 
         centralArea = centralWindow(self)
@@ -73,7 +74,7 @@ class GameWindow(QMainWindow):
             gameWindow = gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
             createHeroPanel(gameWindow, Hero.life)
             addPanelGoals(
-                gameWindow, 
+                gameWindow,
                 Stage.countMonster, 
                 Stage.currentWorld, 
                 "stage {}".format(Stage.currentStage), 
@@ -94,6 +95,21 @@ class GameWindow(QMainWindow):
             credits_window.setStyleSheet("color : white;" "background : black;")
             credits_window.show()
             close_game_signal.connect(show_credits)
+
+
+        def play_music():
+            self.player = QMediaPlayer()
+            audioOutput = QAudioOutput()
+            self.player.setAudioOutput(audioOutput)
+            file_path = "C:/Users/yalma/Desktop/Empire-Of-Chaos/music/DMT.mp3"
+            self.player.setSource(QUrl.fromLocalFile(file_path))
+            audioOutput.setVolume(80)
+            self.player.setLoops(-1)
+            self.player.play()
+            if self.player.state() == QMediaPlayer.PlayingState:
+                print("Music is playing")
+            else:
+                print("Music is not playing")
 
 
         panelMainTitle = QWidget(self)
@@ -158,6 +174,26 @@ class GameWindow(QMainWindow):
                                     border-radius: 10px;}}
                                     """)
         Exit.clicked.connect(self.exitGame)
+
+        music = QPushButton("Play Music", panelMainTitle)
+        music.setGeometry(930, 10, 300, 40)
+        music.clicked.connect(play_music) 
+        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        music.setFont(QFont("Yeon Sung", 15))
+        music.setStyleSheet("color : white;" "background : black;")
+        music.setStyleSheet(f"""
+                QPushButton {{
+                            background : none;
+                            border: none;}}
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #000000; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;
+                                    border-radius: 10px;}}
+                                    """)
 
     def exitGame(self):
         choice = QMessageBox.question(self, "Exit", "Êtes-vous sûrs de vouloir quitter ?",
