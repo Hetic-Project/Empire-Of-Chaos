@@ -85,7 +85,7 @@ class GameWindow(QMainWindow):
             self.player = QMediaPlayer()
             audioOutput = QAudioOutput()
             self.player.setAudioOutput(audioOutput)
-            file_path = "C:/Users/yalma/Desktop/Empire-Of-Chaos/music/DMT.mp3"
+            file_path = "music/DMT.mp3"
             self.player.setSource(QUrl.fromLocalFile(file_path))
             audioOutput.setVolume(80)
             self.player.setLoops(-1)
@@ -182,7 +182,6 @@ class GameWindow(QMainWindow):
                 QPushButton {{
                             background : none;
                             border: none;}}
-                }}
                 QPushButton:pressed {{
                                     background : white; 
                                     color: #000000; 
@@ -539,7 +538,6 @@ class GameWindow(QMainWindow):
             
                     # DROITE
                     if i["y"] == Hero.y and i["x"] == Hero.x+1:
-                        print(i)
 
                         if i["isAlive"] == True :
 
@@ -624,7 +622,7 @@ class GameWindow(QMainWindow):
                                     addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
                                     addInventory(gameScreenWindow)
-
+                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
                                 i["isDroped"] = True
                                 return
                                                 
@@ -661,6 +659,7 @@ class GameWindow(QMainWindow):
                             )
 
                             addTextBox(gameScreenWindow,"vous attaquer le monstre et lui infliger au monstre {} de dégats".format(attack))
+                            drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
 
                             time.sleep(2)
 
@@ -671,6 +670,7 @@ class GameWindow(QMainWindow):
                             createHeroPanel(gameScreenWindow, Hero.life)
 
                             addTextBox(gameScreenWindow,"Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
+                           
 
                             if i["life"] == 0 and i["isDroped"] == False:
 
@@ -715,7 +715,7 @@ class GameWindow(QMainWindow):
                                     addTextBox(gameScreenWindow,"{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))  
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
                                     addInventory(gameScreenWindow)
-
+                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back) 
                                 i["isDroped"] = True
                                 return
                                     
@@ -810,7 +810,7 @@ class GameWindow(QMainWindow):
                                     addTextBox(gameScreenWindow,"{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))  
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
                                     addInventory(gameScreenWindow)
-
+                               
                                 i["isDroped"] = True
                                 return
 
