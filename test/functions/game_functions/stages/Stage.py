@@ -1,9 +1,10 @@
 class Stage:
 
     currentWorld = "grassland"
-    currentStage = 1
+    currentStage = 5
     saveDropItems = []
     isOpen = False
+    isDead = False
  
     Shield_use = False
     countMonster = 0

@@ -80,10 +80,15 @@ def addMonsterInMap(mapCell, world, stage):
             })
             addSprite(mapCell, m[0], m[1], Stage.world[world]["stages"][stage]["boss"]["front"])
 
+        for i in Stage.world[world]["stages"][stage]["boss"]["info"]:
+
+            if i["life"] <= 0:
+                addSprite(mapCell, 0, 0, "") 
+
         
         for t in Stage.world[world]["stages"][stage]["target"]["coordinate"]:
 
-            if Stage.isOpen == True:
+            if Stage.isDead == True:
                 addSprite(mapCell, t[0], t[1], Stage.world[world]["stages"][stage]["target"]["open_door-image"])
             else: 
                 addSprite(mapCell, t[0], t[1], Stage.world[world]["stages"][stage]["target"]["close_door-image"])
