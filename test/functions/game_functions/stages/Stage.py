@@ -1,7 +1,7 @@
 class Stage:
 
     currentWorld = "grassland"
-    currentStage = 1
+    currentStage = 5
     saveDropItems = []
     isOpen = False
  
@@ -201,7 +201,7 @@ class Stage:
                         "isAlive": True,
                         "front":"background: url(test/sprites/monsters/boss-stage_1.png);",
                         "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "pierre" : "background: url(test/sprites/monsters/Dead_monster-stage1.png);", 
+                        "pierre" : "background: url(test/sprites/monsters/Dead_monster-stage1.png) 0 0 0 0 no-repeat streach streach;", 
                     },
                     "chest": {
                         "name": "Coffre du donjon",

@@ -76,7 +76,7 @@ def addMonsterInMap(mapCell, world, stage):
                 "level": Stage.world[world]["stages"][stage]["boss"]["level"],
                 "progressPV": Stage.world[world]["stages"][stage]["boss"]["progressPV"],
                 "isDroped" : Stage.world[world]["stages"][stage]["boss"]["isDroped"],
-                "isAlive": Stage.world[world]["stages"][stage]["monsters"]["isAlive"]
+                "isAlive": Stage.world[world]["stages"][stage]["boss"]["isAlive"]
             })
             addSprite(mapCell, m[0], m[1], Stage.world[world]["stages"][stage]["boss"]["front"])
 

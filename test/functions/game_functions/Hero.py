@@ -13,6 +13,7 @@ class Hero:
     defense = 30
     exp = 0
     progressEXP = 0
+    direction = ""
     
     x = 0
     y = 1    
