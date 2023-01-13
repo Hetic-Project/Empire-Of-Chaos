@@ -72,7 +72,7 @@ class GameWindow(QMainWindow):
             generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
             centralArea = centralWindow(self)
             gameWindow = gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
-            Stage.messageTab.append("Bienvenue dans le monde dans le monde de {}  abattez tous les ennemis afin de passer les épreuves et de monter en XP ! " .format(Stage.currentWorld))
+            #Stage.messageTab.append("Bienvenue dans le monde dans le monde de {}  abattez tous les ennemis afin de passer les épreuves et de monter en XP ! " .format(Stage.currentWorld))
             createHeroPanel(gameWindow, Hero.life)
             addPanelGoals(
                 gameWindow, 
@@ -183,7 +183,6 @@ class GameWindow(QMainWindow):
                 QPushButton {{
                             background : none;
                             border: none;}}
-                }}
                 QPushButton:pressed {{
                                     background : white; 
                                     color: #000000; 
@@ -209,7 +208,6 @@ class GameWindow(QMainWindow):
         centralArea = centralWindow(self)
 
         gameScreenWindow = gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage), centralArea )
-        Stage.messageTab.append("Utilisez les flèches pour vous déplacer et Entrer pour la touche d'action \nComplétez les objectifs afin de passer à la suite \n")
         addPanelGoals(
             gameScreenWindow, 
             Stage.countMonster, 
