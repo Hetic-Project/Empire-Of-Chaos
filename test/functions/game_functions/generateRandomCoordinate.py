@@ -1,8 +1,7 @@
 
 import random
-from functions.game_functions.drawGameMap import drawGameMap
+from functions.game_functions.drawGameMap import *
 from functions.interface_functions.centralWindow import *
-from functions.game_functions.Hero import Hero
 from functions.game_functions.stages.Stage import *
 
 

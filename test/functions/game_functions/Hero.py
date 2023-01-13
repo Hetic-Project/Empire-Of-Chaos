@@ -14,6 +14,7 @@ class Hero:
     exp = 0
     progressEXP = 0
     direction = ""
+    inventaire = []
     
     x = 0
     y = 1    
