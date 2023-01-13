@@ -72,7 +72,7 @@ class GameWindow(QMainWindow):
             generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
             centralArea = centralWindow(self)
             gameWindow = gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
-            Stage.messageTab.append("Bienvenue dans le monde dans le monde de {}  abattez tous les ennemis afin de passer les épreuves et de monter en XP ! " .format(Stage.currentWorld))
+            # Stage.messageTab.append("Bienvenue dans le monde dans le monde de {}  abattez tous les ennemis afin de passer les épreuves et de monter en XP ! " .format(Stage.currentWorld))
             createHeroPanel(gameWindow, Hero.life)
             addPanelGoals(
                 gameWindow, 
@@ -208,7 +208,6 @@ class GameWindow(QMainWindow):
         centralArea = centralWindow(self)
 
         gameScreenWindow = gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage), centralArea )
-        Stage.messageTab.append("Utilisez les flèches pour vous déplacer et Entrer pour la touche d'action \nComplétez les objectifs afin de passer à la suite \n")
         addPanelGoals(
             gameScreenWindow, 
             Stage.countMonster, 
@@ -307,8 +306,9 @@ class GameWindow(QMainWindow):
 
                     elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
                         print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
-
+                        
                         Stage.indexWorld = Stage.indexWorld + 1
+                        Stage.currentWorld = Stage.worldArray[Stage.indexWorld]
                         print(Stage.currentWorld)
                         Stage.currentStage = 1
                         Hero.y = 1
@@ -318,7 +318,7 @@ class GameWindow(QMainWindow):
                         Stage.countMonster = 0
 
                         generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
                         createHeroPanel(gameScreenWindow, Hero.life)
                         addPanelGoals(
                             gameScreenWindow, 
