@@ -922,13 +922,13 @@ class GameWindow(QMainWindow):
                                 exp = int((100/Hero.level)*Stage.currentStage)
                                 Hero.progressEXP = Hero.progressEXP + exp
                                 
-                               if Hero.progressEXP == 100:
-                                  Hero.level = Hero.level +1
-                                  Hero.life = Hero.life+5
-                                  Hero.maxlife = Hero.maxlife+5
-                                  Hero.strength = Hero.strength+5
-                                  Hero.defense = Hero.defense+5
-                                  Hero.progressEXP = 0
+                                if Hero.progressEXP == 100:
+                                    Hero.level = Hero.level +1
+                                    Hero.life = Hero.life+5
+                                    Hero.maxlife = Hero.maxlife+5
+                                    Hero.strength = Hero.strength+5
+                                    Hero.defense = Hero.defense+5
+                                    Hero.progressEXP = 0
 
                                 elif Hero.progressEXP > 100:
                                     Hero.level = Hero.level +1

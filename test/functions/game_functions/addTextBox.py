@@ -6,6 +6,7 @@ def addTextBox(gameWindow):
     box = QWidget(gameWindow)
     box.setGeometry(390, 645, 690, 150)
     box.setStyleSheet(""" background : #ffffff; border-radius: 10px;""")
+    positiony = 0
 
     for i in Stage.messageTab:
         message = QTextEdit(box) 
@@ -22,3 +23,4 @@ def addTextBox(gameWindow):
                 background-attachment: scroll;
                 font-weight : bold;
             """)
+        positiony += 27
