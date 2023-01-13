@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QWidget
 from functions.game_functions.Hero import *
 from functions.game_functions.createCell import *
 from functions.game_functions.addMonsterInMap import *
+from functions.game_functions.stages.Stage import *
 
 
 def drawGameMap(world, stage, gameWindow, heroDirection):

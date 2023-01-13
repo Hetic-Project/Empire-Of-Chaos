@@ -17,6 +17,9 @@ from functions.game_functions.addAttackIndication import *
 from functions.game_functions.closeFunction import *
 from functions.game_functions.stages.nextStage import *
 from functions.game_functions.stages.nextStage import *
+from functions.game_functions.addPanelGoals import *
+from functions.game_functions.generateRandomCoordinate import *
+from functions.game_functions.createHeroPanel import *
 
 
 
@@ -711,8 +714,7 @@ class GameWindow(QMainWindow):
 
 
                                 createHeroPanel(gameScreenWindow, Hero.life)
-
-                                Stage.messageTab("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
+                                Stage.messageTab("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
                                 addTextBox(gameScreenWindow)
 
                                 
@@ -722,9 +724,11 @@ class GameWindow(QMainWindow):
                                     Stage.messageTab.append("aucun objet reçus !")
                                     addTextBox(gameScreenWindow)
                                 else:
+                                    
                                     Stage.messageTab.append("{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                     addTextBox(gameScreenWindow)
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
+                                    Hero.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
                                     addInventory(gameScreenWindow)
 
 
@@ -823,12 +827,13 @@ class GameWindow(QMainWindow):
                                 Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
                                 addTextBox(gameScreenWindow)
 
-                                RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
+                                RAND = random.randint(1,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
                                 
                                 if RAND == 0:
                                     Stage.messageTab.append("aucun objet reçus !")
                                     addTextBox(gameScreenWindow)
                                 else:
+                                    Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
                                     Stage.messageTab.append("{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                     addTextBox(gameScreenWindow)  
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
@@ -936,6 +941,7 @@ class GameWindow(QMainWindow):
                                     Stage.messageTab.append("aucun objet reçus !")
                                     addTextBox(gameScreenWindow)
                                 else:
+                                    Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
                                     Stage.messageTab.append("{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                     addTextBox(gameScreenWindow)  
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
@@ -1034,6 +1040,7 @@ class GameWindow(QMainWindow):
                                 Stage.messageTab.append("aucun objet reçus !")
                                 addTextBox(gameScreenWindow)
                             else:
+                                Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
                                 Stage.messageTab.append("{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                 addTextBox(gameScreenWindow)   
                                 Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
@@ -1049,7 +1056,7 @@ class GameWindow(QMainWindow):
                             return
                         return    
                          
-            
+              
 #==================================================================================================================================================================
 # GESTION DU SYSTEME DE COMBAT CONTRE LE BOSS
 # ================================================================================================================================================================
@@ -1350,6 +1357,288 @@ class GameWindow(QMainWindow):
                     Stage.messageTab.append("Vous n'avez pas remplie toute les conditions")
                     addTextBox(gameScreenWindow)     
                      
+#=================================================================================================================================================================
+# GESTION DE L'INVENTAIRE
+# ================================================================================================================================================================
+        
+
+        elif event.key() == 65:
+            
+
+            effect = Stage.dropInfo[Stage.inventaire[0]]["effect"]
+            if Stage.inventaire[0] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[0])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[0] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[0])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+            
+
+        elif event.key() == 90:
+
+
+            effect = Stage.dropInfo[Stage.inventaire[1]]["effect"]
+            if Stage.inventaire[1] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[1])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[1] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[1])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+            
+        
+
+        elif event.key() == 69:
+
+            effect = Stage.dropInfo[Stage.inventaire[2]]["effect"]
+            if Stage.inventaire[2] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[2])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[2] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[2])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+
+
+        elif event.key() == 82:
+
+            effect = Stage.dropInfo[Stage.inventaire[3]]["effect"]
+            if Stage.inventaire[3] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[3])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[3] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[3])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 84:
+
+            effect = Stage.dropInfo[Stage.inventaire[4]]["effect"]
+            if Stage.inventaire[4] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[4])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[4] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[4])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 89:
+
+            effect = Stage.dropInfo[Stage.inventaire[5]]["effect"]
+            if Stage.inventaire[5] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[5])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[5] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[5])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 85:
+
+            effect = Stage.dropInfo[Stage.inventaire[6]]["effect"]
+            if Stage.inventaire[6] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[6])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[6] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[6])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 73:
+
+            effect = Stage.dropInfo[Stage.inventaire[7]]["effect"]
+            if Stage.inventaire[7] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[7])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[7] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[7])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 79:
+
+            effect = Stage.dropInfo[Stage.inventaire[8]]["effect"]
+            if Stage.inventaire[8] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[8])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[8] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[8])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+
+
+        elif event.key() == 80:
+
+            effect = Stage.dropInfo[Stage.inventaire[9]]["effect"]
+            if Stage.inventaire[9] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[9])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[9] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[9])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+
+        elif event.key() == 81:
+
+            effect = Stage.dropInfo[Stage.inventaire[10]]["effect"]
+            if Stage.inventaire[10] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[10])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[10] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[10])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+            
+
+        elif event.key() == 83:
+
+            effect = Stage.dropInfo[Stage.inventaire[11]]["effect"]
+            if Stage.inventaire[11] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[11])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[11] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[11])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 68:
+
+            effect = Stage.dropInfo[Stage.inventaire[12]]["effect"]
+            if Stage.inventaire[12] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[12])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[12] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[12])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 70:
+
+            effect = Stage.dropInfo[Stage.inventaire[13]]["effect"]
+            if Stage.inventaire[13] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[13])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[13] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[13])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 71:
+
+            effect = Stage.dropInfo[Stage.inventaire[14]]["effect"]
+            if Stage.inventaire[14] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[14])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[14] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[14])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 72:
+
+            effect = Stage.dropInfo[Stage.inventaire[15]]["effect"]
+            if Stage.inventaire[15] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[15])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[15] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[15])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+        
+
 
 
 if __name__ == "__main__":
