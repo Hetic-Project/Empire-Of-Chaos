@@ -1,7 +1,5 @@
 class Stage:
 
-    currentWorld = "grassland"
-    currentStage = 1
     saveDropItems = []
     isOpen = False
     isDead = False
@@ -9,6 +7,11 @@ class Stage:
     Shield_use = False
     countMonster = 0
     countKey = 0
+
+    worldArray = ["grassland", "lavaland", "iceland",  "cloudland", "demonicland"]
+    indexWorld = 0
+    currentWorld = worldArray[indexWorld]
+    currentStage = 5
 
     world = {
         "grassland":{

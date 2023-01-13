@@ -226,7 +226,7 @@ class GameWindow(QMainWindow):
         # FLECHE DE DROITE
         if event.key() == 16777236:
             Hero.direction = "droite"
-            if Stage.currentStage < 5 :
+            if Stage.currentStage != 5 :
                 if Hero.x <= 12:
                     if "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["coordinate"]):
                         for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
@@ -273,7 +273,7 @@ class GameWindow(QMainWindow):
                             Stage.currentWorld, 
                             "stage {}".format(Stage.currentStage), 
                             Stage.countKey
-                        )
+                        )   
 
                     else:
                         Hero.x = Hero.x + 1 
@@ -296,6 +296,31 @@ class GameWindow(QMainWindow):
                             )
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
                             return
+                    if  "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
+                            drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right) 
+
+                    elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
+                        print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
+
+                        Stage.indexWorld = Stage.indexWorld + 1
+                        print(Stage.currentWorld)
+                        Stage.currentStage = 1
+                        Hero.y = 1
+                        Hero.x = 0
+                        Stage.isOpen = False
+                        Stage.countKey = 0
+                        Stage.countMonster = 0
+
+                        generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        addPanelGoals(
+                            gameScreenWindow, 
+                            Stage.countMonster, 
+                            Stage.currentWorld, 
+                            "stage {}".format(Stage.currentStage), 
+                            Stage.countKey
+                        )   
 
 
         # FLECHE DU HAUT
@@ -331,23 +356,43 @@ class GameWindow(QMainWindow):
                     elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
                         print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
 
-                        Stage.currentStage = Stage.currentStage + 1
-                        Hero.y = 1
-                        Hero.x = 0
-                        Stage.isOpen = False
-                        Stage.countKey = 0
-                        Stage.countMonster = 0
+                        if Stage.currentStage == 5:
+                            Stage.indexWorld = Stage.indexWorld +1
+                            Stage.currentStage = 1
+                            Hero.y = 1
+                            Hero.x = 0
+                            Stage.isOpen = False
+                            Stage.countKey = 0
+                            Stage.countMonster = 0
 
-                        generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
-                        createHeroPanel(gameScreenWindow, Hero.life)
-                        addPanelGoals(
-                            gameScreenWindow, 
-                            Stage.countMonster, 
-                            Stage.currentWorld, 
-                            "stage {}".format(Stage.currentStage), 
-                            Stage.countKey
-                        )
+                            generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                            createHeroPanel(gameScreenWindow, Hero.life)
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            )
+                        else:
+                            Stage.currentStage = Stage.currentStage + 1
+                            Hero.y = 1
+                            Hero.x = 0
+                            Stage.isOpen = False
+                            Stage.countKey = 0
+                            Stage.countMonster = 0
+
+                            generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                            createHeroPanel(gameScreenWindow, Hero.life)
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            ) 
 
                     else:
                         Hero.y = Hero.y - 1
@@ -406,23 +451,43 @@ class GameWindow(QMainWindow):
                     elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
                         print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld)) 
                         
-                        Stage.currentStage = Stage.currentStage + 1
-                        Hero.y = 1
-                        Hero.x = 0
-                        Stage.isOpen = False
-                        Stage.countKey = 0
-                        Stage.countMonster = 0
+                        if Stage.currentStage == 5:
+                            Stage.indexWorld = Stage.indexWorld +1
+                            Stage.currentStage = 1
+                            Hero.y = 1
+                            Hero.x = 0
+                            Stage.isOpen = False
+                            Stage.countKey = 0
+                            Stage.countMonster = 0
 
-                        generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
-                        createHeroPanel(gameScreenWindow, Hero.life)
-                        addPanelGoals(
-                            gameScreenWindow, 
-                            Stage.countMonster, 
-                            Stage.currentWorld, 
-                            "stage {}".format(Stage.currentStage), 
-                            Stage.countKey
-                        )
+                            generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                            createHeroPanel(gameScreenWindow, Hero.life)
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            )
+                        else:
+                            Stage.currentStage = Stage.currentStage + 1
+                            Hero.y = 1
+                            Hero.x = 0
+                            Stage.isOpen = False
+                            Stage.countKey = 0
+                            Stage.countMonster = 0
+
+                            generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                            createHeroPanel(gameScreenWindow, Hero.life)
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            ) 
 
                     else:
                         Hero.y = Hero.y + 1
@@ -480,23 +545,43 @@ class GameWindow(QMainWindow):
                     elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
                         print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
 
-                        Stage.currentStage = Stage.currentStage + 1
-                        Hero.y = 1
-                        Hero.x = 0
-                        Stage.isOpen = False
-                        Stage.countKey = 0
-                        Stage.countMonster = 0
+                        if Stage.currentStage == 5:
+                            Stage.indexWorld = Stage.indexWorld +1
+                            Stage.currentStage = 1
+                            Hero.y = 1
+                            Hero.x = 0
+                            Stage.isOpen = False
+                            Stage.countKey = 0
+                            Stage.countMonster = 0
 
-                        generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
-                        createHeroPanel(gameScreenWindow, Hero.life)
-                        addPanelGoals(
-                            gameScreenWindow, 
-                            Stage.countMonster, 
-                            Stage.currentWorld, 
-                            "stage {}".format(Stage.currentStage), 
-                            Stage.countKey
-                        )
+                            generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                            createHeroPanel(gameScreenWindow, Hero.life)
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            )
+                        else:
+                            Stage.currentStage = Stage.currentStage + 1
+                            Hero.y = 1
+                            Hero.x = 0
+                            Stage.isOpen = False
+                            Stage.countKey = 0
+                            Stage.countMonster = 0
+
+                            generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                            createHeroPanel(gameScreenWindow, Hero.life)
+                            addPanelGoals(
+                                gameScreenWindow, 
+                                Stage.countMonster, 
+                                Stage.currentWorld, 
+                                "stage {}".format(Stage.currentStage), 
+                                Stage.countKey
+                            ) 
 
                     else:
                         Hero.x = Hero.x - 1
