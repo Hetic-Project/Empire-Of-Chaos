@@ -1,6 +1,7 @@
 class Stage:
 
     saveDropItems = []
+    messageTab = []
     isOpen = False
     isDead = False
  
