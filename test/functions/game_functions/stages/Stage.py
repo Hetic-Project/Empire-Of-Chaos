@@ -3,6 +3,7 @@ class Stage:
     currentWorld = "grassland"
     currentStage = 1
     saveDropItems = []
+    messageTab = []
     isOpen = False
     isDead = False
  
