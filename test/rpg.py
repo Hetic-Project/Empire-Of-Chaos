@@ -1,10 +1,11 @@
 import signal
+import os
 import sys
 import time
-import random
+import random 
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
-from PySide6.QtCore import Signal, QUrl
-from PySide6.QtGui import QIcon, QFont, QFontDatabase
+from PySide6.QtCore import Signal, QUrl, QRect
+from PySide6.QtGui import QIcon, QFont, QFontDatabase, QPixmap
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
 from functions.interface_functions.centralWindow import *
 from functions.game_functions.stages.Stage import *
@@ -17,6 +18,9 @@ from functions.game_functions.addAttackIndication import *
 from functions.game_functions.closeFunction import *
 from functions.game_functions.stages.nextStage import *
 from functions.game_functions.stages.nextStage import *
+from functions.game_functions.addPanelGoals import *
+from functions.game_functions.generateRandomCoordinate import *
+from functions.game_functions.createHeroPanel import *
 
 
 
@@ -25,17 +29,30 @@ class WelcomeDialog(QDialog):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Game Info")
-        self.setMinimumSize(600, 250)
-        self.setWindowIcon(QIcon("test/icons/rpg.png"))
+        self.setMinimumSize(900, 780)
+        self.setWindowIcon(QIcon("icons/rpg.png"))
         self.setStyleSheet("background-color: #000000;")
-        welcome_label = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir \nles 4 clés dispersés dans les 4 biomes que vous devrez explorer ils sont gouvernés \npar des êtres puissants tout cela pour arriver à vos fins, vaincre Ouroubos, \nune créature terrifiante qui a jadis détruit votre rayaume tout entier,\nvous devez donc partir de rien pour arriver à adoucir \ncette haine que vous avez depuis tant d'années.", self)
-        welcome_label.move(90, 50)
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
-        welcome_label.setFont(QFont("Yeon Sung"))
-        welcome_label.setStyleSheet("color: white;")
+        title = QLabel("Histoire du Jeu", self)
+        title.move(310, 25)
+        title.setFont(QFont("Yeon Sung", 40))
+        title.setStyleSheet("color: white;")
+        title2 = QLabel("Controles", self)
+        title2.move(355, 440)
+        title2.setFont(QFont("Yeon Sung", 40))
+        title2.setStyleSheet("color: white;")
+        synopsys = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir \nles 4 clés dispersés dans les 4 endroits remplis de traces magiques, que \nvous devrez explorer ils sont gouvernés par des êtres puissants et ainsi \nvaincre Ouroboros, une créature terrifiante qui a jadis détruit votre rayaume \ntout entier avec le but de récupérer le plus de pouvoir magique possible et\n devenir immortel, vous devez donc partir de rien pour arriver à sauver le \n                           monde avant que ce ne soit trop tard.\n\n Vous vous êtes donc mis sur la quête de votre ennemi juré, après un long\n voyage et une longue enquête pour pouvoir déterminer où se situait son\n repère vous apprétez à entrer dans les zones où a été vu Ouroboros le\n plus souvent et décidez d'aller vérifier malgré la présence de nombreux\n                                               monstres.", self)
+        synopsys.move(220, 120)
+        id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
+        synopsys.setFont(QFont("Yeon Sung", 12))
+        synopsys.setStyleSheet("color: white;")
+        
+        controls = QLabel("                               Entrée = Attaquer/Intéragir      Flèches du Clavier = Se Déplacer\n\n A = Slot 1 de l'Inventaire      Z = Slot 2 de l'Inventaire      E = Slot 3 de l'Inventaire      R = Slot 4 de l'Inventaire\n\nT = Slot 5 de l'Inventaire      Y = Slot 6 de l'Inventaire      U = Slot 7 de l'Inventaire      I = Slot 8 de l'Inventaire\n\nO = Slot 9 de l'Inventaire      P = Slot 10 de l'Inventaire    Q = Slot 11 de l'Inventaire    S = Slot 12 de l'Inventaire\n\nD = Slot 13 de l'Inventaire    F = Slot 14 de l'Inventaire      G = Slot 15 de l'Inventaire    H = Slot 16 de l'Inventaire", self)
+        controls.move(120, 530)
+        controls.setFont(QFont("Yeon Sung", 12))
+        controls.setStyleSheet("color: white;")
+
         close_button = QPushButton("Fermer", self)
-        close_button.move(250, 200)
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        close_button.move(80, 750)
         close_button.setFont(QFont("Yeon Sung"))
         close_button.setStyleSheet(f"""
                 QPushButton {{
@@ -59,7 +76,7 @@ class GameWindow(QMainWindow):
 
         self.setWindowTitle("Empire Of Chaos")
         self.setMinimumSize(1275, 1000)
-        self.setWindowIcon(QIcon("test/icons/rpg.png"))
+        self.setWindowIcon(QIcon("icons/rpg.png"))
 
         close_game_signal = Signal()
 
@@ -72,7 +89,7 @@ class GameWindow(QMainWindow):
             generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
             centralArea = centralWindow(self)
             gameWindow = gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
-            # Stage.messageTab.append("Bienvenue dans le monde dans le monde de {}  abattez tous les ennemis afin de passer les épreuves et de monter en XP ! " .format(Stage.currentWorld))
+            #Stage.messageTab.append("Bienvenue dans le monde dans le monde de {}  abattez tous les ennemis afin de passer les épreuves et de monter en XP ! " .format(Stage.currentWorld))
             createHeroPanel(gameWindow, Hero.life)
             addPanelGoals(
                 gameWindow, 
@@ -100,10 +117,10 @@ class GameWindow(QMainWindow):
             credits_window = QDialog()
             credits_window.setWindowTitle("Credits")
             credits_window.setMinimumSize(400, 250) 
-            credits_window.setWindowIcon(QIcon("test/icons/rpg.png"))
+            credits_window.setWindowIcon(QIcon("icons/rpg.png"))
             credits_label = QLabel("Développeurs : \n\n\nWilliam Vandal\nLucas Yalman\nMohamed Yaich\nKen's", credits_window)
             credits_label.move(250, 50)
-            id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+            id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
             credits_label.setFont(QFont("Yeon Sung", 10))
             credits_window.setStyleSheet("color : white;" "background : black;")
             credits_window.show()
@@ -117,7 +134,7 @@ class GameWindow(QMainWindow):
         StartGame = QPushButton("Start", panelMainTitle)
         StartGame.setGeometry(500, 340, 300, 40)
         StartGame.clicked.connect(launchGame)
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
         StartGame.setFont(QFont("Yeon Sung", 25))
         StartGame.setStyleSheet(f"""
                 QPushButton {{
@@ -136,7 +153,7 @@ class GameWindow(QMainWindow):
         credits = QPushButton("Credits", panelMainTitle)
         credits.setGeometry(500, 400, 300, 40)
         credits.clicked.connect(show_credits) 
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
         credits.setFont(QFont("Yeon Sung", 25))
         credits.setStyleSheet("color : white;" "background : black;")
         credits.setStyleSheet(f"""
@@ -152,11 +169,11 @@ class GameWindow(QMainWindow):
                                     border: none;
                                     border-radius: 10px;}}
                                     """)
-        
+                                    
 
         Exit = QPushButton("Exit", panelMainTitle)
         Exit.setGeometry(500, 460, 300, 40)
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
         Exit.setFont(QFont("Yeon Sung", 25))
         Exit.setStyleSheet(f"""
                 QPushButton {{
@@ -176,7 +193,7 @@ class GameWindow(QMainWindow):
         music = QPushButton("Play Music", panelMainTitle)
         music.setGeometry(930, 10, 300, 40)
         music.clicked.connect(play_music) 
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
         music.setFont(QFont("Yeon Sung", 15))
         music.setStyleSheet("color : white;" "background : black;")
         music.setStyleSheet(f"""
@@ -373,34 +390,16 @@ class GameWindow(QMainWindow):
                             Stage.countKey = 0
                             Stage.countMonster = 0
 
-                            generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
-                            createHeroPanel(gameScreenWindow, Hero.life)
-                            addPanelGoals(
-                                gameScreenWindow, 
-                                Stage.countMonster, 
-                                Stage.currentWorld, 
-                                "stage {}".format(Stage.currentStage), 
-                                Stage.countKey
-                            )
-                        else:
-                            Stage.currentStage = Stage.currentStage + 1
-                            Hero.y = 1
-                            Hero.x = 0
-                            Stage.isOpen = False
-                            Stage.countKey = 0
-                            Stage.countMonster = 0
-
-                            generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
-                            createHeroPanel(gameScreenWindow, Hero.life)
-                            addPanelGoals(
-                                gameScreenWindow, 
-                                Stage.countMonster, 
-                                Stage.currentWorld, 
-                                "stage {}".format(Stage.currentStage), 
-                                Stage.countKey
-                            ) 
+                        generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        addPanelGoals(
+                            gameScreenWindow, 
+                            Stage.countMonster, 
+                            Stage.currentWorld, 
+                            "stage {}".format(Stage.currentStage), 
+                            Stage.countKey
+                        )
 
                     else:
                         Hero.y = Hero.y - 1
@@ -710,10 +709,10 @@ class GameWindow(QMainWindow):
                                     reste = Hero.progressEXP - exp
                                     Hero.progressEXP = reste
 
-
                                 createHeroPanel(gameScreenWindow, Hero.life)
 
-                                Stage.messageTab("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
+                                Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
+
                                 addTextBox(gameScreenWindow)
 
                                 
@@ -723,9 +722,11 @@ class GameWindow(QMainWindow):
                                     Stage.messageTab.append("aucun objet reçus !")
                                     addTextBox(gameScreenWindow)
                                 else:
+                                    
                                     Stage.messageTab.append("{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                     addTextBox(gameScreenWindow)
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
+                                    Hero.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
                                     addInventory(gameScreenWindow)
 
 
@@ -819,20 +820,26 @@ class GameWindow(QMainWindow):
                                 Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
                                 addTextBox(gameScreenWindow)
 
-                                RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
+                                RAND = random.randint(1,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
                                 
                                 if RAND == 0:
                                     Stage.messageTab.append("aucun objet reçus !")
                                     addTextBox(gameScreenWindow)
                                 else:
+                                    Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
                                     Stage.messageTab.append("{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                     addTextBox(gameScreenWindow)  
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
                                     addInventory(gameScreenWindow)
                                 drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back) 
                                 i["isDroped"] = True
-                                
                                 return        
+                            else:
+                                Stage.messageTab.append("le monstre est mort")
+                                addTextBox(gameScreenWindow)    
+                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)               
+                                return
+                                    
                         else:
                             Stage.messageTab.append("le monstre est mort")
                             addTextBox(gameScreenWindow)    
@@ -926,6 +933,7 @@ class GameWindow(QMainWindow):
                                     Stage.messageTab.append("aucun objet reçus !")
                                     addTextBox(gameScreenWindow)
                                 else:
+                                    Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
                                     Stage.messageTab.append("{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                     addTextBox(gameScreenWindow)  
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
@@ -940,7 +948,6 @@ class GameWindow(QMainWindow):
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)               
                             return
                         return
-
                     # GAUCHE
                     elif i["y"] == Hero.y and i["x"] == Hero.x-1:
                 
@@ -1023,6 +1030,7 @@ class GameWindow(QMainWindow):
                                 Stage.messageTab.append("aucun objet reçus !")
                                 addTextBox(gameScreenWindow)
                             else:
+                                Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
                                 Stage.messageTab.append("{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                 addTextBox(gameScreenWindow)   
                                 Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
@@ -1038,7 +1046,7 @@ class GameWindow(QMainWindow):
                             return
                         return    
                          
-            
+              
 #==================================================================================================================================================================
 # GESTION DU SYSTEME DE COMBAT CONTRE LE BOSS
 # ================================================================================================================================================================
@@ -1339,6 +1347,288 @@ class GameWindow(QMainWindow):
                     Stage.messageTab.append("Vous n'avez pas remplie toute les conditions")
                     addTextBox(gameScreenWindow)     
                      
+#=================================================================================================================================================================
+# GESTION DE L'INVENTAIRE
+# ================================================================================================================================================================
+        
+
+        elif event.key() == 65:
+            
+
+            effect = Stage.dropInfo[Stage.inventaire[0]]["effect"]
+            if Stage.inventaire[0] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[0])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[0] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[0])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+            
+
+        elif event.key() == 90:
+
+
+            effect = Stage.dropInfo[Stage.inventaire[1]]["effect"]
+            if Stage.inventaire[1] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[1])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[1] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[1])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+            
+        
+
+        elif event.key() == 69:
+
+            effect = Stage.dropInfo[Stage.inventaire[2]]["effect"]
+            if Stage.inventaire[2] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[2])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[2] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[2])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+
+
+        elif event.key() == 82:
+
+            effect = Stage.dropInfo[Stage.inventaire[3]]["effect"]
+            if Stage.inventaire[3] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[3])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[3] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[3])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 84:
+
+            effect = Stage.dropInfo[Stage.inventaire[4]]["effect"]
+            if Stage.inventaire[4] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[4])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[4] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[4])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 89:
+
+            effect = Stage.dropInfo[Stage.inventaire[5]]["effect"]
+            if Stage.inventaire[5] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[5])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[5] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[5])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 85:
+
+            effect = Stage.dropInfo[Stage.inventaire[6]]["effect"]
+            if Stage.inventaire[6] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[6])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[6] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[6])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 73:
+
+            effect = Stage.dropInfo[Stage.inventaire[7]]["effect"]
+            if Stage.inventaire[7] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[7])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[7] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[7])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 79:
+
+            effect = Stage.dropInfo[Stage.inventaire[8]]["effect"]
+            if Stage.inventaire[8] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[8])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[8] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[8])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+
+
+        elif event.key() == 80:
+
+            effect = Stage.dropInfo[Stage.inventaire[9]]["effect"]
+            if Stage.inventaire[9] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[9])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[9] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[9])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+
+        elif event.key() == 81:
+
+            effect = Stage.dropInfo[Stage.inventaire[10]]["effect"]
+            if Stage.inventaire[10] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[10])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[10] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[10])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+            
+
+        elif event.key() == 83:
+
+            effect = Stage.dropInfo[Stage.inventaire[11]]["effect"]
+            if Stage.inventaire[11] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[11])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[11] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[11])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 68:
+
+            effect = Stage.dropInfo[Stage.inventaire[12]]["effect"]
+            if Stage.inventaire[12] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[12])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[12] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[12])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 70:
+
+            effect = Stage.dropInfo[Stage.inventaire[13]]["effect"]
+            if Stage.inventaire[13] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[13])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[13] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[13])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 71:
+
+            effect = Stage.dropInfo[Stage.inventaire[14]]["effect"]
+            if Stage.inventaire[14] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[14])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[14] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[14])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+
+        elif event.key() == 72:
+
+            effect = Stage.dropInfo[Stage.inventaire[15]]["effect"]
+            if Stage.inventaire[15] == "petite potion de hp":
+                Hero.life = effect
+                createHeroPanel(gameScreenWindow, Hero.life)
+                Stage.inventaire.remove(Stage.inventaire[15])
+                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                addInventory(gameScreenWindow)
+            elif Stage.inventaire[15] == "petit bouclier":
+                Hero.defense = effect
+                createHeroPanel(gameScreenWindow, Hero.life)          
+                Stage.inventaire.remove(Stage.inventaire[15])
+                Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
+                addInventory(gameScreenWindow)
+        
+        
+
 
 
 if __name__ == "__main__":
