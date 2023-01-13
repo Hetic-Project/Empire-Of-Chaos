@@ -10,7 +10,6 @@ def addTextBox(gameWindow):
     positiony = 0
     message = QTextEdit(box) 
     message.setEnabled(False)
-        
     
     for i in Stage.messageTab:
         message.append(i)
