@@ -1,10 +1,11 @@
 import signal
+import os
 import sys
 import time
-import random
+import random 
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
-from PySide6.QtCore import Signal, QUrl
-from PySide6.QtGui import QIcon, QFont, QFontDatabase
+from PySide6.QtCore import Signal, QUrl, QRect
+from PySide6.QtGui import QIcon, QFont, QFontDatabase, QPixmap
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
 from functions.interface_functions.centralWindow import *
 from functions.game_functions.stages.Stage import *
@@ -28,17 +29,30 @@ class WelcomeDialog(QDialog):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Game Info")
-        self.setMinimumSize(600, 250)
-        self.setWindowIcon(QIcon("test/icons/rpg.png"))
+        self.setMinimumSize(900, 780)
+        self.setWindowIcon(QIcon("icons/rpg.png"))
         self.setStyleSheet("background-color: #000000;")
-        welcome_label = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir \nles 4 clés dispersés dans les 4 biomes que vous devrez explorer ils sont gouvernés \npar des êtres puissants tout cela pour arriver à vos fins, vaincre Ouroubos, \nune créature terrifiante qui a jadis détruit votre rayaume tout entier,\nvous devez donc partir de rien pour arriver à adoucir \ncette haine que vous avez depuis tant d'années.", self)
-        welcome_label.move(90, 50)
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
-        welcome_label.setFont(QFont("Yeon Sung"))
-        welcome_label.setStyleSheet("color: white;")
+        title = QLabel("Histoire du Jeu", self)
+        title.move(310, 25)
+        title.setFont(QFont("Yeon Sung", 40))
+        title.setStyleSheet("color: white;")
+        title2 = QLabel("Controles", self)
+        title2.move(355, 440)
+        title2.setFont(QFont("Yeon Sung", 40))
+        title2.setStyleSheet("color: white;")
+        synopsys = QLabel("Bienvenue dans Empire of Chaos, l'objectif principal du jeu est de recueillir \nles 4 clés dispersés dans les 4 endroits remplis de traces magiques, que \nvous devrez explorer ils sont gouvernés par des êtres puissants et ainsi \nvaincre Ouroboros, une créature terrifiante qui a jadis détruit votre rayaume \ntout entier avec le but de récupérer le plus de pouvoir magique possible et\n devenir immortel, vous devez donc partir de rien pour arriver à sauver le \n                           monde avant que ce ne soit trop tard.\n\n Vous vous êtes donc mis sur la quête de votre ennemi juré, après un long\n voyage et une longue enquête pour pouvoir déterminer où se situait son\n repère vous apprétez à entrer dans les zones où a été vu Ouroboros le\n plus souvent et décidez d'aller vérifier malgré la présence de nombreux\n                                               monstres.", self)
+        synopsys.move(220, 120)
+        id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
+        synopsys.setFont(QFont("Yeon Sung", 12))
+        synopsys.setStyleSheet("color: white;")
+        
+        controls = QLabel("                               Entrée = Attaquer/Intéragir      Flèches du Clavier = Se Déplacer\n\n A = Slot 1 de l'Inventaire      Z = Slot 2 de l'Inventaire      E = Slot 3 de l'Inventaire      R = Slot 4 de l'Inventaire\n\nT = Slot 5 de l'Inventaire      Y = Slot 6 de l'Inventaire      U = Slot 7 de l'Inventaire      I = Slot 8 de l'Inventaire\n\nO = Slot 9 de l'Inventaire      P = Slot 10 de l'Inventaire    Q = Slot 11 de l'Inventaire    S = Slot 12 de l'Inventaire\n\nD = Slot 13 de l'Inventaire    F = Slot 14 de l'Inventaire      G = Slot 15 de l'Inventaire    H = Slot 16 de l'Inventaire", self)
+        controls.move(120, 530)
+        controls.setFont(QFont("Yeon Sung", 12))
+        controls.setStyleSheet("color: white;")
+
         close_button = QPushButton("Fermer", self)
-        close_button.move(250, 200)
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        close_button.move(80, 750)
         close_button.setFont(QFont("Yeon Sung"))
         close_button.setStyleSheet(f"""
                 QPushButton {{
@@ -62,7 +76,7 @@ class GameWindow(QMainWindow):
 
         self.setWindowTitle("Empire Of Chaos")
         self.setMinimumSize(1275, 1000)
-        self.setWindowIcon(QIcon("test/icons/rpg.png"))
+        self.setWindowIcon(QIcon("icons/rpg.png"))
 
         close_game_signal = Signal()
 
@@ -103,10 +117,10 @@ class GameWindow(QMainWindow):
             credits_window = QDialog()
             credits_window.setWindowTitle("Credits")
             credits_window.setMinimumSize(400, 250) 
-            credits_window.setWindowIcon(QIcon("test/icons/rpg.png"))
+            credits_window.setWindowIcon(QIcon("icons/rpg.png"))
             credits_label = QLabel("Développeurs : \n\n\nWilliam Vandal\nLucas Yalman\nMohamed Yaich\nKen's", credits_window)
             credits_label.move(250, 50)
-            id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+            id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
             credits_label.setFont(QFont("Yeon Sung", 10))
             credits_window.setStyleSheet("color : white;" "background : black;")
             credits_window.show()
@@ -120,7 +134,7 @@ class GameWindow(QMainWindow):
         StartGame = QPushButton("Start", panelMainTitle)
         StartGame.setGeometry(500, 340, 300, 40)
         StartGame.clicked.connect(launchGame)
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
         StartGame.setFont(QFont("Yeon Sung", 25))
         StartGame.setStyleSheet(f"""
                 QPushButton {{
@@ -139,7 +153,7 @@ class GameWindow(QMainWindow):
         credits = QPushButton("Credits", panelMainTitle)
         credits.setGeometry(500, 400, 300, 40)
         credits.clicked.connect(show_credits) 
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
         credits.setFont(QFont("Yeon Sung", 25))
         credits.setStyleSheet("color : white;" "background : black;")
         credits.setStyleSheet(f"""
@@ -155,11 +169,11 @@ class GameWindow(QMainWindow):
                                     border: none;
                                     border-radius: 10px;}}
                                     """)
-        
+                                    
 
         Exit = QPushButton("Exit", panelMainTitle)
         Exit.setGeometry(500, 460, 300, 40)
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
         Exit.setFont(QFont("Yeon Sung", 25))
         Exit.setStyleSheet(f"""
                 QPushButton {{
@@ -179,7 +193,7 @@ class GameWindow(QMainWindow):
         music = QPushButton("Play Music", panelMainTitle)
         music.setGeometry(930, 10, 300, 40)
         music.clicked.connect(play_music) 
-        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
         music.setFont(QFont("Yeon Sung", 15))
         music.setStyleSheet("color : white;" "background : black;")
         music.setStyleSheet(f"""
