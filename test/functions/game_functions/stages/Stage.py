@@ -1,8 +1,13 @@
+
+from functions.game_functions.Hero import *
+
+
 class Stage:
 
     currentWorld = "grassland"
     currentStage = 1
     saveDropItems = []
+    inventaire = []
     messageTab = []
     isOpen = False
     isDead = False
@@ -958,11 +963,13 @@ class Stage:
     dropInfo = {
         "petite potion de hp": {
             "description": "",
-            "image": "border-image: url(test/sprites/items/hp_potion.png) 0 0 0 0 no-repeat streach streach;" 
+            "image": "border-image: url(test/sprites/items/hp_potion.png) 0 0 0 0 no-repeat streach streach;",
+            "effect": Hero.life + 50,
         },
         "petit bouclier": {
             "description": "",
-            "image": "border-image: url(test/sprites/items/petit_bouclier.png) 0 0 0 0 no-repeat streach streach;"
+            "image": "border-image: url(test/sprites/items/petit_bouclier.png) 0 0 0 0 no-repeat streach streach;",
+            "effect" : Hero.defense + 20
         },
         "clée du donjon": {
             "description": "",
