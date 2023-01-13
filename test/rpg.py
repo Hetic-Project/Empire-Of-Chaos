@@ -182,7 +182,6 @@ class GameWindow(QMainWindow):
                 QPushButton {{
                             background : none;
                             border: none;}}
-                }}
                 QPushButton:pressed {{
                                     background : white; 
                                     color: #000000; 
