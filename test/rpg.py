@@ -2,7 +2,8 @@ import signal
 import sys
 import time
 import random
-from PySide6.QtCore import Signal
+from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
+from PySide6.QtCore import Signal, QUrl
 from PySide6.QtGui import QIcon, QFont, QFontDatabase
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
 from functions.interface_functions.centralWindow import *
@@ -81,7 +82,19 @@ class GameWindow(QMainWindow):
                 Stage.countKey
             )
 
-
+        def play_music():
+            self.player = QMediaPlayer()
+            audioOutput = QAudioOutput()
+            self.player.setAudioOutput(audioOutput)
+            file_path = "C:/Users/yalma/Desktop/Empire-Of-Chaos/music/DMT.mp3"
+            self.player.setSource(QUrl.fromLocalFile(file_path))
+            audioOutput.setVolume(80)
+            self.player.setLoops(-1)
+            self.player.play()
+            if self.player.state() == QMediaPlayer.PlayingState:
+                print("Music is playing")
+            else:
+                print("Music is not playing")
 
         def show_credits():
             credits_window = QDialog()
@@ -159,6 +172,26 @@ class GameWindow(QMainWindow):
                                     border-radius: 10px;}}
                                     """)
         Exit.clicked.connect(self.exitGame)
+
+        music = QPushButton("Play Music", panelMainTitle)
+        music.setGeometry(930, 10, 300, 40)
+        music.clicked.connect(play_music) 
+        id = QFontDatabase.addApplicationFont("test/YeonSung-Regular.ttf")
+        music.setFont(QFont("Yeon Sung", 15))
+        music.setStyleSheet("color : white;" "background : black;")
+        music.setStyleSheet(f"""
+                QPushButton {{
+                            background : none;
+                            border: none;}}
+                }}
+                QPushButton:pressed {{
+                                    background : white; 
+                                    color: #000000; 
+                                    font-weight: bold; 
+                                    font-size : 18px; 
+                                    border: none;
+                                    border-radius: 10px;}}
+                                    """)
 
     def exitGame(self):
         choice = QMessageBox.question(self, "Exit", "Êtes-vous sûrs de vouloir quitter ?",
@@ -315,7 +348,7 @@ class GameWindow(QMainWindow):
                         Stage.countMonster = 0
 
                         generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
                         createHeroPanel(gameScreenWindow, Hero.life)
                         addPanelGoals(
                             gameScreenWindow, 
@@ -393,7 +426,7 @@ class GameWindow(QMainWindow):
                         Stage.countMonster = 0
 
                         generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                        gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
                         createHeroPanel(gameScreenWindow, Hero.life)
                         addPanelGoals(
                             gameScreenWindow, 
@@ -515,9 +548,9 @@ class GameWindow(QMainWindow):
 #========================================================================================================================================================================================================
 
             # EVENT SUR LA TOUCHE ENTRER
-            if Stage.currentStage < 5 :
+            if Stage.currentStage < 5:
                 for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["info"]:
-                
+            
                     # DROITE
                     if i["y"] == Hero.y and i["x"] == Hero.x+1:
                         print(i)
@@ -593,10 +626,9 @@ class GameWindow(QMainWindow):
                                     reste = Hero.progressEXP - exp
                                     Hero.progressEXP = reste
 
-
                                 createHeroPanel(gameScreenWindow, Hero.life)
 
-                                Stage.messageTab("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
+                                Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
                                 addTextBox(gameScreenWindow)
 
                                 
@@ -715,7 +747,13 @@ class GameWindow(QMainWindow):
                                 addTextBox(gameScreenWindow)    
                                 drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)               
                                 return
-                        return
+                                    
+                        else:
+                            print("le monstre est mort")    
+                            drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)               
+                            return
+                        return  
+                    
             
                     # BAS
                     elif i["y"] == Hero.y+1 and i["x"] == Hero.x:
@@ -857,37 +895,37 @@ class GameWindow(QMainWindow):
                             Stage.messageTab.append("Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
                             addTextBox(gameScreenWindow)
 
-                        if i["life"] == 0 and i["isDroped"] == False:
+                            if i["life"] == 0 and i["isDroped"] == False:
 
-                            Stage.countMonster = Stage.countMonster + 1
+                                Stage.countMonster = Stage.countMonster + 1
 
-                            addPanelGoals(
-                                gameScreenWindow, 
-                                Stage.countMonster, 
-                                Stage.currentWorld, 
-                                "stage {}".format(Stage.currentStage), 
-                                Stage.countKey
-                            )
+                                addPanelGoals(
+                                    gameScreenWindow, 
+                                    Stage.countMonster, 
+                                    Stage.currentWorld, 
+                                    "stage {}".format(Stage.currentStage), 
+                                    Stage.countKey
+                                )
 
-                            exp = int((100/Hero.level)*Stage.currentStage)
-                            Hero.progressEXP = Hero.progressEXP + exp
+                                exp = int((100/Hero.level)*Stage.currentStage)
+                                Hero.progressEXP = Hero.progressEXP + exp
 
-                            if Hero.progressEXP == 100:
-                                Hero.level = Hero.level +1
-                                Hero.life = Hero.life+5
-                                Hero.maxlife = Hero.maxlife+5
-                                Hero.strength = Hero.strength+5
-                                Hero.defense = Hero.defense+5
-                                Hero.progressEXP = 0
+                                if Hero.progressEXP == 100:
+                                    Hero.level = Hero.level +1
+                                    Hero.life = Hero.life+5
+                                    Hero.maxlife = Hero.maxlife+5
+                                    Hero.strength = Hero.strength+5
+                                    Hero.defense = Hero.defense+5
+                                    Hero.progressEXP = 0
 
-                            elif Hero.progressEXP > 100:
-                                Hero.level = Hero.level +1
-                                Hero.life = Hero.life+5
-                                Hero.maxlife = Hero.maxlife+5
-                                Hero.strength = Hero.strength+5
-                                Hero.defense = Hero.defense+5
-                                reste = Hero.progressEXP - exp
-                                Hero.progressEXP = reste
+                                elif Hero.progressEXP > 100:
+                                    Hero.level = Hero.level +1
+                                    Hero.life = Hero.life+5
+                                    Hero.maxlife = Hero.maxlife+5
+                                    Hero.strength = Hero.strength+5
+                                    Hero.defense = Hero.defense+5
+                                    reste = Hero.progressEXP - exp
+                                    Hero.progressEXP = reste
 
                             createHeroPanel(gameScreenWindow, Hero.life)
                             Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
@@ -904,20 +942,25 @@ class GameWindow(QMainWindow):
                                 Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
                                 addInventory(gameScreenWindow)
 
-                            i["isDroped"] == True
-                            return
+                                i["isDroped"] == True
+                                return
                         else:
                             Stage.messageTab.append("Le monstre est mort")
                             addTextBox(gameScreenWindow)        
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)               
                             return
-                    return
+                        return    
+                         
+            
 #==================================================================================================================================================================
 # GESTION DU SYSTEME DE COMBAT CONTRE LE BOSS
 # ================================================================================================================================================================
                     
+
             else:
+                
                 if Hero.x == 6 and Hero.direction == "haut":
+
                     for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["info"]:
                         print(i)
                         if i["isAlive"] == True :
@@ -931,6 +974,7 @@ class GameWindow(QMainWindow):
                                 i["life"] = 0
                                 i["progressPV"] = 0
                                 i["isAlive"] = False
+                                Stage.isDead = True
                                 
 
                             createMonsterPanel(

@@ -5,6 +5,7 @@ class Stage:
     saveDropItems = []
     messageTab = []
     isOpen = False
+    isDead = False
  
     Shield_use = False
     countMonster = 0
