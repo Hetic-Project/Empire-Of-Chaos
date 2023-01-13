@@ -490,7 +490,7 @@ class GameWindow(QMainWindow):
                             Stage.countMonster = 0
 
                             generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
                             createHeroPanel(gameScreenWindow, Hero.life)
                             addPanelGoals(
                                 gameScreenWindow, 
@@ -691,6 +691,7 @@ class GameWindow(QMainWindow):
 
                                 exp = int((100/Hero.level)*Stage.currentStage)
                                 Hero.progressEXP = Hero.progressEXP + exp
+                                print(exp)
 
                                 if Hero.progressEXP == 100:
                                     Hero.level = Hero.level +1
@@ -731,18 +732,13 @@ class GameWindow(QMainWindow):
                                 i["isDroped"] = True
                                 return
                                             
-                            else:
-                                Stage.messageTab.append("le monstre est mort")
-                                addTextBox(gameScreenWindow)
-
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
-                                i["isDroped"] = True
-                                return
-                                                
                         else:
-                            print("le monstre est mort")
+                            Stage.messageTab.append("le monstre est mort")
+                            addTextBox(gameScreenWindow)
+
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
-                            return
+                            i["isDroped"] = True
+                            return                                                
                         return   
                         
 
@@ -837,15 +833,9 @@ class GameWindow(QMainWindow):
                                 i["isDroped"] = True
                                 
                                 return        
-                            else:
-                                Stage.messageTab.append("le monstre est mort")
-                                addTextBox(gameScreenWindow)    
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)               
-
-                                return
-                                    
                         else:
-                            print("le monstre est mort")    
+                            Stage.messageTab.append("le monstre est mort")
+                            addTextBox(gameScreenWindow)    
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)               
                             return
                         return  
@@ -944,16 +934,16 @@ class GameWindow(QMainWindow):
                                 i["isDroped"] = True
                                 return
 
-                            else:
-                                Stage.messageTab.append("Le monstre est mort")
-                                addTextBox(gameScreenWindow)
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)               
-                                return
+                        else:
+                            Stage.messageTab.append("Le monstre est mort")
+                            addTextBox(gameScreenWindow)
+                            drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)               
+                            return
                         return
 
                     # GAUCHE
                     elif i["y"] == Hero.y and i["x"] == Hero.x-1:
-
+                
                         if i["isAlive"] == True :
 
                             attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
@@ -1003,7 +993,6 @@ class GameWindow(QMainWindow):
                                     "stage {}".format(Stage.currentStage), 
                                     Stage.countKey
                                 )
-
                                 exp = int((100/Hero.level)*Stage.currentStage)
                                 Hero.progressEXP = Hero.progressEXP + exp
                                 
@@ -1025,7 +1014,7 @@ class GameWindow(QMainWindow):
                                     Hero.progressEXP = reste
 
                             createHeroPanel(gameScreenWindow, Hero.life)
-                            Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
+                            Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
                             addTextBox(gameScreenWindow)
 
                             RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)

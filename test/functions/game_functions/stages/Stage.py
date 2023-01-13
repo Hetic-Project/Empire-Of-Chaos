@@ -10,9 +10,9 @@ class Stage:
     countKey = 0
 
     worldArray = ["grassland", "lavaland", "iceland",  "cloudland", "demonicland"]
-    indexWorld = 0
+    indexWorld = 1
     currentWorld = worldArray[indexWorld]
-    currentStage = 5
+    currentStage = 1
 
     world = {
         "grassland":{
@@ -229,31 +229,33 @@ class Stage:
 
         },
 
-        "iceland": {
+        "lavaland": {
 
             "stages": {
 
                 "stage 1" : {
 
-                    "name": "",
-                    "description": "",
-                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/IceCave.png) no-repeat center center;",
+                    "name": "Lavaland stage 1",
+                    "top-background": "background: url(test/images/map/top-lavaland_stage-1-4.png);",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/lavaland_stage1-2.png) no-repeat center center;",
                     "monsters": {
-                        "name": "Slime",
-                        "life": 25,
+                        "name": "Chimère",
+                        "life": 110,
                         "progressPV": 100,
-                        "strength": 35,
-                        "defense": 10,
-                        "level": 1,  
+                        "strength": 115,
+                        "defense": 90,
+                        "level": 6,                        
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
-                        "front": "background: url(test/sprites/monsters/monster-stage2_front-left.png);" "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage2_right-back.png);" "background-position: bottom",
-                        "left": "background: url(test/sprites/monsters/monster-stage2_front-left.png);" "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage2_right-back.png);" "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage2.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage2.png);",
+                        "isDroped": False,
+                        "isAlive": True,
+                        "front":"background: url(test/sprites/monsters/monster-stage3_front-left.png);"  "background-position: top",
+                        "back": "background: url(test/sprites/monsters/monster-stage3_right-back.png);"  "background-position: bottom",
+                        "left":"background: url(test/sprites/monsters/monster-stage3_front-left.png);"  "background-position: bottom",
+                        "right": "background: url(test/sprites/monsters/monster-stage3_right-back.png);"  "background-position: top",
+                        "face": "background: url(test/sprites/monsters/monster-face_stage3.png);",
+                        "dead": "background: url(test/sprites/monsters/chimere-dead.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
@@ -267,27 +269,35 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_red-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_red-door.png);"
                     },
                 },
 
                 "stage 2" : {
 
-                    "name": "",
+                    "name": "Lavaland stage 2",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-lavaland_stage-1-4.png);",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/lavaland_stage1-2.png) no-repeat center center;",
                     "monsters": {
-                        "name": "",
+                        "name": "Chimère",
+                        "life": 120,
+                        "progressPV": 100,
+                        "strength": 125,
+                        "defense": 100,
+                        "level": 7,  
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
-                        "front":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: bottom",
-                        "left":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage1.png);",
+                        "isDroped": False,
+                        "isAlive": True,
+                        "front":"background: url(test/sprites/monsters/monster-stage3_front-left.png);"  "background-position: top",
+                        "back": "background: url(test/sprites/monsters/monster-stage3_right-back.png);"  "background-position: bottom",
+                        "left":"background: url(test/sprites/monsters/monster-stage3_front-left.png);"  "background-position: bottom",
+                        "right": "background: url(test/sprites/monsters/monster-stage3_right-back.png);"  "background-position: top",
+                        "face": "background: url(test/sprites/monsters/monster-face_stage3.png);",
+                        "dead": "background: url(test/sprites/monsters/chimere-dead.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
@@ -301,16 +311,17 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_red-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_red-door.png);"
                     },
                 },
 
                 "stage 3" : {
 
-                    "name": "",
+                    "name": "Lavaland stage 3",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-lavaland_stage-1-4.png);",
+                    "background": "border: none;" "margin: auto;" "background: url(test/images/map/lavaland_stage1-2.png) no-repeat center center;",
                     "monsters": {
                         "name": "",
                         "info": [],
@@ -411,7 +422,7 @@ class Stage:
             },
         },
         
-        "lavaland": {
+        "iceland": {
 
             "stages": {
 
@@ -419,23 +430,23 @@ class Stage:
 
                     "name": "",
                     "description": "",
-                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/Lava2.png) no-repeat center center;",
+                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/IceCave.png) no-repeat center center;",
                     "monsters": {
-                        "name": "Chimère",
+                        "name": "Slime",
                         "life": 25,
                         "progressPV": 100,
                         "strength": 35,
                         "defense": 10,
-                        "level": 1,                      
+                        "level": 1,  
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
-                        "front":"background: url(test/sprites/monsters/monster-stage3_front-left.png);"  "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage3_right-back.png);"  "background-position: bottom",
-                        "left":"background: url(test/sprites/monsters/monster-stage3_front-left.png);"  "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage3_right-back.png);"  "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage3.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage3.png);",
+                        "front": "background: url(test/sprites/monsters/monster-stage2_front-left.png);" "background-position: top",
+                        "back": "background: url(test/sprites/monsters/monster-stage2_right-back.png);" "background-position: bottom",
+                        "left": "background: url(test/sprites/monsters/monster-stage2_front-left.png);" "background-position: bottom",
+                        "right": "background: url(test/sprites/monsters/monster-stage2_right-back.png);" "background-position: top",
+                        "face": "background: url(test/sprites/monsters/monster-face_stage2.png);",
+                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage2.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
