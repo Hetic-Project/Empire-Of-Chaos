@@ -17,7 +17,7 @@ class Stage:
     worldArray = ["grassland", "lavaland", "iceland",  "cloudland", "demonicland"]
     indexWorld = 0
     currentWorld = worldArray[indexWorld]
-    currentStage = 5
+    currentStage = 1
 
     world = {
         "grassland":{
