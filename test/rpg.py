@@ -586,7 +586,7 @@ class GameWindow(QMainWindow):
                             Stage.countMonster = 0
 
                             generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
-                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea, "Hello player")
+                            gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
                             createHeroPanel(gameScreenWindow, Hero.life)
                             addPanelGoals(
                                 gameScreenWindow, 
@@ -690,30 +690,32 @@ class GameWindow(QMainWindow):
 
                                 exp = int((100/Hero.level)*Stage.currentStage)
                                 Hero.progressEXP = Hero.progressEXP + exp
-                                print(exp)
+                                Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
+                                addTextBox(gameScreenWindow)
 
                                 if Hero.progressEXP == 100:
                                     Hero.level = Hero.level +1
-                                    Hero.life = Hero.life+5
-                                    Hero.maxlife = Hero.maxlife+5
-                                    Hero.strength = Hero.strength+5
-                                    Hero.defense = Hero.defense+5
+                                    Hero.life = Hero.life+15
+                                    Hero.maxlife = Hero.maxlife+15
+                                    Hero.strength = Hero.strength+15
+                                    Hero.defense = Hero.defense+15
                                     Hero.progressEXP = 0
+                                    Hero.life = Hero.maxlife
+                                    Hero.progressHeroPv = 100
 
                                 elif Hero.progressEXP > 100:
                                     Hero.level = Hero.level +1
-                                    Hero.life = Hero.life+5
-                                    Hero.maxlife = Hero.maxlife+5
-                                    Hero.strength = Hero.strength+5
-                                    Hero.defense = Hero.defense+5
+                                    Hero.life = Hero.life+15
+                                    Hero.maxlife = Hero.maxlife+15
+                                    Hero.strength = Hero.strength+15
+                                    Hero.defense = Hero.defense+15
                                     reste = Hero.progressEXP - exp
                                     Hero.progressEXP = reste
+                                    Hero.life = Hero.maxlife
+                                    Hero.progressHeroPv = 100
 
                                 createHeroPanel(gameScreenWindow, Hero.life)
 
-                                Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
-
-                                addTextBox(gameScreenWindow)
 
                                 
                                 RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
@@ -798,27 +800,31 @@ class GameWindow(QMainWindow):
 
                                 exp = int((100/Hero.level)*Stage.currentStage)
                                 Hero.progressEXP = Hero.progressEXP + exp
+                                Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
+                                addTextBox(gameScreenWindow)
 
                                 if Hero.progressEXP == 100:
                                     Hero.level = Hero.level +1
-                                    Hero.life = Hero.life+5
-                                    Hero.maxlife = Hero.maxlife+5
-                                    Hero.strength = Hero.strength+5
-                                    Hero.defense = Hero.defense+5
+                                    Hero.life = Hero.life+15
+                                    Hero.maxlife = Hero.maxlife+15
+                                    Hero.strength = Hero.strength+15
+                                    Hero.defense = Hero.defense+15
                                     Hero.progressEXP = 0
+                                    Hero.life = Hero.maxlife
+                                    Hero.progressHeroPv = 100
 
                                 elif Hero.progressEXP > 100:
                                     Hero.level = Hero.level +1
-                                    Hero.life = Hero.life+5
-                                    Hero.maxlife = Hero.maxlife+5
-                                    Hero.strength = Hero.strength+5
-                                    Hero.defense = Hero.defense+5
+                                    Hero.life = Hero.life+15
+                                    Hero.maxlife = Hero.maxlife+15
+                                    Hero.strength = Hero.strength+15
+                                    Hero.defense = Hero.defense+15
                                     reste = Hero.progressEXP - exp
                                     Hero.progressEXP = reste
+                                    Hero.life = Hero.maxlife
+                                    Hero.progressHeroPv = 100
 
                                 createHeroPanel(gameScreenWindow, Hero.life)
-                                Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
-                                addTextBox(gameScreenWindow)
 
                                 RAND = random.randint(1,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
                                 
@@ -834,12 +840,6 @@ class GameWindow(QMainWindow):
                                 drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back) 
                                 i["isDroped"] = True
                                 return        
-                            else:
-                                Stage.messageTab.append("le monstre est mort")
-                                addTextBox(gameScreenWindow)    
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)               
-                                return
-                                    
                         else:
                             Stage.messageTab.append("le monstre est mort")
                             addTextBox(gameScreenWindow)    
@@ -904,27 +904,31 @@ class GameWindow(QMainWindow):
 
                                 exp = int((100/Hero.level)*Stage.currentStage)
                                 Hero.progressEXP = Hero.progressEXP + exp
+                                Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
+                                addTextBox(gameScreenWindow)
 
                                 if Hero.progressEXP == 100:
                                     Hero.level = Hero.level +1
-                                    Hero.life = Hero.life+5
-                                    Hero.maxlife = Hero.maxlife+5
-                                    Hero.strength = Hero.strength+5
-                                    Hero.defense = Hero.defense+5
+                                    Hero.life = Hero.life+15
+                                    Hero.maxlife = Hero.maxlife+15
+                                    Hero.strength = Hero.strength+15
+                                    Hero.defense = Hero.defense+15
                                     Hero.progressEXP = 0
+                                    Hero.life = Hero.maxlife
+                                    Hero.progressHeroPv = 100
 
                                 elif Hero.progressEXP > 100:
                                     Hero.level = Hero.level +1
-                                    Hero.life = Hero.life+5
-                                    Hero.maxlife = Hero.maxlife+5
-                                    Hero.strength = Hero.strength+5
-                                    Hero.defense = Hero.defense+5
+                                    Hero.life = Hero.life+15
+                                    Hero.maxlife = Hero.maxlife+15
+                                    Hero.strength = Hero.strength+15
+                                    Hero.defense = Hero.defense+15
                                     reste = Hero.progressEXP - exp
                                     Hero.progressEXP = reste
+                                    Hero.life = Hero.maxlife
+                                    Hero.progressHeroPv = 100
 
                                 createHeroPanel(gameScreenWindow, Hero.life)
-                                Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner XX d'exp")
-                                addTextBox(gameScreenWindow)
 
                                 RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
                                 
@@ -1000,29 +1004,34 @@ class GameWindow(QMainWindow):
                                     "stage {}".format(Stage.currentStage), 
                                     Stage.countKey
                                 )
+                                
                                 exp = int((100/Hero.level)*Stage.currentStage)
                                 Hero.progressEXP = Hero.progressEXP + exp
+                                Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
+                                addTextBox(gameScreenWindow)
                                 
                                 if Hero.progressEXP == 100:
                                     Hero.level = Hero.level +1
-                                    Hero.life = Hero.life+5
-                                    Hero.maxlife = Hero.maxlife+5
-                                    Hero.strength = Hero.strength+5
-                                    Hero.defense = Hero.defense+5
+                                    Hero.life = Hero.life+15
+                                    Hero.maxlife = Hero.maxlife+15
+                                    Hero.strength = Hero.strength+15
+                                    Hero.defense = Hero.defense+15
                                     Hero.progressEXP = 0
+                                    Hero.life = Hero.maxlife
+                                    Hero.progressHeroPv = 100
 
                                 elif Hero.progressEXP > 100:
                                     Hero.level = Hero.level +1
-                                    Hero.life = Hero.life+5
-                                    Hero.maxlife = Hero.maxlife+5
-                                    Hero.strength = Hero.strength+5
-                                    Hero.defense = Hero.defense+5
+                                    Hero.life = Hero.life+15
+                                    Hero.maxlife = Hero.maxlife+15
+                                    Hero.strength = Hero.strength+15
+                                    Hero.defense = Hero.defense+15
                                     reste = Hero.progressEXP - exp
                                     Hero.progressEXP = reste
+                                    Hero.life = Hero.maxlife
+                                    Hero.progressHeroPv = 100
 
                             createHeroPanel(gameScreenWindow, Hero.life)
-                            Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
-                            addTextBox(gameScreenWindow)
 
                             RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
                             
@@ -1057,7 +1066,8 @@ class GameWindow(QMainWindow):
                 if Hero.x == 6 and Hero.direction == "haut":
 
                     for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["info"]:
-                        print(i)
+                        
+
                         if i["isAlive"] == True :
 
                             attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
@@ -1135,6 +1145,7 @@ class GameWindow(QMainWindow):
                                 createHeroPanel(gameScreenWindow, Hero.life)
 
                                 Stage.messageTab.append("bravos le monstre a été vaincu, vous avez gagner {} d'exp".format(exp))
+                                Stage.isOpen = True
                                 addTextBox(gameScreenWindow)
 
                                 
@@ -1148,12 +1159,14 @@ class GameWindow(QMainWindow):
                                 i["isDroped"] = True
                                 return
                                             
-                            else:
-                                Stage.messageTab.append("le monstre est mort")
-                                addTextBox(gameScreenWindow)
-                                drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
-                                return
+                        else:
+                            Stage.messageTab.append("le monstre est mort")
+                            addTextBox(gameScreenWindow)
+                            drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
+                            return
                         return 
+                elif  "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isDead == False:
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
 #=========================================================================================================================================================================================================
 # GESTION DES INTERACTIONS AVEC LE COFFRE SUR LA MAP
 #==========================================================================================================================================================================================================

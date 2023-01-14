@@ -5,12 +5,12 @@ from functions.game_functions.stages.Stage import *
 class Hero:
 
     # Status du héro
-    level = 10
-    life = 200
-    maxlife = 200
+    level = 20
+    life = 300
+    maxlife = 300
     progressHeroPv = 100
-    strength = 150
-    defense = 130
+    strength = 250
+    defense = 230
     exp = 0
     progressEXP = 0
     direction = ""
