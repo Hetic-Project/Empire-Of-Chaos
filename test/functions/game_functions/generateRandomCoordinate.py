@@ -44,9 +44,5 @@ def generateRandomCoordinate(world, stage):
 
     else:
         Stage.world[world]["stages"][stage]["boss"]["coordinate"].append([0, 0])
-        # Génération de coordonnées pour la case d'arriver
-        randX = random.randint(11, 13)
-        randY = random.randint(1, 1)
-
-        Stage.world[world]["stages"][stage]["target"]["coordinate"].append([randY, randX])
+        Stage.world[world]["stages"][stage]["target"]["coordinate"].append([1, 13])
 

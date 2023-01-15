@@ -4,8 +4,8 @@ import sys
 import time
 import random 
 from PySide6.QtMultimedia import QMediaPlayer, QAudioOutput
-from PySide6.QtCore import Signal, QUrl, QRect
-from PySide6.QtGui import QIcon, QFont, QFontDatabase, QPixmap
+from PySide6.QtCore import Signal, QUrl
+from PySide6.QtGui import QIcon, QFont, QFontDatabase
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QDialog, QWidget, QLabel
 from functions.interface_functions.centralWindow import *
 from functions.game_functions.stages.Stage import *
@@ -21,6 +21,7 @@ from functions.game_functions.stages.nextStage import *
 from functions.game_functions.addPanelGoals import *
 from functions.game_functions.generateRandomCoordinate import *
 from functions.game_functions.createHeroPanel import *
+from functions.interface_functions.addShortcutInventoryLabel import *
 
 
 
@@ -29,7 +30,7 @@ class WelcomeDialog(QDialog):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Game Info")
-        self.setMinimumSize(900, 780)
+        self.setMinimumSize(1200, 780)
         self.setWindowIcon(QIcon("icons/rpg.png"))
         self.setStyleSheet("background-color: #000000;")
         title = QLabel("Histoire du Jeu", self)
@@ -89,7 +90,7 @@ class GameWindow(QMainWindow):
             generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
             centralArea = centralWindow(self)
             gameWindow = gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
-            #Stage.messageTab.append("Bienvenue dans le monde dans le monde de {}  abattez tous les ennemis afin de passer les épreuves et de monter en XP ! " .format(Stage.currentWorld))
+            addShortcutInventoryLabel(gameWindow)
             createHeroPanel(gameWindow, Hero.life)
             addPanelGoals(
                 gameWindow, 
@@ -116,12 +117,15 @@ class GameWindow(QMainWindow):
         def show_credits():
             credits_window = QDialog()
             credits_window.setWindowTitle("Credits")
-            credits_window.setMinimumSize(400, 250) 
+            credits_window.setMinimumSize(1200, 650) 
             credits_window.setWindowIcon(QIcon("icons/rpg.png"))
-            credits_label = QLabel("Développeurs : \n\n\nWilliam Vandal\nLucas Yalman\nMohamed Yaich\nKen's", credits_window)
-            credits_label.move(250, 50)
+            credits_title = QLabel("Développeurs & Tâches", credits_window)
+            credits_title.move(200, 60)
+            credits_title.setFont(QFont("Yeon Sung", 40))
+            credits_label = QLabel("• LEAD DEV : William Vandal (groupe 1) ---> Map, Système de Combats, d'EXP, de Vie, de mouvements, Sprites, Débug \n\n• DEV : Lucas Yalman (groupe 2) ---> Menu Principal (Boutons et leurs fonctions, Background, Design, Modal Message \ndu Jeu), Musique de fond\n\n• DEV : Mohamed Yaich (groupe 1) ---> Inventaire et lien entre l'inventaire et le jeu + touches de raccourcis, Panel \nObjectifs et Redesign de la map\n\n• DEV : Ken's (groupe 1) ---> Messages qui s'affichent en jeu décrivant l'action que le joueur fait ou subit au lieu \nd'être print sur la console \n\n\n\n• Le projet a été entièrement réalisé avec l'aide de PyQt6 malgré la faible documentation de disponible, \nénormément de disfonctionnement qu'on a du ainsi contourner en essayant plusieurs façons de faire, \nun projet assez complet dans son ensemble malgré le peu de temps et de difficulté qu'on a eu, en espérant que \ncela vous plaise.", credits_window)
+            credits_label.move(100, 190)
             id = QFontDatabase.addApplicationFont("YeonSung-Regular.ttf")
-            credits_label.setFont(QFont("Yeon Sung", 10))
+            credits_label.setFont(QFont("Yeon Sung", 12))
             credits_window.setStyleSheet("color : white;" "background : black;")
             credits_window.show()
             close_game_signal.connect(show_credits)
@@ -234,6 +238,7 @@ class GameWindow(QMainWindow):
         )
 
         createHeroPanel(gameScreenWindow, Hero.life)
+        addShortcutInventoryLabel(gameScreenWindow)
 
         # j'appelle borderMap pour qu'elle soit connue de ma fonction keyPressEvent
         mapCell = drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.front)[1]
@@ -301,32 +306,36 @@ class GameWindow(QMainWindow):
                         Hero.x = Hero.x + 1 
                         drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
             else: 
-                if Hero.x <= 12:
+
+                if Hero.x <= 6 :
                     Hero.x = Hero.x + 1 
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
+                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)  
+               
+                elif Hero.x == 6 and Hero.y == 1:
+
                     for i in Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["boss"]["info"]:
-                        if Hero.x == 6 and Hero.y == 1:
-                            createMonsterPanel(
-                                gameScreenWindow, 
-                                i["name"],
-                                i["life"],
-                                i["strength"], 
-                                i["defense"], 
-                                i["level"], 
-                                i["progressPV"],
-                                Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "boss"]["face"],
-                            )
-                            drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
-                            return
-                    if  "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isOpen == False:
-                            drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right) 
+                        createMonsterPanel(
+                            gameScreenWindow, 
+                            i["name"],
+                            i["life"],
+                            i["strength"], 
+                            i["defense"], 
+                            i["level"], 
+                            i["progressPV"],
+                            Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "boss"]["face"],
+                        )
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
+                        
+                if Stage.isDead == True:
+                    if Hero.x <= 12 :
+                        Hero.x = Hero.x + 1 
+                        drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
 
                     elif  "[{}, {}]".format(Hero.y, Hero.x) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]):
                         print("vous avez terminer le stage {} de {}".format(Stage.currentStage, Stage.currentWorld))
                         
                         Stage.indexWorld = Stage.indexWorld + 1
                         Stage.currentWorld = Stage.worldArray[Stage.indexWorld]
-                        print(Stage.currentWorld)
                         Stage.currentStage = 1
                         Hero.y = 1
                         Hero.x = 0
@@ -343,7 +352,7 @@ class GameWindow(QMainWindow):
                             Stage.currentWorld, 
                             "stage {}".format(Stage.currentStage), 
                             Stage.countKey
-                        )   
+                        ) 
 
 
         # FLECHE DU HAUT
@@ -642,13 +651,7 @@ class GameWindow(QMainWindow):
                             attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                             i["life"] = i["life"] - attack
                             i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
-
-                            if i["life"] <= 0:
-                                i["life"] = 0
-                                i["progressPV"] = 0
-                                i["isAlive"] = False
                                 
-
                             createMonsterPanel(
                             gameScreenWindow, 
                                 i["name"],
@@ -675,8 +678,45 @@ class GameWindow(QMainWindow):
 
                             Stage.messageTab.append("Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
                             addTextBox(gameScreenWindow)
+                                
+                            if Hero.life <= 0:
 
-                            if i["life"] == 0 and i["isDroped"] == False:
+                                Stage.messageTab.append("Vous succombez à vos blessures")
+                                addTextBox(gameScreenWindow)
+                            
+                                Stage.indexWorld = 0
+                                Stage.currentWorld = Stage.worldArray[Stage.indexWorld]
+                                Stage.currentStage = 1 
+                                Hero.y = 1
+                                Hero.x = 0
+                                Hero.level = 1
+                                Hero.life = 100
+                                Hero.maxlife = 100
+                                Hero.progressHeroPv = 100
+                                Hero.strength = 50
+                                Hero.defense = 30
+                                Hero.exp = 0
+                                Hero.progressEXP = 0
+                                Stage.isOpen = False
+                                Stage.countKey = 0
+                                Stage.countMonster = 0
+
+                                generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                                gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
+                                createHeroPanel(gameScreenWindow, Hero.life)
+                                addPanelGoals(
+                                    gameScreenWindow, 
+                                    Stage.countMonster, 
+                                    Stage.currentWorld, 
+                                    "stage {}".format(Stage.currentStage), 
+                                    Stage.countKey
+                                )    
+
+                            elif i["life"] <= 0 and i["isDroped"] == False:
+
+                                i["life"] = 0
+                                i["progressPV"] = 0
+                                i["isAlive"] = False
 
                                 Stage.countMonster = Stage.countMonster + 1
 
@@ -694,6 +734,8 @@ class GameWindow(QMainWindow):
                                 addTextBox(gameScreenWindow)
 
                                 if Hero.progressEXP == 100:
+                                    Stage.messageTab.append("Félicitation vous montez au niveau {}".format(Hero.level + 1))
+                                    addTextBox(gameScreenWindow)
                                     Hero.level = Hero.level +1
                                     Hero.life = Hero.life+15
                                     Hero.maxlife = Hero.maxlife+15
@@ -704,12 +746,14 @@ class GameWindow(QMainWindow):
                                     Hero.progressHeroPv = 100
 
                                 elif Hero.progressEXP > 100:
+                                    Stage.messageTab.append("Félicitation vous montez au niveau {}".format(Hero.level + 1))
+                                    addTextBox(gameScreenWindow)
                                     Hero.level = Hero.level +1
                                     Hero.life = Hero.life+15
                                     Hero.maxlife = Hero.maxlife+15
                                     Hero.strength = Hero.strength+15
                                     Hero.defense = Hero.defense+15
-                                    reste = Hero.progressEXP - exp
+                                    reste = 100 - exp
                                     Hero.progressEXP = reste
                                     Hero.life = Hero.maxlife
                                     Hero.progressHeroPv = 100
@@ -725,11 +769,11 @@ class GameWindow(QMainWindow):
                                     addTextBox(gameScreenWindow)
                                 else:
                                     
+                                    Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
+                                    addInventory(gameScreenWindow)
                                     Stage.messageTab.append("{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                     addTextBox(gameScreenWindow)
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
-                                    Hero.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
-                                    addInventory(gameScreenWindow)
 
 
                                 i["isDroped"] = True
@@ -752,12 +796,7 @@ class GameWindow(QMainWindow):
 
                             attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                             i["life"] = i["life"] - attack
-                            i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
-
-                            if i["life"] <= 0:
-                                i["life"] = 0
-                                i["progressPV"] = 0
-                                i["isAlive"] = False
+                            i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])    
 
                             createMonsterPanel(
                                 gameScreenWindow, 
@@ -786,7 +825,44 @@ class GameWindow(QMainWindow):
                             Stage.messageTab.append("Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
                             addTextBox(gameScreenWindow)
 
-                            if i["life"] == 0 and i["isDroped"] == False:
+                            if Hero.life <= 0:
+
+                                Stage.messageTab.append("Vous succombez à vos blessures")
+                                addTextBox(gameScreenWindow)
+                            
+                                Stage.indexWorld = 0
+                                Stage.currentWorld = Stage.worldArray[Stage.indexWorld]
+                                Stage.currentStage = 1 
+                                Hero.y = 1
+                                Hero.x = 0
+                                Hero.level = 1
+                                Hero.life = 100
+                                Hero.maxlife = 100
+                                Hero.progressHeroPv = 100
+                                Hero.strength = 50
+                                Hero.defense = 30
+                                Hero.exp = 0
+                                Hero.progressEXP = 0
+                                Stage.isOpen = False
+                                Stage.countKey = 0
+                                Stage.countMonster = 0
+
+                                generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                                gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
+                                createHeroPanel(gameScreenWindow, Hero.life)
+                                addPanelGoals(
+                                    gameScreenWindow, 
+                                    Stage.countMonster, 
+                                    Stage.currentWorld, 
+                                    "stage {}".format(Stage.currentStage), 
+                                    Stage.countKey
+                                )
+
+                            elif i["life"] <= 0 and i["isDroped"] == False:
+
+                                i["life"] = 0
+                                i["progressPV"] = 0
+                                i["isAlive"] = False
 
                                 Stage.countMonster = Stage.countMonster + 1
 
@@ -804,6 +880,8 @@ class GameWindow(QMainWindow):
                                 addTextBox(gameScreenWindow)
 
                                 if Hero.progressEXP == 100:
+                                    Stage.messageTab.append("Félicitation vous montez au niveau {}".format(Hero.level + 1))
+                                    addTextBox(gameScreenWindow)
                                     Hero.level = Hero.level +1
                                     Hero.life = Hero.life+15
                                     Hero.maxlife = Hero.maxlife+15
@@ -814,12 +892,14 @@ class GameWindow(QMainWindow):
                                     Hero.progressHeroPv = 100
 
                                 elif Hero.progressEXP > 100:
+                                    Stage.messageTab.append("Félicitation vous montez au niveau {}".format(Hero.level + 1))
+                                    addTextBox(gameScreenWindow)
                                     Hero.level = Hero.level +1
                                     Hero.life = Hero.life+15
                                     Hero.maxlife = Hero.maxlife+15
                                     Hero.strength = Hero.strength+15
                                     Hero.defense = Hero.defense+15
-                                    reste = Hero.progressEXP - exp
+                                    reste = 100 - exp
                                     Hero.progressEXP = reste
                                     Hero.life = Hero.maxlife
                                     Hero.progressHeroPv = 100
@@ -833,10 +913,10 @@ class GameWindow(QMainWindow):
                                     addTextBox(gameScreenWindow)
                                 else:
                                     Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
+                                    addInventory(gameScreenWindow)
                                     Stage.messageTab.append("{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                     addTextBox(gameScreenWindow)  
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
-                                    addInventory(gameScreenWindow)
                                 drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back) 
                                 i["isDroped"] = True
                                 return        
@@ -855,12 +935,7 @@ class GameWindow(QMainWindow):
 
                             attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                             i["life"] = i["life"] - attack
-                            i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
-
-                            if i["life"] <= 0:
-                                i["life"] = 0
-                                i["progressPV"] = 0
-                                i["isAlive"] = False
+                            i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])    
 
                             createMonsterPanel(
                                 gameScreenWindow, 
@@ -890,7 +965,44 @@ class GameWindow(QMainWindow):
                             Stage.messageTab.append("Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
                             addTextBox(gameScreenWindow)
 
-                            if i["life"] == 0 and i["isDroped"] == False:
+                            if Hero.life <= 0:
+
+                                Stage.messageTab.append("Vous succombez à vos blessures")
+                                addTextBox(gameScreenWindow)
+                            
+                                Stage.indexWorld = 0
+                                Stage.currentWorld = Stage.worldArray[Stage.indexWorld]
+                                Stage.currentStage = 1 
+                                Hero.y = 1
+                                Hero.x = 0
+                                Hero.level = 1
+                                Hero.life = 100
+                                Hero.maxlife = 100
+                                Hero.progressHeroPv = 100
+                                Hero.strength = 50
+                                Hero.defense = 30
+                                Hero.exp = 0
+                                Hero.progressEXP = 0
+                                Stage.isOpen = False
+                                Stage.countKey = 0
+                                Stage.countMonster = 0
+
+                                generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                                gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
+                                createHeroPanel(gameScreenWindow, Hero.life)
+                                addPanelGoals(
+                                    gameScreenWindow, 
+                                    Stage.countMonster, 
+                                    Stage.currentWorld, 
+                                    "stage {}".format(Stage.currentStage), 
+                                    Stage.countKey
+                                )
+
+                            elif i["life"] <= 0 and i["isDroped"] == False:
+
+                                i["life"] = 0
+                                i["progressPV"] = 0
+                                i["isAlive"] = False
 
                                 Stage.countMonster = Stage.countMonster + 1
 
@@ -908,6 +1020,8 @@ class GameWindow(QMainWindow):
                                 addTextBox(gameScreenWindow)
 
                                 if Hero.progressEXP == 100:
+                                    Stage.messageTab.append("Félicitation vous montez au niveau {}".format(Hero.level + 1))
+                                    addTextBox(gameScreenWindow)
                                     Hero.level = Hero.level +1
                                     Hero.life = Hero.life+15
                                     Hero.maxlife = Hero.maxlife+15
@@ -918,12 +1032,14 @@ class GameWindow(QMainWindow):
                                     Hero.progressHeroPv = 100
 
                                 elif Hero.progressEXP > 100:
+                                    Stage.messageTab.append("Félicitation vous montez au niveau {}".format(Hero.level + 1))
+                                    addTextBox(gameScreenWindow)
                                     Hero.level = Hero.level +1
                                     Hero.life = Hero.life+15
                                     Hero.maxlife = Hero.maxlife+15
                                     Hero.strength = Hero.strength+15
                                     Hero.defense = Hero.defense+15
-                                    reste = Hero.progressEXP - exp
+                                    reste = 100 - exp
                                     Hero.progressEXP = reste
                                     Hero.life = Hero.maxlife
                                     Hero.progressHeroPv = 100
@@ -938,10 +1054,10 @@ class GameWindow(QMainWindow):
                                     addTextBox(gameScreenWindow)
                                 else:
                                     Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
+                                    addInventory(gameScreenWindow)
                                     Stage.messageTab.append("{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
                                     addTextBox(gameScreenWindow)  
                                     Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
-                                    addInventory(gameScreenWindow)
                                
                                 i["isDroped"] = True
                                 return
@@ -959,12 +1075,7 @@ class GameWindow(QMainWindow):
 
                             attack = int(Hero.strength/(i["defense"]/2)*Hero.level)
                             i["life"] = i["life"] - attack
-                            i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
-
-                            if i["life"] <= 0:
-                                i["life"] = 0
-                                i["progressPV"] = 0
-                                i["isAlive"] = False
+                            i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])    
 
                             createMonsterPanel(
                                 gameScreenWindow, 
@@ -993,7 +1104,44 @@ class GameWindow(QMainWindow):
                             Stage.messageTab.append("Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
                             addTextBox(gameScreenWindow)
 
-                            if i["life"] == 0 and i["isDroped"] == False:
+                            if Hero.life <= 0:
+
+                                Stage.messageTab.append("Vous succombez à vos blessures")
+                                addTextBox(gameScreenWindow)
+                            
+                                Stage.indexWorld = 0
+                                Stage.currentWorld = Stage.worldArray[Stage.indexWorld]
+                                Stage.currentStage = 1 
+                                Hero.y = 1
+                                Hero.x = 0
+                                Hero.level = 1
+                                Hero.life = 100
+                                Hero.maxlife = 100
+                                Hero.progressHeroPv = 100
+                                Hero.strength = 50
+                                Hero.defense = 30
+                                Hero.exp = 0
+                                Hero.progressEXP = 0
+                                Stage.isOpen = False
+                                Stage.countKey = 0
+                                Stage.countMonster = 0
+
+                                generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                                gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
+                                createHeroPanel(gameScreenWindow, Hero.life)
+                                addPanelGoals(
+                                    gameScreenWindow, 
+                                    Stage.countMonster, 
+                                    Stage.currentWorld, 
+                                    "stage {}".format(Stage.currentStage), 
+                                    Stage.countKey
+                                )
+
+                            elif i["life"] <= 0 and i["isDroped"] == False:
+
+                                i["life"] = 0
+                                i["progressPV"] = 0
+                                i["isAlive"] = False
 
                                 Stage.countMonster = Stage.countMonster + 1
 
@@ -1011,6 +1159,8 @@ class GameWindow(QMainWindow):
                                 addTextBox(gameScreenWindow)
                                 
                                 if Hero.progressEXP == 100:
+                                    Stage.messageTab.append("Félicitation vous montez au niveau {}".format(Hero.level + 1))
+                                    addTextBox(gameScreenWindow)
                                     Hero.level = Hero.level +1
                                     Hero.life = Hero.life+15
                                     Hero.maxlife = Hero.maxlife+15
@@ -1021,32 +1171,34 @@ class GameWindow(QMainWindow):
                                     Hero.progressHeroPv = 100
 
                                 elif Hero.progressEXP > 100:
+                                    Stage.messageTab.append("Félicitation vous montez au niveau {}".format(Hero.level + 1))
+                                    addTextBox(gameScreenWindow)
                                     Hero.level = Hero.level +1
                                     Hero.life = Hero.life+15
                                     Hero.maxlife = Hero.maxlife+15
                                     Hero.strength = Hero.strength+15
                                     Hero.defense = Hero.defense+15
-                                    reste = Hero.progressEXP - exp
+                                    reste = 100 - exp
                                     Hero.progressEXP = reste
                                     Hero.life = Hero.maxlife
                                     Hero.progressHeroPv = 100
 
-                            createHeroPanel(gameScreenWindow, Hero.life)
+                                createHeroPanel(gameScreenWindow, Hero.life)
 
-                            RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
-                            
-                            if RAND == 0:
-                                Stage.messageTab.append("aucun objet reçus !")
-                                addTextBox(gameScreenWindow)
-                            else:
-                                Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
-                                Stage.messageTab.append("{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
-                                addTextBox(gameScreenWindow)   
-                                Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
-                                addInventory(gameScreenWindow)
+                                RAND = random.randint(0,len(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"])-1)
+                                
+                                if RAND == 0:
+                                    Stage.messageTab.append("aucun objet reçus !")
+                                    addTextBox(gameScreenWindow)
+                                else:
+                                    Stage.inventaire.append(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])
+                                    addInventory(gameScreenWindow)
+                                    Stage.messageTab.append("{}reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND]))
+                                    addTextBox(gameScreenWindow)   
+                                    Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)][ "monsters"]["drop"][RAND])]["image"])
 
-                            i["isDroped"] == True
-                            return
+                                i["isDroped"] == True
+                                return
 
                         else:
                             Stage.messageTab.append("Le monstre est mort")
@@ -1054,13 +1206,10 @@ class GameWindow(QMainWindow):
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.left)               
                             return
                         return    
-                         
-              
+
 #==================================================================================================================================================================
 # GESTION DU SYSTEME DE COMBAT CONTRE LE BOSS
-# ================================================================================================================================================================
-                    
-
+# ================================================================================================================================================================                   
             else:
                 
                 if Hero.x == 6 and Hero.direction == "haut":
@@ -1074,13 +1223,6 @@ class GameWindow(QMainWindow):
                             i["life"] = i["life"] - attack
                             i["progressPV"] =  i["progressPV"] - ((attack*100)/i["life"])
                             print(attack)
-
-                            if i["life"] <= 0:
-                                i["life"] = 0
-                                i["progressPV"] = 0
-                                i["isAlive"] = False
-                                Stage.isDead = True
-                                
 
                             createMonsterPanel(
                             gameScreenWindow, 
@@ -1109,7 +1251,45 @@ class GameWindow(QMainWindow):
                             Stage.messageTab.append("Le monstre vous attaque en retour et vous recevez {} de dégats".format(attackBack))
                             addTextBox(gameScreenWindow)
 
-                            if i["life"] == 0 and i["isDroped"] == False:
+                            if Hero.life <= 0:
+
+                                Stage.messageTab.append("Vous succombez à vos blessures")
+                                addTextBox(gameScreenWindow)
+                            
+                                Stage.indexWorld = 0
+                                Stage.currentWorld = Stage.worldArray[Stage.indexWorld]
+                                Stage.currentStage = 1 
+                                Hero.y = 1
+                                Hero.x = 0
+                                Hero.level = 1
+                                Hero.life = 100
+                                Hero.maxlife = 100
+                                Hero.progressHeroPv = 100
+                                Hero.strength = 50
+                                Hero.defense = 30
+                                Hero.exp = 0
+                                Hero.progressEXP = 0
+                                Stage.isOpen = False
+                                Stage.countKey = 0
+                                Stage.countMonster = 0
+
+                                generateRandomCoordinate(Stage.currentWorld, "stage {}".format(Stage.currentStage))
+                                gameScreen(Stage.currentWorld, "stage {}".format(Stage.currentStage),  centralArea)
+                                createHeroPanel(gameScreenWindow, Hero.life)
+                                addPanelGoals(
+                                    gameScreenWindow, 
+                                    Stage.countMonster, 
+                                    Stage.currentWorld, 
+                                    "stage {}".format(Stage.currentStage), 
+                                    Stage.countKey
+                                )
+
+                            elif i["life"] <= 0 and i["isDroped"] == False:
+                                
+                                i["life"] = 0
+                                i["progressPV"] = 0
+                                i["isAlive"] = False
+                                Stage.isDead = True
 
                                 Stage.countMonster = Stage.countMonster + 1
 
@@ -1158,15 +1338,13 @@ class GameWindow(QMainWindow):
 
                                 i["isDroped"] = True
                                 return
-                                            
+                        
                         else:
                             Stage.messageTab.append("le monstre est mort")
                             addTextBox(gameScreenWindow)
                             drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.back)
                             return
-                        return 
-                elif  "[{}, {}]".format(Hero.y, Hero.x+1) in str(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["target"]["coordinate"]) and Stage.isDead == False:
-                    drawGameMap(Stage.currentWorld, "stage {}".format(Stage.currentStage), gameScreenWindow, Hero.right)
+                        return
 #=========================================================================================================================================================================================================
 # GESTION DES INTERACTIONS AVEC LE COFFRE SUR LA MAP
 #==========================================================================================================================================================================================================
@@ -1243,7 +1421,8 @@ class GameWindow(QMainWindow):
                         if Stage.dropInfo["clée du donjon"]["image"] in str(Stage.saveDropItems):
                             Stage.messageTab.append("vous avez déja la clée")
                         else:    
-                            addTextBox(gameScreenWindow,"{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["drop"][0]))
+                            Stage.messageTab.append("{},reçus et ranger dans l'inventaire".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["drop"][0]))
+                            addTextBox(gameScreenWindow) 
                             Stage.saveDropItems.append(Stage.dropInfo["{}".format(Stage.world[Stage.currentWorld]["stages"]["stage {}".format(Stage.currentStage)]["chest"]["drop"][0])]["image"])
                             addInventory(gameScreenWindow)
 
@@ -1364,281 +1543,677 @@ class GameWindow(QMainWindow):
 # GESTION DE L'INVENTAIRE
 # ================================================================================================================================================================
         
-
+        #A
         elif event.key() == 65:
             
-
-            effect = Stage.dropInfo[Stage.inventaire[0]]["effect"]
             if Stage.inventaire[0] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[0])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[0]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[0])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[0])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[0] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[0]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[0])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
             
-
+        #z
         elif event.key() == 90:
 
-
-            effect = Stage.dropInfo[Stage.inventaire[1]]["effect"]
             if Stage.inventaire[1] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[1])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[1]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[1])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[1])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[1] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[1]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[1])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
-            
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
-
+        #E
         elif event.key() == 69:
 
-            effect = Stage.dropInfo[Stage.inventaire[2]]["effect"]
             if Stage.inventaire[2] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[2])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[2]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[2])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[2])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[2] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[2]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[2])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
-
-
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
+        #R
         elif event.key() == 82:
 
-            effect = Stage.dropInfo[Stage.inventaire[3]]["effect"]
             if Stage.inventaire[3] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[3])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[3]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[3])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[3])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[3] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[3]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[3])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
-
+        #T
         elif event.key() == 84:
 
-            effect = Stage.dropInfo[Stage.inventaire[4]]["effect"]
             if Stage.inventaire[4] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[4])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[4]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[4])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[4])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[4] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[4]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[4])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
-
+        #Y
         elif event.key() == 89:
 
-            effect = Stage.dropInfo[Stage.inventaire[5]]["effect"]
             if Stage.inventaire[5] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[5])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[5]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[5])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[5])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[5] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[5]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[5])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
-
+        #U
         elif event.key() == 85:
 
-            effect = Stage.dropInfo[Stage.inventaire[6]]["effect"]
             if Stage.inventaire[6] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[6])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[6]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[6])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[6])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[6] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[6]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[6])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
-
+        #I
         elif event.key() == 73:
 
-            effect = Stage.dropInfo[Stage.inventaire[7]]["effect"]
             if Stage.inventaire[7] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[7])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[7]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[7])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[7])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[7] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[7]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[7])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
-
+        #O
         elif event.key() == 79:
 
-            effect = Stage.dropInfo[Stage.inventaire[8]]["effect"]
             if Stage.inventaire[8] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[8])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[8]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[8])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[8])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[8] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[8]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[8])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
 
-
+        #P
         elif event.key() == 80:
 
-            effect = Stage.dropInfo[Stage.inventaire[9]]["effect"]
             if Stage.inventaire[9] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[9])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[9]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[9])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[9])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[9] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[9]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[9])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
 
-
+        #Q
         elif event.key() == 81:
 
-            effect = Stage.dropInfo[Stage.inventaire[10]]["effect"]
             if Stage.inventaire[10] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[10])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[10]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[10])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[10])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[10] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[10]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[10])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
             
-
+        #S
         elif event.key() == 83:
 
-            effect = Stage.dropInfo[Stage.inventaire[11]]["effect"]
             if Stage.inventaire[11] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[11])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[11]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[11])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[11])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[11] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[11]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[11])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
-
+        #D
         elif event.key() == 68:
 
-            effect = Stage.dropInfo[Stage.inventaire[12]]["effect"]
             if Stage.inventaire[12] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[12])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[12]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[12])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[12])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[12] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[12]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[12])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
-
+        #F
         elif event.key() == 70:
 
-            effect = Stage.dropInfo[Stage.inventaire[13]]["effect"]
             if Stage.inventaire[13] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[13])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[13]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[13])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[13])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[13] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[13]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[13])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
-
+        #G
         elif event.key() == 71:
 
-            effect = Stage.dropInfo[Stage.inventaire[14]]["effect"]
             if Stage.inventaire[14] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[14])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[14]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[14])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[14])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[14] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[14]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[14])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
-
+        #H
         elif event.key() == 72:
 
-            effect = Stage.dropInfo[Stage.inventaire[15]]["effect"]
             if Stage.inventaire[15] == "petite potion de hp":
-                Hero.life = effect
-                createHeroPanel(gameScreenWindow, Hero.life)
-                Stage.inventaire.remove(Stage.inventaire[15])
-                Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
-                addInventory(gameScreenWindow)
+                effect = Stage.dropInfo[Stage.inventaire[15]]["effect"]
+                if Hero.life < Hero.maxlife:
+                    hpNeedToRestore = Hero.maxlife - Hero.life
+                    if hpNeedToRestore >= 50:
+                        Hero.life = Hero.life + effect
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((effect*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[15])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)
+                    else:
+                        Hero.life = Hero.life + hpNeedToRestore
+                        Hero.progressHeroPv = Hero.progressHeroPv + ((hpNeedToRestore*100)/ Hero.maxlife)
+                        createHeroPanel(gameScreenWindow, Hero.life)
+                        Stage.inventaire.remove(Stage.inventaire[15])
+                        Stage.saveDropItems.remove(Stage.dropInfo["petite potion de hp"]["image"])
+                        addInventory(gameScreenWindow)
+                        Stage.messageTab.append(" vous avez utiliser une petite potion de hp")
+                        addTextBox(gameScreenWindow)    
+                else:
+                    Stage.messageTab.append(" Vos points de vie sont déjas au maximum")
+                    addTextBox(gameScreenWindow) 
+
             elif Stage.inventaire[15] == "petit bouclier":
-                Hero.defense = effect
+                effect = Stage.dropInfo[Stage.inventaire[15]]["effect"]
+                Hero.defense = Hero.defense + effect
                 createHeroPanel(gameScreenWindow, Hero.life)          
                 Stage.inventaire.remove(Stage.inventaire[15])
                 Stage.saveDropItems.remove(Stage.dropInfo["petit bouclier"]["image"])
                 addInventory(gameScreenWindow)
+                Stage.messageTab.append(" vous avez utiliser petite bouclier, votre défense augmante de 20")
+                addTextBox(gameScreenWindow)
+            else:
+                Stage.messageTab.append("Cette emplacement est vide")
+                addTextBox(gameScreenWindow)
         
         
 

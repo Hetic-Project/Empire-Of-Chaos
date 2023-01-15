@@ -15,9 +15,9 @@ class Stage:
     countKey = 0
 
     worldArray = ["grassland", "lavaland", "iceland",  "cloudland", "demonicland"]
-    indexWorld = 4
+    indexWorld = 1
     currentWorld = worldArray[indexWorld]
-    currentStage = 1
+    currentStage = 5
 
     world = {
         "grassland":{
@@ -1057,7 +1057,7 @@ class Stage:
                     "name": "Demonicland final stage",
                     "description": "",
                     "top-background": "background: url(test/images/map/top-demonic_stage5.png);",
-                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/demonic_stage5.png) no-repeat center center;",
+                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/demonic_stage3-4.png) no-repeat center center;",
                     "boss": {
                         "name": "Ouroboros",
                         "life": 230,
@@ -1098,12 +1098,12 @@ class Stage:
         "petite potion de hp": {
             "description": "",
             "image": "border-image: url(test/sprites/items/hp_potion.png) 0 0 0 0 no-repeat streach streach;",
-            "effect": Hero.life + 50,
+            "effect": 50,
         },
         "petit bouclier": {
             "description": "",
             "image": "border-image: url(test/sprites/items/petit_bouclier.png) 0 0 0 0 no-repeat streach streach;",
-            "effect" : Hero.defense + 20
+            "effect" : 20,
         },
         "clée du donjon": {
             "description": "",
