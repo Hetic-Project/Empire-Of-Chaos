@@ -15,7 +15,7 @@ class Stage:
     countKey = 0
 
     worldArray = ["grassland", "lavaland", "iceland",  "cloudland", "demonicland"]
-    indexWorld = 3
+    indexWorld = 4
     currentWorld = worldArray[indexWorld]
     currentStage = 1
 
@@ -886,25 +886,28 @@ class Stage:
 
                 "stage 1" : {
 
-                    "name": "",
+                    "name": "demonicland stage 1",
                     "description": "",
-                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/DemonicWorld.png) no-repeat center center;",
+                    "top-background": "background: url(test/images/map/top-demonic_stage1-2.png);",
+                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/Demonic_stage1-2.png) no-repeat center center;",
                     "monsters": {
                         "name": "Diablotin",
-                        "life": 25,
+                        "life": 210,
                         "progressPV": 100,
-                        "strength": 35,
-                        "defense": 10,
-                        "level": 1,                      
+                        "strength": 205,
+                        "defense": 190,
+                        "level": 21,                            
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
+                        "isDroped": False,
+                        "isAlive": True,
                         "front":"background: url(test/sprites/monsters/monster-stage5_front-left.png);"  "background-position: top",
                         "back": "background: url(test/sprites/monsters/monster-stage5_right-back.png);"  "background-position: bottom",
                         "left":"background: url(test/sprites/monsters/monster-stage5_front-left.png);"  "background-position: bottom",
                         "right": "background: url(test/sprites/monsters/monster-stage5_right-back.png);"  "background-position: top",
                         "face": "background: url(test/sprites/monsters/monster-face_stage5.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage5.png);",
+                        "dead": "background: url(test/sprites/monsters/diablotin_dead.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
@@ -918,27 +921,35 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_yel-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_yel-door.png);"
                     },
                 },
 
                 "stage 2" : {
 
-                    "name": "",
+                    "name": "Demonicland stage 2",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-demonic_stage1-2.png);",
+                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/Demonic_stage1-2.png) no-repeat center center;",
                     "monsters": {
-                        "name": "",
+                        "name": "Diablotin",
+                        "life": 215,
+                        "progressPV": 100,
+                        "strength": 210,
+                        "defense": 195,
+                        "level": 22,                            
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
-                        "front":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: bottom",
-                        "left":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage1.png);",
+                        "isDroped": False,
+                        "isAlive": True,
+                        "front":"background: url(test/sprites/monsters/monster-stage5_front-left.png);"  "background-position: top",
+                        "back": "background: url(test/sprites/monsters/monster-stage5_right-back.png);"  "background-position: bottom",
+                        "left":"background: url(test/sprites/monsters/monster-stage5_front-left.png);"  "background-position: bottom",
+                        "right": "background: url(test/sprites/monsters/monster-stage5_right-back.png);"  "background-position: top",
+                        "face": "background: url(test/sprites/monsters/monster-face_stage5.png);",
+                        "dead": "background: url(test/sprites/monsters/diablotin_dead.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
@@ -952,27 +963,35 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_yel-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_yel-door.png);"
                     },
                 },
 
                 "stage 3" : {
 
-                    "name": "",
+                    "name": "Demonicland stage 3",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-demonic_stage3-4.png);",
+                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/demonic_stage3-4.png) no-repeat center center;",
                     "monsters": {
-                        "name": "",
+                        "name": "Diablotin",
+                        "life": 220,
+                        "progressPV": 100,
+                        "strength": 215,
+                        "defense": 200,
+                        "level": 23,                            
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
-                        "front":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: bottom",
-                        "left":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage1.png);",
+                        "isDroped": False,
+                        "isAlive": True,
+                        "front":"background: url(test/sprites/monsters/monster-stage5_front-left.png);"  "background-position: top",
+                        "back": "background: url(test/sprites/monsters/monster-stage5_right-back.png);"  "background-position: bottom",
+                        "left":"background: url(test/sprites/monsters/monster-stage5_front-left.png);"  "background-position: bottom",
+                        "right": "background: url(test/sprites/monsters/monster-stage5_right-back.png);"  "background-position: top",
+                        "face": "background: url(test/sprites/monsters/monster-face_stage5.png);",
+                        "dead": "background: url(test/sprites/monsters/diablotin_dead.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
@@ -986,27 +1005,35 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_yel-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_yel-door.png);"
                     },
                 },
 
                 "stage 4" : {
 
-                    "name": "",
+                    "name": "Demonicland stage 4",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-demonic_stage3-4.png);",
+                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/demonic_stage3-4.png) no-repeat center center;",
                     "monsters": {
-                        "name": "",
+                        "name": "Diablotin",
+                        "life": 225,
+                        "progressPV": 100,
+                        "strength": 220,
+                        "defense": 205,
+                        "level": 24,                            
                         "info": [],
                         "coordinate" : [],
                         "drop": ["aucun item", "petite potion de hp", "petit bouclier"],
-                        "front":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: bottom",
-                        "left":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage1.png);",
+                        "isDroped": False,
+                        "isAlive": True,
+                        "front":"background: url(test/sprites/monsters/monster-stage5_front-left.png);"  "background-position: top",
+                        "back": "background: url(test/sprites/monsters/monster-stage5_right-back.png);"  "background-position: bottom",
+                        "left":"background: url(test/sprites/monsters/monster-stage5_front-left.png);"  "background-position: bottom",
+                        "right": "background: url(test/sprites/monsters/monster-stage5_right-back.png);"  "background-position: top",
+                        "face": "background: url(test/sprites/monsters/monster-face_stage5.png);",
+                        "dead": "background: url(test/sprites/monsters/diablotin_dead.png);",
                     },
                     "chest": {
                         "name": "Coffre du donjon",
@@ -1020,27 +1047,31 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_yel-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_yel-door.png);"
                     },
                 },
 
                 "stage 5" : {
 
-                    "name": "",
+                    "name": "Demonicland final stage",
                     "description": "",
-                    "background": "",
+                    "top-background": "background: url(test/images/map/top-demonic_stage5.png);",
+                    "background": "border: 1px solid black;"  "margin: auto;"  "background: url(test/images/map/demonic_stage5.png) no-repeat center center;",
                     "boss": {
-                        "name": "",          
+                        "name": "Ouroboros",
+                        "life": 230,
+                        "progressPV": 100,
+                        "strength": 225,
+                        "defense": 215,
+                        "level": 25,                  
                         "info": [],
                         "coordinate" : [],
                         "drop": ["pierre eternel"],
-                        "front":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: top",
-                        "back": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: bottom",
-                        "left":"background: url(test/sprites/monsters/monster-stage1_front-left.png);"  "background-position: bottom",
-                        "right": "background: url(test/sprites/monsters/monster-stage1_right-back.png);"  "background-position: top",
-                        "face": "background: url(test/sprites/monsters/monster-face_stage1.png);",
-                        "dead": "background: url(test/sprites/monsters/Dead_monster-stage1.png);",
+                        "isDroped": False,
+                        "isAlive": True,
+                        "front":"background: url(test/sprites/monsters/Ouroboros.png) no-repeat;",
+                        "face": "background: url(test/sprites/monsters/boss-image/face_Ouroboros.png);",
                         "pierre" : "background: url(test/sprites/monsters/Dead_monster-stage1.png);", 
                     },
                     "chest": {
@@ -1055,8 +1086,8 @@ class Stage:
                         "name": "Portail",
                         "description": "",
                         "coordinate" : [],
-                        "close_door-image": "background: url(test/sprites/items/close_gate.png);",
-                        "open_door-image": ""
+                        "close_door-image": "background: url(test/sprites/items/close_yel-door.png);",
+                        "open_door-image": "background: url(test/sprites/items/open_yel-door.png);"
                     },
                 },
             },
